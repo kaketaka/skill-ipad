@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#18231f" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="stylesheet" href="/styles.css" />
+    <title>美股日股模拟交易</title>
+  </head>
+  <body>
+    <header class="app-header">
+      <div>
+        <p class="eyebrow">Paper Trader</p>
+        <h1>美股日股模拟交易</h1>
+      </div>
+      <div class="header-actions">
+        <button id="run-us" class="icon-button" title="分析美股">US</button>
+        <button id="run-jp" class="icon-button" title="分析日股">JP</button>
+        <button id="review" class="primary-button" title="复盘">复盘</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="status-band" id="status-band">
+        <div class="status-text">正在读取系统状态...</div>
+      </section>
+
+      <nav class="tabs" aria-label="视图">
+        <button class="tab active" data-tab="dashboard">总览</button>
+        <button class="tab" data-tab="signals">信号</button>
+        <button class="tab" data-tab="positions">持仓</button>
+        <button class="tab" data-tab="trades">成交</button>
+        <button class="tab" data-tab="reviews">复盘</button>
+        <button class="tab" data-tab="settings">设置</button>
+      </nav>
+
+      <section id="dashboard" class="view active">
+        <div class="metric-grid" id="equity-grid"></div>
+        <div class="section-title">
+          <h2>最新价格</h2>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>代码</th>
+                <th>市场</th>
+                <th>日期</th>
+                <th>收盘</th>
+                <th>源</th>
+              </tr>
+            </thead>
+            <tbody id="latest-prices"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="signals" class="view">
+        <div class="section-title">
+          <h2>交易信号</h2>
+          <button id="run-all" class="secondary-button">立即分析</button>
+        </div>
+        <div id="signal-list" class="list"></div>
+      </section>
+
+      <section id="positions" class="view">
+        <div class="section-title">
+          <h2>模拟持仓</h2>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>代码</th>
+                <th>数量</th>
+                <th>成本</th>
+                <th>现价</th>
+                <th>浮盈亏</th>
+              </tr>
+            </thead>
+            <tbody id="position-rows"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="trades" class="view">
+        <div class="section-title">
+          <h2>模拟成交</h2>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>时间</th>
+                <th>代码</th>
+                <th>方向</th>
+                <th>数量</th>
+                <th>价格</th>
+                <th>原因</th>
+              </tr>
+            </thead>
+            <tbody id="trade-rows"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="reviews" class="view">
+        <div class="section-title">
+          <h2>每日复盘</h2>
+          <button id="review-inline" class="secondary-button">生成复盘</button>
+        </div>
+        <div id="review-list" class="list"></div>
+      </section>
+
+      <section id="settings" class="view">
+        <div class="settings-grid">
+          <label>
+            <span>美股观察池</span>
+            <textarea id="watch-us" spellcheck="false"></textarea>
+          </label>
+          <label>
+            <span>日股观察池</span>
+            <textarea id="watch-jp" spellcheck="false"></textarea>
+          </label>
+          <label>
+            <span>数据源顺序</span>
+            <input id="sources" type="text" spellcheck="false" />
+          </label>
+          <button id="save-settings" class="primary-button wide">保存设置</button>
+        </div>
+      </section>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

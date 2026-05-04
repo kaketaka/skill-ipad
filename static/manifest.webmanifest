@@ -1,0 +1,9 @@
+{
+  "name": "美股日股模拟交易",
+  "short_name": "模拟交易",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f7f8f5",
+  "theme_color": "#18231f",
+  "icons": []
+}
