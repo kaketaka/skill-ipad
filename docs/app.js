@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
   bindActions();
   loadStatus();
   if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("/service-worker.js").catch(() => {});
+    navigator.serviceWorker.register("service-worker.js").catch(() => {});
   }
 });
 
@@ -113,7 +113,7 @@ async function requestJson(url, options = {}) {
 async function loadDashboardData() {
   try {
     state.staticMode = false;
-    return await requestJson("/api/status");
+    return await requestJson("api/status");
   } catch (error) {
     state.staticMode = true;
     const response = await fetch(`state.json?ts=${Date.now()}`);
