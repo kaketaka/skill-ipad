@@ -63,6 +63,7 @@ jobs:
           ALPHAVANTAGE_API_KEY: ${{ secrets.ALPHAVANTAGE_API_KEY }}
         run: |
           python -m market_sim.cli init
+          python -m market_sim.cli sync-universe --markets US JP
           if [ "${{ steps.mode.outputs.mode }}" = "REVIEW" ]; then
             python -m market_sim.cli review
           elif [ "${{ steps.mode.outputs.mode }}" = "ALL" ]; then

@@ -37,11 +37,14 @@ def execute_signals(conn: sqlite3.Connection, signals: list[Signal], settings: d
     return executed
 
 
-def record_signal(conn: sqlite3.Connection, signal: Signal) -> int:
+def record_signal(conn: sqlite3.Connection, signal: Signal, observed: bool = False) -> int:
     cursor = conn.execute(
         """
-        INSERT INTO signals(ts, symbol, market, action, score, confidence, close, rationale, features)
-        VALUES (?, ?, ?, ?, ?, ?, ?, json(?), json(?))
+        INSERT INTO signals(
+            ts, symbol, market, action, score, recommendation_index, recommendation_label,
+            confidence, close, rationale, features, observed
+        )
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, json(?), json(?), ?)
         """,
         (
             utc_now(),
@@ -49,10 +52,13 @@ def record_signal(conn: sqlite3.Connection, signal: Signal) -> int:
             signal.market,
             signal.action,
             signal.score,
+            signal.recommendation_index,
+            signal.recommendation_label,
             signal.confidence,
             signal.close,
             _json_text(signal.rationale),
             _json_text(signal.features),
+            1 if observed else 0,
         ),
     )
     return int(cursor.lastrowid)

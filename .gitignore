@@ -10,3 +10,4 @@ Thumbs.db
 # Local SQLite sidecar files can appear while the app is running.
 data/*.sqlite-shm
 data/*.sqlite-wal
+data/universe_*.csv

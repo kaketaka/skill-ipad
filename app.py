@@ -5,7 +5,7 @@ from pathlib import Path
 from flask import Flask, jsonify, request, send_from_directory
 
 from market_sim.db import init_db
-from market_sim.service import get_dashboard, run_market_cycle, run_review, update_settings
+from market_sim.service import get_dashboard, run_market_cycle, run_review, sync_universe, update_settings
 
 
 ROOT = Path(__file__).resolve().parent
@@ -40,6 +40,13 @@ def api_review():
 def api_settings():
     payload = request.get_json(silent=True) or {}
     return jsonify(update_settings(payload))
+
+
+@app.post("/api/sync-universe")
+def api_sync_universe():
+    payload = request.get_json(silent=True) or {}
+    markets = payload.get("markets") or ["US", "JP"]
+    return jsonify(sync_universe(markets))
 
 
 @app.get("/health")

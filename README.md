@@ -12,6 +12,8 @@
 - 每日复盘：统计成交、权益、持仓浮盈亏，并用有边界的权重微调做“自我学习”。
 - iPad PWA：移动端看板、信号、持仓、成交、复盘、观察池设置。
 - 无电脑模式：GitHub Actions 免费定时跑任务，GitHub Pages 给 iPad 展示静态看板。
+- 全市场股票池：美股从 Nasdaq Trader Symbol Directory 同步，日股从 JPX Listed Issues 同步；每天观察池必扫，其他股票按配置轮换扫描。
+- 观察池推荐指数：每只观察池股票输出 0-100 分，默认 70+ 偏买入、30- 偏卖出，中间继续观察。
 
 ## 不开电脑：GitHub Actions + Pages
 
@@ -63,6 +65,7 @@ Safari 打开后可使用“分享”里的“添加到主屏幕”，作为 PWA
 python -m market_sim.cli run --markets JP
 python -m market_sim.cli run --markets US
 python -m market_sim.cli review
+python -m market_sim.cli sync-universe --markets US JP
 python -m market_sim.cli export --output docs
 ```
 
@@ -85,5 +88,7 @@ python -m market_sim.cli export --output docs
 - `yfinance`：默认源，适合原型和个人研究，日股示例 `7203.T`。
 - `stooq`：免费历史行情备选源，美股通常使用 `AAPL.US` 形式，系统会自动尝试映射。
 - `alpha_vantage`：免费层可用但有日请求限制，需要 API key。
+- `Nasdaq Trader Symbol Directory`：用于同步美股股票池。
+- `JPX List of TSE-listed Issues`：用于同步日股股票池。
 
 免费源可能有延迟、限额、覆盖缺口或条款变化。这个系统适合模拟、学习和策略研究，不适合直接作为实盘交易依据。

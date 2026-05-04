@@ -14,6 +14,8 @@ class Signal:
     market: str
     action: str
     score: float
+    recommendation_index: int
+    recommendation_label: str
     confidence: float
     close: float
     rationale: list[str]
@@ -42,6 +44,7 @@ def generate_signal(
     total_weight = sum(abs(float(weights.get(name, 0))) for name in features) or 1.0
     raw_score = sum(features[name] * float(weights.get(name, 0)) for name in features) / total_weight
     score = max(-1.0, min(1.0, raw_score))
+    recommendation_index = int(round((score + 1.0) * 50))
     confidence = min(1.0, 0.35 + abs(score) * 0.55 + _data_quality_bonus(indicators))
     buy_threshold = float(settings["strategy"]["buy_threshold"])
     sell_threshold = float(settings["strategy"]["sell_threshold"])
@@ -56,11 +59,41 @@ def generate_signal(
         market=market,
         action=action,
         score=round(score, 4),
+        recommendation_index=recommendation_index,
+        recommendation_label=_recommendation_label(recommendation_index, settings),
         confidence=round(confidence, 4),
         close=round(close, 4),
         rationale=_rationale(features),
         features={name: round(value, 4) for name, value in features.items()},
     )
+
+
+def recommendation_guidance(settings: dict[str, Any]) -> dict[str, Any]:
+    buy_score = int(settings["strategy"].get("recommend_buy_score", 70))
+    sell_score = int(settings["strategy"].get("recommend_sell_score", 30))
+    return {
+        "score_range": "0-100",
+        "strong_buy": max(80, buy_score + 10),
+        "buy": buy_score,
+        "hold_low": sell_score + 1,
+        "hold_high": buy_score - 1,
+        "sell": sell_score,
+        "strong_sell": min(20, sell_score - 10),
+        "meaning": "分数越高越偏买入，分数越低越偏卖出。模拟交易仍会受仓位、止损、止盈和手续费约束。",
+    }
+
+
+def _recommendation_label(index: int, settings: dict[str, Any]) -> str:
+    guidance = recommendation_guidance(settings)
+    if index >= guidance["strong_buy"]:
+        return "强买入观察"
+    if index >= guidance["buy"]:
+        return "适合买入"
+    if index <= guidance["strong_sell"]:
+        return "强卖出/回避"
+    if index <= guidance["sell"]:
+        return "适合卖出"
+    return "继续观察"
 
 
 def _trend_score(row: pd.Series) -> float:

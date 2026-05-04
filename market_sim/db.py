@@ -82,10 +82,13 @@ def init_db() -> None:
                 market TEXT NOT NULL,
                 action TEXT NOT NULL,
                 score REAL NOT NULL,
+                recommendation_index INTEGER,
+                recommendation_label TEXT,
                 confidence REAL NOT NULL,
                 close REAL NOT NULL,
                 rationale TEXT NOT NULL,
-                features TEXT NOT NULL
+                features TEXT NOT NULL,
+                observed INTEGER NOT NULL DEFAULT 0
             );
 
             CREATE TABLE IF NOT EXISTS trades (
@@ -131,6 +134,9 @@ def init_db() -> None:
             );
             """
         )
+        _ensure_column(conn, "signals", "recommendation_index", "INTEGER")
+        _ensure_column(conn, "signals", "recommendation_label", "TEXT")
+        _ensure_column(conn, "signals", "observed", "INTEGER NOT NULL DEFAULT 0")
 
         now = utc_now()
         existing = conn.execute("SELECT value FROM config WHERE key = 'settings'").fetchone()
@@ -213,3 +219,9 @@ def _deep_merge(base: dict[str, Any], incoming: dict[str, Any]) -> dict[str, Any
         else:
             merged[key] = value
     return merged
+
+
+def _ensure_column(conn: sqlite3.Connection, table: str, column: str, definition: str) -> None:
+    columns = {row["name"] for row in conn.execute(f"PRAGMA table_info({table})").fetchall()}
+    if column not in columns:
+        conn.execute(f"ALTER TABLE {table} ADD COLUMN {column} {definition}")

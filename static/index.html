@@ -28,7 +28,8 @@
 
       <nav class="tabs" aria-label="视图">
         <button class="tab active" data-tab="dashboard">总览</button>
-        <button class="tab" data-tab="signals">信号</button>
+        <button class="tab" data-tab="observe">观察池</button>
+        <button class="tab" data-tab="signals">全市场</button>
         <button class="tab" data-tab="positions">持仓</button>
         <button class="tab" data-tab="trades">成交</button>
         <button class="tab" data-tab="reviews">复盘</button>
@@ -37,6 +38,11 @@
 
       <section id="dashboard" class="view active">
         <div class="metric-grid" id="equity-grid"></div>
+        <div class="section-title">
+          <h2>股票池</h2>
+          <button id="sync-universe" class="secondary-button">同步全市场</button>
+        </div>
+        <div class="metric-grid compact" id="universe-grid"></div>
         <div class="section-title">
           <h2>最新价格</h2>
         </div>
@@ -56,9 +62,18 @@
         </div>
       </section>
 
+      <section id="observe" class="view">
+        <div class="section-title">
+          <h2>观察池推荐指数</h2>
+          <button id="run-all-observe" class="secondary-button">刷新评分</button>
+        </div>
+        <div id="guidance" class="guidance"></div>
+        <div id="observe-list" class="list"></div>
+      </section>
+
       <section id="signals" class="view">
         <div class="section-title">
-          <h2>交易信号</h2>
+          <h2>全市场扫描信号</h2>
           <button id="run-all" class="secondary-button">立即分析</button>
         </div>
         <div id="signal-list" class="list"></div>
@@ -127,6 +142,26 @@
             <span>数据源顺序</span>
             <input id="sources" type="text" spellcheck="false" />
           </label>
+          <div class="settings-row">
+            <label>
+              <span>美股每日全市场扫描数</span>
+              <input id="scan-us" type="number" min="0" max="400" />
+            </label>
+            <label>
+              <span>日股每日全市场扫描数</span>
+              <input id="scan-jp" type="number" min="0" max="400" />
+            </label>
+          </div>
+          <div class="settings-row">
+            <label>
+              <span>买入推荐分</span>
+              <input id="buy-score" type="number" min="50" max="95" />
+            </label>
+            <label>
+              <span>卖出推荐分</span>
+              <input id="sell-score" type="number" min="5" max="50" />
+            </label>
+          </div>
           <button id="save-settings" class="primary-button wide">保存设置</button>
         </div>
       </section>

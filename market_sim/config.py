@@ -41,6 +41,15 @@ DEFAULT_CONFIG: dict[str, Any] = {
         "JP": ["^N225", "TOPIX100.T"],
     },
     "data_sources": ["yfinance", "stooq", "alpha_vantage"],
+    "universe": {
+        "enabled": True,
+        "refresh_days": 7,
+        "daily_scan_limit": {
+            "US": 40,
+            "JP": 40,
+        },
+        "include_etfs": False,
+    },
     "portfolio": {
         "USD": 100000.0,
         "JPY": 10000000.0,
@@ -62,6 +71,8 @@ DEFAULT_CONFIG: dict[str, Any] = {
     "strategy": {
         "buy_threshold": 0.42,
         "sell_threshold": -0.42,
+        "recommend_buy_score": 70,
+        "recommend_sell_score": 30,
         "strong_sell_threshold": -0.7,
         "learning_rate": 0.025,
         "min_weight": 0.05,

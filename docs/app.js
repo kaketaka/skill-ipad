@@ -31,9 +31,11 @@ function bindActions() {
   document.getElementById("run-us").addEventListener("click", () => runCycle(["US"]));
   document.getElementById("run-jp").addEventListener("click", () => runCycle(["JP"]));
   document.getElementById("run-all").addEventListener("click", () => runCycle(["US", "JP"]));
+  document.getElementById("run-all-observe").addEventListener("click", () => runCycle(["US", "JP"]));
   document.getElementById("review").addEventListener("click", createReview);
   document.getElementById("review-inline").addEventListener("click", createReview);
   document.getElementById("save-settings").addEventListener("click", saveSettings);
+  document.getElementById("sync-universe").addEventListener("click", syncUniverse);
 }
 
 async function loadStatus() {
@@ -43,8 +45,8 @@ async function loadStatus() {
   render(data);
   setStatus(
     state.staticMode
-      ? "云端静态模式：自动任务在 GitHub Actions 跑，iPad 只负责查看。"
-      : "系统就绪。全部交易都是模拟盘，不会触发真实下单。",
+      ? "云端静态模式：自动任务在 GitHub Actions 跑，iPad 负责查看。"
+      : "系统就绪。观察池必扫，全市场股票池按日轮换扫描。",
   );
 }
 
@@ -53,13 +55,18 @@ async function runCycle(markets) {
     setStatus("云端静态模式不能从 iPad 直接手动跑任务；可在 GitHub Actions 里手动触发。");
     return;
   }
-  setStatus(`正在分析 ${markets.join(" + ")}，这一步会联网拉取免费行情...`);
-  const result = await requestJson("/api/run", {
+  setStatus(`正在分析 ${markets.join(" + ")}：观察池必扫，并从全市场池轮换扫描...`);
+  const result = await requestJson("api/run", {
     method: "POST",
     body: JSON.stringify({ markets }),
   });
   const errorText = result.errors?.length ? `，${result.errors.length} 个代码拉取失败` : "";
-  setStatus(`分析完成：生成 ${result.signals.length} 个信号，模拟成交 ${result.trades.length} 笔${errorText}。`);
+  const scanText = result.scan_plan
+    ? Object.entries(result.scan_plan)
+        .map(([market, count]) => `${market} ${count}`)
+        .join(" / ")
+    : `${result.signals.length}`;
+  setStatus(`分析完成：扫描 ${scanText}，生成 ${result.signals.length} 个信号，模拟成交 ${result.trades.length} 笔${errorText}。`);
   await loadStatus();
 }
 
@@ -69,8 +76,22 @@ async function createReview() {
     return;
   }
   setStatus("正在生成今日复盘并微调策略权重...");
-  const result = await requestJson("/api/review", { method: "POST" });
+  const result = await requestJson("api/review", { method: "POST" });
   setStatus(result.summary || "复盘完成。");
+  await loadStatus();
+}
+
+async function syncUniverse() {
+  if (state.staticMode) {
+    setStatus("云端静态模式会由 GitHub Actions 自动同步全市场股票池。");
+    return;
+  }
+  setStatus("正在同步美股和日股全市场股票池...");
+  const result = await requestJson("api/sync-universe", {
+    method: "POST",
+    body: JSON.stringify({ markets: ["US", "JP"] }),
+  });
+  setStatus(`同步完成：US ${result.US?.count || 0} 只，JP ${result.JP?.count || 0} 只。`);
   await loadStatus();
 }
 
@@ -89,8 +110,18 @@ async function saveSettings() {
       .value.split(",")
       .map((item) => item.trim())
       .filter(Boolean),
+    universe: {
+      daily_scan_limit: {
+        US: Number(document.getElementById("scan-us").value || 0),
+        JP: Number(document.getElementById("scan-jp").value || 0),
+      },
+    },
+    strategy: {
+      recommend_buy_score: Number(document.getElementById("buy-score").value || 70),
+      recommend_sell_score: Number(document.getElementById("sell-score").value || 30),
+    },
   };
-  await requestJson("/api/settings", {
+  await requestJson("api/settings", {
     method: "POST",
     body: JSON.stringify(payload),
   });
@@ -126,6 +157,9 @@ async function loadDashboardData() {
 
 function render(data) {
   renderEquity(data.portfolio.equity);
+  renderUniverse(data.universe || {});
+  renderGuidance(data.guidance || {});
+  renderObservationSignals(data.observation_signals || []);
   renderLatestPrices(data.latest_prices);
   renderSignals(data.signals);
   renderPositions(data.portfolio.positions);
@@ -149,6 +183,35 @@ function renderEquity(rows) {
     .join("");
 }
 
+function renderUniverse(universe) {
+  const grid = document.getElementById("universe-grid");
+  grid.innerHTML = ["US", "JP"]
+    .map((market) => {
+      const row = universe[market] || {};
+      return `
+        <article class="metric">
+          <span>${market} 全市场股票池</span>
+          <strong>${money.format(row.count || 0)}</strong>
+          <small>${escapeHtml(row.source || "尚未同步")}</small>
+        </article>
+      `;
+    })
+    .join("");
+}
+
+function renderGuidance(guidance) {
+  document.getElementById("guidance").innerHTML = `
+    <span>推荐指数 0-100</span>
+    <strong>${guidance.buy || 70}+ 适合买入；${guidance.sell || 30}- 适合卖出；中间继续观察。</strong>
+  `;
+}
+
+function renderObservationSignals(rows) {
+  document.getElementById("observe-list").innerHTML = rows.length
+    ? rows.map(renderSignalCard).join("")
+    : `<article class="item"><p>观察池还没有评分，点“刷新评分”开始。</p></article>`;
+}
+
 function renderLatestPrices(rows) {
   document.getElementById("latest-prices").innerHTML = rows.length
     ? rows
@@ -169,22 +232,27 @@ function renderLatestPrices(rows) {
 
 function renderSignals(rows) {
   document.getElementById("signal-list").innerHTML = rows.length
-    ? rows
-        .map((row) => {
-          const rationale = parseJson(row.rationale, []).join(" / ");
-          return `
-          <article class="item">
-            <div class="item-head">
-              <h3>${escapeHtml(row.symbol)} · ${row.market}</h3>
-              <span class="badge ${row.action}">${row.action} ${Number(row.score).toFixed(2)}</span>
-            </div>
-            <p>${row.ts} · 收盘 ${money.format(row.close)} · 置信度 ${Math.round(row.confidence * 100)}%</p>
-            <p>${escapeHtml(rationale)}</p>
-          </article>
-        `;
-        })
-        .join("")
+    ? rows.map(renderSignalCard).join("")
     : `<article class="item"><p>暂无信号。</p></article>`;
+}
+
+function renderSignalCard(row) {
+  const rationale = parseJson(row.rationale, []).join(" / ");
+  const index = Number(row.recommendation_index ?? Math.round((Number(row.score || 0) + 1) * 50));
+  return `
+    <article class="item">
+      <div class="item-head">
+        <h3>${escapeHtml(row.symbol)} · ${row.market}</h3>
+        <span class="badge ${row.action}">${escapeHtml(row.recommendation_label || row.action)} ${index}</span>
+      </div>
+      <div class="score-line">
+        <div class="score-bar"><span style="width:${Math.max(0, Math.min(100, index))}%"></span></div>
+        <b>${row.action} · 技术分 ${Number(row.score).toFixed(2)}</b>
+      </div>
+      <p>${shortTime(row.ts)} · 收盘 ${money.format(row.close)} · 置信度 ${Math.round(row.confidence * 100)}%</p>
+      <p>${escapeHtml(rationale)}</p>
+    </article>
+  `;
 }
 
 function renderPositions(rows) {
@@ -247,6 +315,10 @@ function renderSettings(settings) {
   document.getElementById("watch-us").value = settings.watchlists.US.join("\n");
   document.getElementById("watch-jp").value = settings.watchlists.JP.join("\n");
   document.getElementById("sources").value = settings.data_sources.join(", ");
+  document.getElementById("scan-us").value = settings.universe?.daily_scan_limit?.US ?? 40;
+  document.getElementById("scan-jp").value = settings.universe?.daily_scan_limit?.JP ?? 40;
+  document.getElementById("buy-score").value = settings.strategy?.recommend_buy_score ?? 70;
+  document.getElementById("sell-score").value = settings.strategy?.recommend_sell_score ?? 30;
 }
 
 function setStatus(text) {
