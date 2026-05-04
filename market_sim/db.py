@@ -207,6 +207,26 @@ def save_weights(conn: sqlite3.Connection, weights: dict[str, float]) -> None:
         )
 
 
+def reset_paper_trading_state(conn: sqlite3.Connection, keep_signals: bool = True) -> None:
+    settings = get_settings(conn)
+    conn.execute("DELETE FROM positions")
+    conn.execute("DELETE FROM trades")
+    conn.execute("DELETE FROM reviews")
+    conn.execute("DELETE FROM equity_curve")
+    if not keep_signals:
+        conn.execute("DELETE FROM signals")
+    now = utc_now()
+    for currency, cash in settings["portfolio"].items():
+        conn.execute(
+            """
+            INSERT INTO portfolio_cash(currency, cash, updated_at)
+            VALUES (?, ?, ?)
+            ON CONFLICT(currency) DO UPDATE SET cash = excluded.cash, updated_at = excluded.updated_at
+            """,
+            (currency, float(cash), now),
+        )
+
+
 def rows_to_dicts(rows: Iterable[sqlite3.Row]) -> list[dict[str, Any]]:
     return [dict(row) for row in rows]
 

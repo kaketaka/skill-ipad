@@ -125,57 +125,16 @@
       },
       {
         "currency": "USD",
-        "cash": 67571.623915
+        "cash": 100000.0
       }
     ],
-    "positions": [
-      {
-        "symbol": "MEGI",
-        "market": "US",
-        "currency": "USD",
-        "quantity": 529.0,
-        "avg_cost": 15.56,
-        "last_price": 15.56,
-        "unrealized_pnl": 0.0,
-        "unrealized_pct": 0.0
-      },
-      {
-        "symbol": "MEI",
-        "market": "US",
-        "currency": "USD",
-        "quantity": 946.0,
-        "avg_cost": 8.63,
-        "last_price": 8.63,
-        "unrealized_pnl": 0.0,
-        "unrealized_pct": 0.0
-      },
-      {
-        "symbol": "QQQ",
-        "market": "US",
-        "currency": "USD",
-        "quantity": 12.0,
-        "avg_cost": 674.15,
-        "last_price": 674.15,
-        "unrealized_pnl": 0.0,
-        "unrealized_pct": 0.0
-      },
-      {
-        "symbol": "SPY",
-        "market": "US",
-        "currency": "USD",
-        "quantity": 11.0,
-        "avg_cost": 720.65,
-        "last_price": 720.65,
-        "unrealized_pnl": 0.0,
-        "unrealized_pct": 0.0
-      }
-    ],
+    "positions": [],
     "equity": [
       {
         "currency": "USD",
-        "equity": 99983.79,
-        "cash": 67571.62,
-        "positions_value": 32412.17
+        "equity": 100000.0,
+        "cash": 100000.0,
+        "positions_value": 0
       },
       {
         "currency": "JPY",
@@ -1344,90 +1303,8 @@
       "observed": 0
     }
   ],
-  "trades": [
-    {
-      "id": 3,
-      "ts": "2026-05-04T07:32:13+00:00",
-      "symbol": "MEGI",
-      "market": "US",
-      "currency": "USD",
-      "side": "BUY",
-      "quantity": 529.0,
-      "price": 15.56,
-      "gross": 8231.24,
-      "fee": 4.11562,
-      "reason": "signal_buy",
-      "signal_score": 0.4298,
-      "source": "simulated",
-      "simulated": 1
-    },
-    {
-      "id": 4,
-      "ts": "2026-05-04T07:32:13+00:00",
-      "symbol": "MEI",
-      "market": "US",
-      "currency": "USD",
-      "side": "BUY",
-      "quantity": 946.0,
-      "price": 8.63,
-      "gross": 8163.9800000000005,
-      "fee": 4.08199,
-      "reason": "signal_buy",
-      "signal_score": 0.42,
-      "source": "simulated",
-      "simulated": 1
-    },
-    {
-      "id": 1,
-      "ts": "2026-05-04T06:56:10+00:00",
-      "symbol": "SPY",
-      "market": "US",
-      "currency": "USD",
-      "side": "BUY",
-      "quantity": 11.0,
-      "price": 720.65,
-      "gross": 7927.15,
-      "fee": 3.963575,
-      "reason": "signal_buy",
-      "signal_score": 0.456,
-      "source": "simulated",
-      "simulated": 1
-    },
-    {
-      "id": 2,
-      "ts": "2026-05-04T06:56:10+00:00",
-      "symbol": "QQQ",
-      "market": "US",
-      "currency": "USD",
-      "side": "BUY",
-      "quantity": 12.0,
-      "price": 674.15,
-      "gross": 8089.799999999999,
-      "fee": 4.0449,
-      "reason": "signal_buy",
-      "signal_score": 0.456,
-      "source": "simulated",
-      "simulated": 1
-    }
-  ],
-  "reviews": [
-    {
-      "id": 2,
-      "review_date": "2026-05-04",
-      "created_at": "2026-05-04T06:56:53+00:00",
-      "summary": "今天模拟成交 2 笔，买入 2，卖出 0。 当前权益 JPY 10,000,000, USD 99,992。强信号：SPY HOLD +0.46；QQQ HOLD +0.46；SPY BUY +0.46 持仓尚未产生足够盈亏样本，策略权重保持不变。",
-      "metrics": "{\"trade_count\":2,\"buy_count\":2,\"sell_count\":0,\"fees_by_currency\":{\"USD\":8.01},\"turnover_by_currency\":{\"USD\":16016.95},\"unrealized_pnl_by_currency\":{\"USD\":0.0},\"equity\":[{\"currency\":\"JPY\",\"equity\":10000000.0,\"cash\":10000000.0,\"positions_value\":0.0},{\"currency\":\"USD\",\"equity\":99991.991525,\"cash\":83975.04152500001,\"positions_value\":16016.949999999999}],\"open_positions\":2}",
-      "lessons": "{\"message\":\"持仓尚未产生足够盈亏样本，策略权重保持不变。\",\"weights\":{\"trend\":0.22,\"macd\":0.18,\"rsi\":0.16,\"breakout\":0.16,\"mean_reversion\":0.14,\"volume\":0.08,\"risk\":0.06}}"
-    },
-    {
-      "id": 1,
-      "review_date": "2026-05-04",
-      "created_at": "2026-05-04T06:56:23+00:00",
-      "summary": "今天模拟成交 2 笔，买入 2，卖出 0。 当前权益 JPY 10,000,000, USD 99,992。强信号：SPY HOLD +0.46；QQQ HOLD +0.46；SPY BUY +0.46 用 0 个仍在持仓的买入样本做了有边界的权重微调。",
-      "metrics": "{\"trade_count\":2,\"buy_count\":2,\"sell_count\":0,\"fees_by_currency\":{\"USD\":8.01},\"turnover_by_currency\":{\"USD\":16016.95},\"unrealized_pnl_by_currency\":{\"USD\":0.0},\"equity\":[{\"currency\":\"JPY\",\"equity\":10000000.0,\"cash\":10000000.0,\"positions_value\":0.0},{\"currency\":\"USD\",\"equity\":99991.991525,\"cash\":83975.04152500001,\"positions_value\":16016.949999999999}],\"open_positions\":2}",
-      "lessons": "{\"message\":\"用 0 个仍在持仓的买入样本做了有边界的权重微调。\",\"adjustments\":{\"trend\":0.0,\"macd\":0.0,\"rsi\":0.0},\"weights\":{\"trend\":0.22,\"macd\":0.18,\"rsi\":0.16,\"breakout\":0.16,\"mean_reversion\":0.14,\"volume\":0.08,\"risk\":0.06}}"
-    }
-  ],
+  "trades": [],
+  "reviews": [],
   "latest_prices": [
     {
       "symbol": "142A.T",

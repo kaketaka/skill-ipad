@@ -4,7 +4,7 @@ from typing import Any
 
 from .broker import execute_signals, portfolio_snapshot, record_signal, update_equity, upsert_prices
 from .data_sources import fetch_history, infer_market
-from .db import get_settings, get_weights, init_db, rows_to_dicts, session
+from .db import get_settings, get_weights, init_db, reset_paper_trading_state, rows_to_dicts, session
 from .indicators import compute_indicators
 from .review import create_daily_review
 from .strategy import generate_signal, recommendation_guidance
@@ -182,6 +182,14 @@ def sync_universe(markets: list[str] | None = None) -> dict[str, Any]:
         settings = get_settings(conn)
     selected = [market.upper() for market in (markets or ["US", "JP"])]
     return {market: sync_universe_market(market, settings) for market in selected}
+
+
+def reset_demo_state(keep_signals: bool = True) -> dict[str, Any]:
+    init_db()
+    with session() as conn:
+        reset_paper_trading_state(conn, keep_signals=keep_signals)
+        equity = update_equity(conn)
+        return {"ok": True, "keep_signals": keep_signals, "equity": equity}
 
 
 def _clean_symbols(symbols: list[Any]) -> list[str]:

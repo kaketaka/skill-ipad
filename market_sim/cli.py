@@ -5,7 +5,7 @@ import json
 
 from .db import init_db
 from .export_site import export_static_site
-from .service import get_dashboard, run_market_cycle, run_review, sync_universe
+from .service import get_dashboard, reset_demo_state, run_market_cycle, run_review, sync_universe
 
 
 def main() -> None:
@@ -20,6 +20,8 @@ def main() -> None:
     export_parser.add_argument("--output", default="docs", help="Output directory, defaults to docs.")
     universe_parser = subparsers.add_parser("sync-universe", help="Download full US/JP stock universes.")
     universe_parser.add_argument("--markets", nargs="*", choices=["US", "JP"], default=["US", "JP"])
+    reset_parser = subparsers.add_parser("reset-demo", help="Clear simulated trades, holdings, and reviews.")
+    reset_parser.add_argument("--clear-signals", action="store_true", help="Also clear signal history and observation scores.")
     args = parser.parse_args()
 
     if args.command == "init":
@@ -35,6 +37,8 @@ def main() -> None:
         print(json.dumps(export_static_site(args.output), ensure_ascii=False, indent=2, default=str))
     elif args.command == "sync-universe":
         print(json.dumps(sync_universe(args.markets), ensure_ascii=False, indent=2, default=str))
+    elif args.command == "reset-demo":
+        print(json.dumps(reset_demo_state(keep_signals=not args.clear_signals), ensure_ascii=False, indent=2, default=str))
 
 
 if __name__ == "__main__":
