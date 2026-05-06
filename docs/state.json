@@ -106,14 +106,14 @@
       "market": "US",
       "count": 4881,
       "source": "Nasdaq Trader Symbol Directory",
-      "updated_at": "2026-05-06T09:35:52+00:00",
+      "updated_at": "2026-05-06T15:41:39+00:00",
       "file": "/home/runner/work/skill-ipad/skill-ipad/data/universe_us.csv"
     },
     "JP": {
       "market": "JP",
       "count": 3922,
       "source": "JPX List of TSE-listed Issues",
-      "updated_at": "2026-05-06T09:35:53+00:00",
+      "updated_at": "2026-05-06T15:41:40+00:00",
       "file": "/home/runner/work/skill-ipad/skill-ipad/data/universe_jp.csv"
     }
   },
@@ -1333,6 +1333,14 @@
     }
   ],
   "reviews": [
+    {
+      "id": 4,
+      "review_date": "2026-05-06",
+      "created_at": "2026-05-06T15:41:40+00:00",
+      "summary": "今天模拟成交 0 笔，买入 0，卖出 0。 当前权益 JPY 10,000,000, USD 99,996。强信号：^N225 HOLD +0.38；7974.T HOLD -0.38；1878.T HOLD -0.36 持仓尚未产生足够盈亏样本，策略权重保持不变。",
+      "metrics": "{\"trade_count\":0,\"buy_count\":0,\"sell_count\":0,\"fees_by_currency\":{},\"turnover_by_currency\":{},\"unrealized_pnl_by_currency\":{\"USD\":0.0},\"equity\":[{\"currency\":\"JPY\",\"equity\":10000000.0,\"cash\":10000000.0,\"positions_value\":0.0},{\"currency\":\"USD\",\"equity\":99995.84992000001,\"cash\":91695.68992,\"positions_value\":8300.16}],\"open_positions\":1}",
+      "lessons": "{\"message\":\"持仓尚未产生足够盈亏样本，策略权重保持不变。\",\"weights\":{\"trend\":0.22,\"macd\":0.18,\"rsi\":0.16,\"breakout\":0.16,\"mean_reversion\":0.14,\"volume\":0.08,\"risk\":0.06}}"
+    },
     {
       "id": 3,
       "review_date": "2026-05-04",
