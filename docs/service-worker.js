@@ -1,5 +1,5 @@
-const CACHE = "market-sim-trader-v2";
-const ASSETS = ["./", "styles.css", "app.js", "manifest.webmanifest"];
+const CACHE = "market-sim-trader-v3";
+const ASSETS = ["./", "index.html", "styles.css", "app.js", "manifest.webmanifest"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(ASSETS)));
@@ -20,7 +20,12 @@ self.addEventListener("fetch", (event) => {
   if (url.pathname.endsWith("/api/status") || url.pathname.includes("/api/")) {
     return;
   }
-  if (event.request.mode === "navigate" || url.pathname.endsWith("/state.json")) {
+  if (
+    event.request.mode === "navigate" ||
+    url.pathname.endsWith("/state.json") ||
+    url.pathname.endsWith("/app.js") ||
+    url.pathname.endsWith("/styles.css")
+  ) {
     event.respondWith(fetch(event.request).catch(() => caches.match(event.request)));
     return;
   }

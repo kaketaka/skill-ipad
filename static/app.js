@@ -156,7 +156,7 @@ async function loadDashboardData() {
 }
 
 function render(data) {
-  renderEquity(data.portfolio.equity);
+  renderEquity(data.portfolio.equity, data.portfolio_summary || []);
   renderUniverse(data.universe || {});
   renderGuidance(data.guidance || {});
   renderObservationSignals(data.observation_signals || []);
@@ -170,18 +170,28 @@ function render(data) {
   renderSettings(data.settings);
 }
 
-function renderEquity(rows) {
+function renderEquity(rows, summaryRows = []) {
   const grid = document.getElementById("equity-grid");
+  const summaryByCurrency = Object.fromEntries(summaryRows.map((row) => [row.currency, row]));
   grid.innerHTML = rows
-    .map(
-      (row) => `
+    .map((row) => {
+      const summary = summaryByCurrency[row.currency] || {};
+      const delta = Number(summary.equity_delta);
+      const deltaPct = Number(summary.equity_delta_pct);
+      const deltaClass = Number.isFinite(delta) ? (delta >= 0 ? "positive" : "negative") : "";
+      return `
       <article class="metric">
         <span>${row.currency} 模拟权益</span>
         <strong>${money.format(row.equity)}</strong>
         <small>现金 ${money.format(row.cash)} / 持仓 ${money.format(row.positions_value)}</small>
+        <small class="${deltaClass}">
+          较初始 ${Number.isFinite(delta) ? money.format(delta) : "-"}
+          ${Number.isFinite(deltaPct) ? `(${formatPct(deltaPct)})` : ""}
+          · 累计手续费 ${money.format(summary.total_fees || 0)}
+        </small>
       </article>
-    `,
-    )
+    `;
+    })
     .join("");
 }
 

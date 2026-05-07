@@ -107,6 +107,7 @@ def get_dashboard() -> dict[str, Any]:
         market_quotes = _market_quotes(conn, settings)
         positions_enriched = _enrich_positions(conn, portfolio.get("positions", []))
         traded_quotes = _traded_quotes(conn, portfolio.get("positions", []))
+        portfolio_summary = _portfolio_summary(conn, settings, portfolio)
         return {
             "settings": settings,
             "weights": weights,
@@ -123,7 +124,37 @@ def get_dashboard() -> dict[str, Any]:
             "market_quotes": market_quotes,
             "positions_enriched": positions_enriched,
             "traded_quotes": traded_quotes,
+            "portfolio_summary": portfolio_summary,
         }
+
+
+def _portfolio_summary(conn, settings: dict[str, Any], portfolio: dict[str, Any]) -> list[dict[str, Any]]:
+    fees = {
+        row["currency"]: float(row["fees"] or 0.0)
+        for row in conn.execute(
+            """
+            SELECT currency, sum(fee) AS fees
+            FROM trades
+            GROUP BY currency
+            """
+        ).fetchall()
+    }
+    initial = {currency: float(value) for currency, value in settings.get("portfolio", {}).items()}
+    output: list[dict[str, Any]] = []
+    for row in portfolio.get("equity", []):
+        currency = row.get("currency")
+        equity = float(row.get("equity") or 0.0)
+        starting_equity = initial.get(currency, 0.0)
+        output.append(
+            {
+                "currency": currency,
+                "initial_equity": round(starting_equity, 2),
+                "equity_delta": round(equity - starting_equity, 2),
+                "equity_delta_pct": round((equity / starting_equity - 1.0), 6) if starting_equity else None,
+                "total_fees": round(fees.get(currency, 0.0), 2),
+            }
+        )
+    return output
 
 
 def _market_quotes(conn, settings: dict[str, Any]) -> dict[str, list[dict[str, Any]]]:
