@@ -160,9 +160,11 @@ function render(data) {
   renderUniverse(data.universe || {});
   renderGuidance(data.guidance || {});
   renderObservationSignals(data.observation_signals || []);
-  renderLatestPrices(data.latest_prices);
+  renderMarketQuotes(data.market_quotes || {});
+  renderTradedQuotes(data.traded_quotes || []);
   renderSignals(data.signals);
   renderPositions(data.portfolio.positions);
+  renderPositionDetails(data.positions_enriched || []);
   renderTrades(data.trades);
   renderReviews(data.reviews);
   renderSettings(data.settings);
@@ -212,22 +214,52 @@ function renderObservationSignals(rows) {
     : `<article class="item"><p>观察池还没有评分，点“刷新评分”开始。</p></article>`;
 }
 
-function renderLatestPrices(rows) {
-  document.getElementById("latest-prices").innerHTML = rows.length
+function renderMarketQuotes(marketQuotes) {
+  const rows = []
+    .concat(marketQuotes.US || [])
+    .concat(marketQuotes.JP || [])
+    .filter(Boolean);
+  document.getElementById("market-quotes").innerHTML = rows.length
     ? rows
-        .map(
-          (row) => `
-        <tr>
-          <td>${escapeHtml(row.symbol)}</td>
-          <td>${row.market}</td>
-          <td>${row.date}</td>
-          <td>${money.format(row.close)}</td>
-          <td>${row.source}</td>
-        </tr>
-      `,
-        )
+        .map((row) => {
+          const change = Number(row.change);
+          const changePct = Number(row.change_pct);
+          const cls = Number.isFinite(change) ? (change >= 0 ? "positive" : "negative") : "";
+          return `
+            <tr>
+              <td>${escapeHtml(row.symbol)}</td>
+              <td>${escapeHtml(row.market)}</td>
+              <td>${escapeHtml(row.date)}</td>
+              <td>${money.format(row.close)}</td>
+              <td class="${cls}">${Number.isFinite(change) ? money.format(change) : "-"}</td>
+              <td class="${cls}">${Number.isFinite(changePct) ? formatPct(changePct) : "-"}</td>
+            </tr>
+          `;
+        })
         .join("")
-    : `<tr><td colspan="5">暂无行情，点“立即分析”开始。</td></tr>`;
+    : `<tr><td colspan="6">暂无当日行情（需要先跑一次分析以更新价格库）。</td></tr>`;
+}
+
+function renderTradedQuotes(rows) {
+  document.getElementById("traded-quotes").innerHTML = rows.length
+    ? rows
+        .map((row) => {
+          const changePct = Number(row.change_pct);
+          const cls = Number.isFinite(changePct) ? (changePct >= 0 ? "positive" : "negative") : "";
+          const candles = Array.isArray(row.candles) ? row.candles.slice(-40) : [];
+          return `
+            <tr>
+              <td>${escapeHtml(row.symbol)}</td>
+              <td>${escapeHtml(row.market)}</td>
+              <td>${escapeHtml(row.date)}</td>
+              <td>${money.format(row.close)}</td>
+              <td class="${cls}">${Number.isFinite(changePct) ? formatPct(changePct) : "-"}</td>
+              <td>${candles.length ? renderCandleSvg(candles) : "<span class=\"muted\">暂无K线</span>"}</td>
+            </tr>
+          `;
+        })
+        .join("")
+    : `<tr><td colspan="6">近 30 天无成交且当前无持仓，因此不展示成交行情。</td></tr>`;
 }
 
 function renderSignals(rows) {
@@ -274,6 +306,42 @@ function renderPositions(rows) {
     : `<tr><td colspan="5">暂无持仓。</td></tr>`;
 }
 
+function renderPositionDetails(rows) {
+  const container = document.getElementById("position-details");
+  container.innerHTML = rows.length
+    ? rows
+        .map((row) => {
+          const pnl = Number(row.unrealized_pnl || 0);
+          const pnlPct = Number(row.unrealized_pct || 0);
+          const dayPct = Number(row.day_change_pct);
+          const dayCls = Number.isFinite(dayPct) ? (dayPct >= 0 ? "positive" : "negative") : "";
+          const candles = Array.isArray(row.candles) ? row.candles.slice(-60) : [];
+          const ind = row.indicators || {};
+          return `
+            <article class="item">
+              <div class="item-head">
+                <h3>${escapeHtml(row.symbol)} · ${escapeHtml(row.market)} · 持仓</h3>
+                <span class="badge ${pnl >= 0 ? "BUY" : "SELL"}">${pnl >= 0 ? "浮盈" : "浮亏"} ${money.format(pnl)} (${formatPct(pnlPct)})</span>
+              </div>
+              <p>
+                数量 ${money.format(row.quantity)} · 成本 ${money.format(row.avg_cost)} · 现价 ${money.format(row.last_price)}
+                · 当日 <span class="${dayCls}">${Number.isFinite(dayPct) ? formatPct(dayPct) : "-"}</span>
+                · 市值 ${money.format(row.market_value)} · 成本额 ${money.format(row.cost_value)}
+              </p>
+              <div class="chart-row">${candles.length ? renderCandleSvg(candles) : "<span class=\"muted\">暂无K线</span>"}</div>
+              <div class="kv">
+                <div><b>趋势</b><span>SMA20 ${fmt(ind.sma20)} / SMA50 ${fmt(ind.sma50)} / slope20 ${fmt(ind.slope20)}</span></div>
+                <div><b>动量</b><span>RSI14 ${fmt(ind.rsi14)} / MACD_hist ${fmt(ind.macd_hist)} / return1d ${fmt(ind.return_1d, true)}</span></div>
+                <div><b>波动</b><span>ATR14 ${fmt(ind.atr14)} / 布林 ${fmt(ind.bb_lower)} - ${fmt(ind.bb_upper)}</span></div>
+                <div><b>资金流</b><span>MFI14 ${fmt(ind.mfi14)} / CMF20 ${fmt(ind.cmf20)} / OBV ${fmt(ind.obv)}</span></div>
+              </div>
+            </article>
+          `;
+        })
+        .join("")
+    : `<article class="item"><p>暂无持仓，持仓详情不展示。</p></article>`;
+}
+
 function renderTrades(rows) {
   document.getElementById("trade-rows").innerHTML = rows.length
     ? rows
@@ -303,12 +371,70 @@ function renderReviews(rows) {
             <h3>${row.review_date}</h3>
             <span class="badge HOLD">复盘</span>
           </div>
-          <p>${escapeHtml(row.summary)}</p>
+          <p class="multiline">${escapeHtml(row.summary).replaceAll("\n", "<br>")}</p>
         </article>
       `,
         )
         .join("")
     : `<article class="item"><p>暂无复盘。</p></article>`;
+}
+
+function formatPct(value) {
+  const pct = Number(value) * 100;
+  if (!Number.isFinite(pct)) return "-";
+  const sign = pct > 0 ? "+" : "";
+  return `${sign}${pct.toFixed(2)}%`;
+}
+
+function fmt(value, pct = false) {
+  if (!Number.isFinite(Number(value))) return "-";
+  if (pct) return formatPct(value);
+  return money.format(value);
+}
+
+function renderCandleSvg(candles) {
+  const width = 240;
+  const height = 84;
+  const padX = 4;
+  const padY = 6;
+  const usableW = width - padX * 2;
+  const usableH = height - padY * 2;
+  const highs = candles.map((c) => Number(c.high ?? c.close)).filter(Number.isFinite);
+  const lows = candles.map((c) => Number(c.low ?? c.close)).filter(Number.isFinite);
+  const max = Math.max(...highs);
+  const min = Math.min(...lows);
+  const range = max - min || 1;
+  const step = usableW / Math.max(1, candles.length);
+  const bodyW = Math.max(1, step * 0.6);
+
+  const items = candles
+    .map((c, idx) => {
+      const open = Number(c.open ?? c.close);
+      const close = Number(c.close);
+      const high = Number(c.high ?? Math.max(open, close));
+      const low = Number(c.low ?? Math.min(open, close));
+      if (![open, close, high, low].every(Number.isFinite)) return "";
+      const x = padX + idx * step + step / 2;
+      const yHigh = padY + ((max - high) / range) * usableH;
+      const yLow = padY + ((max - low) / range) * usableH;
+      const yOpen = padY + ((max - open) / range) * usableH;
+      const yClose = padY + ((max - close) / range) * usableH;
+      const up = close >= open;
+      const yTop = Math.min(yOpen, yClose);
+      const yBot = Math.max(yOpen, yClose);
+      const cls = up ? "candle-up" : "candle-down";
+      return `
+        <line x1="${x}" y1="${yHigh}" x2="${x}" y2="${yLow}" class="wick ${cls}" />
+        <rect x="${x - bodyW / 2}" y="${yTop}" width="${bodyW}" height="${Math.max(1, yBot - yTop)}" class="body ${cls}" />
+      `;
+    })
+    .join("");
+  return `
+    <svg class="candle" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}" aria-hidden="true">
+      <rect x="0" y="0" width="${width}" height="${height}" rx="10" class="candle-bg"></rect>
+      ${items}
+    </svg>
+  `;
 }
 
 function renderSettings(settings) {

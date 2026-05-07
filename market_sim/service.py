@@ -1,11 +1,12 @@
 from __future__ import annotations
 
+from datetime import date, timedelta
 from typing import Any
 
 from .broker import execute_signals, portfolio_snapshot, record_signal, update_equity, upsert_prices
 from .data_sources import fetch_history, infer_market
 from .db import get_settings, get_weights, init_db, reset_paper_trading_state, rows_to_dicts, session
-from .indicators import compute_indicators
+from .indicators import compute_indicators, latest_complete_row
 from .review import create_daily_review
 from .strategy import generate_signal, recommendation_guidance
 from .universe import ensure_universe, observed_symbols, select_scan_symbols, sync_universe_market, universe_summary
@@ -103,20 +104,9 @@ def get_dashboard() -> dict[str, Any]:
                 """
             ).fetchall()
         )
-        prices = rows_to_dicts(
-            conn.execute(
-                """
-                SELECT p.symbol, p.market, p.currency, p.date, p.close, p.source
-                FROM prices p
-                JOIN (
-                    SELECT symbol, max(date) AS max_date
-                    FROM prices
-                    GROUP BY symbol
-                ) latest ON latest.symbol = p.symbol AND latest.max_date = p.date
-                ORDER BY p.market, p.symbol
-                """
-            ).fetchall()
-        )
+        market_quotes = _market_quotes(conn, settings)
+        positions_enriched = _enrich_positions(conn, portfolio.get("positions", []))
+        traded_quotes = _traded_quotes(conn, portfolio.get("positions", []))
         return {
             "settings": settings,
             "weights": weights,
@@ -130,8 +120,169 @@ def get_dashboard() -> dict[str, Any]:
             "signals": signals,
             "trades": trades,
             "reviews": reviews,
-            "latest_prices": prices,
+            "market_quotes": market_quotes,
+            "positions_enriched": positions_enriched,
+            "traded_quotes": traded_quotes,
         }
+
+
+def _market_quotes(conn, settings: dict[str, Any]) -> dict[str, list[dict[str, Any]]]:
+    quotes: dict[str, list[dict[str, Any]]] = {"US": [], "JP": []}
+    for market in ["US", "JP"]:
+        symbols: list[str] = []
+        benchmarks = settings.get("benchmarks", {}).get(market, [])
+        for symbol in benchmarks:
+            if isinstance(symbol, str) and symbol and symbol not in symbols:
+                symbols.append(symbol)
+        for symbol in settings.get("watchlists", {}).get(market, [])[:4]:
+            if isinstance(symbol, str) and symbol and symbol not in symbols:
+                symbols.append(symbol)
+        for symbol in symbols[:8]:
+            quote = _latest_quote(conn, symbol)
+            if quote:
+                quotes[market].append(quote)
+    return quotes
+
+
+def _traded_quotes(conn, positions: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    symbols: list[str] = []
+    for row in positions:
+        symbol = str(row.get("symbol") or "").strip()
+        if symbol and symbol not in symbols:
+            symbols.append(symbol)
+    since = (date.today() - timedelta(days=30)).isoformat()
+    for row in conn.execute(
+        """
+        SELECT symbol, max(ts) AS last_ts
+        FROM trades
+        WHERE substr(ts, 1, 10) >= ?
+        GROUP BY symbol
+        ORDER BY last_ts DESC
+        LIMIT 12
+        """,
+        (since,),
+    ).fetchall():
+        symbol = str(row["symbol"]).strip()
+        if symbol and symbol not in symbols:
+            symbols.append(symbol)
+    output: list[dict[str, Any]] = []
+    for symbol in symbols[:12]:
+        quote = _latest_quote(conn, symbol)
+        if not quote:
+            continue
+        candles = _candles(conn, symbol, limit=90)
+        if candles:
+            quote["candles"] = candles
+            quote["indicators"] = _indicator_snapshot(candles)
+        output.append(quote)
+    return output
+
+
+def _enrich_positions(conn, positions: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    output: list[dict[str, Any]] = []
+    for row in positions:
+        symbol = str(row.get("symbol") or "").strip()
+        if not symbol:
+            continue
+        enriched = dict(row)
+        qty = float(enriched.get("quantity") or 0.0)
+        avg_cost = float(enriched.get("avg_cost") or 0.0)
+        last_price = float(enriched.get("last_price") or 0.0)
+        enriched["cost_value"] = round(qty * avg_cost, 2)
+        enriched["market_value"] = round(qty * last_price, 2)
+        quote = _latest_quote(conn, symbol)
+        if quote:
+            enriched["day_change"] = quote.get("change")
+            enriched["day_change_pct"] = quote.get("change_pct")
+            enriched["last_date"] = quote.get("date")
+        candles = _candles(conn, symbol, limit=120)
+        if candles:
+            enriched["candles"] = candles
+            enriched["indicators"] = _indicator_snapshot(candles)
+        output.append(enriched)
+    return output
+
+
+def _latest_quote(conn, symbol: str) -> dict[str, Any] | None:
+    rows = conn.execute(
+        """
+        SELECT date, market, currency, close, source
+        FROM prices
+        WHERE symbol = ?
+        ORDER BY date DESC
+        LIMIT 2
+        """,
+        (symbol,),
+    ).fetchall()
+    if not rows:
+        return None
+    latest = rows[0]
+    prev_close = float(rows[1]["close"]) if len(rows) > 1 else None
+    close = float(latest["close"])
+    change = round(close - prev_close, 4) if prev_close is not None else None
+    change_pct = round(change / prev_close, 6) if prev_close not in (None, 0.0) else None
+    return {
+        "symbol": symbol,
+        "market": latest["market"],
+        "currency": latest["currency"],
+        "date": latest["date"],
+        "close": close,
+        "prev_close": prev_close,
+        "change": change,
+        "change_pct": change_pct,
+        "source": latest["source"],
+    }
+
+
+def _candles(conn, symbol: str, limit: int = 90) -> list[dict[str, Any]]:
+    rows = conn.execute(
+        """
+        SELECT date, open, high, low, close, volume
+        FROM prices
+        WHERE symbol = ?
+        ORDER BY date DESC
+        LIMIT ?
+        """,
+        (symbol, int(limit)),
+    ).fetchall()
+    return [dict(row) for row in reversed(rows)]
+
+
+def _indicator_snapshot(candles: list[dict[str, Any]]) -> dict[str, Any]:
+    import pandas as pd
+
+    frame = pd.DataFrame(candles)
+    if frame.empty:
+        return {}
+    enriched = compute_indicators(frame)
+    latest = latest_complete_row(enriched)
+    keys = [
+        "return_1d",
+        "sma20",
+        "sma50",
+        "macd_hist",
+        "rsi14",
+        "atr14",
+        "bb_upper",
+        "bb_lower",
+        "volume_sma20",
+        "high20",
+        "low20",
+        "slope20",
+        "obv",
+        "cmf20",
+        "mfi14",
+    ]
+    snapshot: dict[str, Any] = {}
+    for key in keys:
+        value = latest.get(key)
+        if value is None:
+            continue
+        try:
+            snapshot[key] = round(float(value), 6)
+        except Exception:
+            continue
+    return snapshot
 
 
 def update_settings(patch: dict[str, Any]) -> dict[str, Any]:

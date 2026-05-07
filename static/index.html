@@ -44,7 +44,7 @@
         </div>
         <div class="metric-grid compact" id="universe-grid"></div>
         <div class="section-title">
-          <h2>最新价格</h2>
+          <h2>当日行情（美股/日股）</h2>
         </div>
         <div class="table-wrap">
           <table>
@@ -54,10 +54,30 @@
                 <th>市场</th>
                 <th>日期</th>
                 <th>收盘</th>
-                <th>源</th>
+                <th>涨跌</th>
+                <th>涨跌幅</th>
               </tr>
             </thead>
-            <tbody id="latest-prices"></tbody>
+            <tbody id="market-quotes"></tbody>
+          </table>
+        </div>
+
+        <div class="section-title">
+          <h2>成交/持仓行情（含 K 线）</h2>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>代码</th>
+                <th>市场</th>
+                <th>日期</th>
+                <th>收盘</th>
+                <th>涨跌幅</th>
+                <th>K 线</th>
+              </tr>
+            </thead>
+            <tbody id="traded-quotes"></tbody>
           </table>
         </div>
       </section>
@@ -97,6 +117,10 @@
             <tbody id="position-rows"></tbody>
           </table>
         </div>
+        <div class="section-title">
+          <h2>持仓详情（资金流向 / 技术指标 / K 线）</h2>
+        </div>
+        <div id="position-details" class="list"></div>
       </section>
 
       <section id="trades" class="view">

@@ -5,6 +5,7 @@ from datetime import date
 from typing import Any
 
 from .db import get_weights, save_weights, utc_now
+from .indicators import compute_indicators, latest_complete_row
 
 
 def create_daily_review(conn: sqlite3.Connection, settings: dict[str, Any]) -> dict[str, Any]:
@@ -43,9 +44,13 @@ def create_daily_review(conn: sqlite3.Connection, settings: dict[str, Any]) -> d
         ORDER BY market, symbol
         """,
     ).fetchall()
+
     metrics = _metrics(trades, equity, positions)
     lessons = _learn_from_open_positions(conn, settings)
-    summary = _summary(metrics, lessons, signals)
+    market_wrap = _market_wrap(conn, settings)
+    watchlist_notes = _watchlist_notes(conn, settings)
+    summary = _summary(metrics, lessons, signals, market_wrap, watchlist_notes, settings)
+
     conn.execute(
         """
         INSERT INTO reviews(review_date, created_at, summary, metrics, lessons)
@@ -65,11 +70,13 @@ def _metrics(trades: list[sqlite3.Row], equity: list[sqlite3.Row], positions: li
         currency = row["currency"]
         fees_by_currency[currency] = fees_by_currency.get(currency, 0.0) + float(row["fee"])
         turnover_by_currency[currency] = turnover_by_currency.get(currency, 0.0) + float(row["gross"])
-    unrealized = {}
+
+    unrealized: dict[str, float] = {}
     for row in positions:
         currency = row["currency"]
         pnl = (float(row["last_price"]) - float(row["avg_cost"])) * float(row["quantity"])
         unrealized[currency] = unrealized.get(currency, 0.0) + pnl
+
     return {
         "trade_count": len(trades),
         "buy_count": buy_count,
@@ -96,6 +103,7 @@ def _learn_from_open_positions(conn: sqlite3.Connection, settings: dict[str, Any
     weights = get_weights(conn)
     if not rows:
         return {"message": "暂无足够持仓样本，策略权重保持不变。", "weights": weights}
+
     learning_rate = float(settings["strategy"]["learning_rate"])
     min_weight = float(settings["strategy"]["min_weight"])
     max_weight = float(settings["strategy"]["max_weight"])
@@ -114,28 +122,172 @@ def _learn_from_open_positions(conn: sqlite3.Connection, settings: dict[str, Any
             if name in adjustments and abs(float(value)) > 0.15:
                 adjustments[name] += direction * (1 if float(value) > 0 else -1)
         sample_count += 1
+
     if not sample_count:
         return {"message": "持仓尚未产生足够盈亏样本，策略权重保持不变。", "weights": weights}
+
     for name, adjustment in adjustments.items():
         delta = learning_rate * adjustment / sample_count
         weights[name] = min(max_weight, max(min_weight, float(weights[name]) + delta))
+
     total = sum(weights.values()) or 1.0
     weights = {key: round(value / total, 4) for key, value in weights.items()}
     save_weights(conn, weights)
     top_changes = sorted(adjustments.items(), key=lambda item: abs(item[1]), reverse=True)[:3]
     return {
-        "message": f"用 {sample_count} 个仍在持仓的买入样本做了有边界的权重微调。",
+        "message": f"基于 {sample_count} 个仍在持仓的买入样本，做了有边界的权重微调。",
         "adjustments": {key: round(value, 4) for key, value in top_changes},
         "weights": weights,
     }
 
 
-def _summary(metrics: dict[str, Any], lessons: dict[str, Any], signals: list[sqlite3.Row]) -> str:
-    strongest = [f"{row['symbol']} {row['action']} {float(row['score']):+.2f}" for row in signals[:3]]
-    equity_text = ", ".join(f"{row['currency']} {float(row['equity']):,.0f}" for row in metrics["equity"]) or "暂无权益记录"
-    trade_text = f"今天模拟成交 {metrics['trade_count']} 笔，买入 {metrics['buy_count']}，卖出 {metrics['sell_count']}。"
-    signal_text = "强信号：" + "；".join(strongest) if strongest else "今天没有可复盘信号。"
-    return f"{trade_text} 当前权益 {equity_text}。{signal_text} {lessons['message']}"
+def _summary(
+    metrics: dict[str, Any],
+    lessons: dict[str, Any],
+    signals: list[sqlite3.Row],
+    market_wrap: dict[str, list[str]],
+    watchlist_notes: list[str],
+    settings: dict[str, Any],
+) -> str:
+    strongest = [f"- {row['symbol']}：{row['action']}（score {float(row['score']):+.2f}）" for row in signals[:5]]
+    equity_text = " / ".join(f"{row['currency']} {float(row['equity']):,.0f}" for row in metrics["equity"]) or "暂无权益记录"
+    fees = metrics.get("fees_by_currency") or {}
+    fee_text = " / ".join(f"{key} {value:,.2f}" for key, value in fees.items()) if fees else "0"
+    turnover = metrics.get("turnover_by_currency") or {}
+    turnover_text = " / ".join(f"{key} {value:,.2f}" for key, value in turnover.items()) if turnover else "0"
+    unreal = metrics.get("unrealized_pnl_by_currency") or {}
+    unreal_text = " / ".join(f"{key} {value:,.2f}" for key, value in unreal.items()) if unreal else "0"
+    buy_cut = int(settings.get("strategy", {}).get("recommend_buy_score", 70))
+
+    lines: list[str] = []
+    lines.append(f"【复盘 {date.today().isoformat()}】")
+    lines.append(f"成交：{metrics['trade_count']}（买 {metrics['buy_count']} / 卖 {metrics['sell_count']}）")
+    lines.append(f"换手：{turnover_text}；手续费：{fee_text}")
+    lines.append(f"权益：{equity_text}；未实现盈亏：{unreal_text}；持仓数：{metrics['open_positions']}")
+    lines.append("")
+    lines.append("【大盘与基准】")
+    for market in ["US", "JP"]:
+        block = market_wrap.get(market) or []
+        if not block:
+            lines.append(f"- {market}：暂无行情数据")
+        else:
+            lines.append(f"- {market}：")
+            lines.extend([f"  {item}" for item in block])
+    lines.append("")
+    lines.append("【关注/观察要点】")
+    lines.extend(watchlist_notes or ["- 暂无观察池/关注列表的最新信号"])
+    if strongest:
+        lines.append("")
+        lines.append("【今日信号（强度 Top 5）】")
+        lines.extend(strongest)
+    lines.append("")
+    lines.append("【策略学习】")
+    lines.append(f"- {lessons.get('message','')}")
+    if isinstance(lessons.get("adjustments"), dict) and lessons["adjustments"]:
+        adj = " / ".join(f"{k} {v:+.2f}" for k, v in lessons["adjustments"].items())
+        lines.append(f"- 权重方向：{adj}")
+    lines.append("")
+    lines.append("【明日计划】")
+    lines.append(f"- 优先复盘：推荐指数 ≥ {buy_cut} 的标的（结合趋势/成交量/资金流指标过滤）。")
+    lines.append("- 对持仓：先看趋势是否延续（SMA20/SMA50、MACD_hist），再看风险（ATR、布林带、止损线）。")
+    return "\n".join([line for line in lines if line is not None])
+
+
+def _market_wrap(conn: sqlite3.Connection, settings: dict[str, Any]) -> dict[str, list[str]]:
+    output: dict[str, list[str]] = {"US": [], "JP": []}
+    for market in ["US", "JP"]:
+        symbols = settings.get("benchmarks", {}).get(market, [])
+        if not isinstance(symbols, list):
+            continue
+        for symbol in symbols[:6]:
+            quote = _latest_quote(conn, symbol)
+            if not quote:
+                continue
+            snapshot = _indicator_snapshot(conn, symbol, limit=120)
+            change_pct = quote.get("change_pct")
+            change_text = f"{(change_pct * 100):+.2f}%" if isinstance(change_pct, float) else "—"
+            rsi = snapshot.get("rsi14")
+            macd = snapshot.get("macd_hist")
+            cmf = snapshot.get("cmf20")
+            output[market].append(
+                f"{symbol} 收盘 {quote['close']:.2f}（{change_text}） · RSI14 {rsi if rsi is not None else '—'} · MACD_hist {macd if macd is not None else '—'} · CMF20 {cmf if cmf is not None else '—'}"
+            )
+    return output
+
+
+def _watchlist_notes(conn: sqlite3.Connection, settings: dict[str, Any]) -> list[str]:
+    notes: list[str] = []
+    for market in ["US", "JP"]:
+        symbols = settings.get("watchlists", {}).get(market, [])
+        if not isinstance(symbols, list):
+            continue
+        for symbol in symbols[:10]:
+            row = conn.execute(
+                """
+                SELECT ts, action, recommendation_label, recommendation_index, close, confidence
+                FROM signals
+                WHERE symbol = ?
+                ORDER BY ts DESC
+                LIMIT 1
+                """,
+                (symbol,),
+            ).fetchone()
+            if not row:
+                continue
+            index = row["recommendation_index"]
+            label = row["recommendation_label"] or row["action"]
+            notes.append(
+                f"- {market} {symbol}：{label} {index if index is not None else ''} · 收盘 {float(row['close']):.2f} · 置信度 {float(row['confidence']) * 100:.0f}% · {str(row['ts'])[:16]}"
+            )
+    return notes[:16]
+
+
+def _latest_quote(conn: sqlite3.Connection, symbol: str) -> dict[str, Any] | None:
+    rows = conn.execute(
+        """
+        SELECT date, close
+        FROM prices
+        WHERE symbol = ?
+        ORDER BY date DESC
+        LIMIT 2
+        """,
+        (symbol,),
+    ).fetchall()
+    if not rows:
+        return None
+    close = float(rows[0]["close"])
+    prev = float(rows[1]["close"]) if len(rows) > 1 else None
+    change = (close - prev) if prev is not None else None
+    change_pct = (change / prev) if prev not in (None, 0.0) else None
+    return {"symbol": symbol, "close": close, "prev_close": prev, "change": change, "change_pct": change_pct}
+
+
+def _indicator_snapshot(conn: sqlite3.Connection, symbol: str, limit: int = 120) -> dict[str, float]:
+    import pandas as pd
+
+    rows = conn.execute(
+        """
+        SELECT date, open, high, low, close, volume
+        FROM prices
+        WHERE symbol = ?
+        ORDER BY date DESC
+        LIMIT ?
+        """,
+        (symbol, int(limit)),
+    ).fetchall()
+    if not rows:
+        return {}
+    frame = pd.DataFrame([dict(row) for row in reversed(rows)])
+    enriched = compute_indicators(frame)
+    latest = latest_complete_row(enriched)
+    snapshot: dict[str, float] = {}
+    for key in ["rsi14", "macd_hist", "cmf20", "mfi14", "atr14", "sma20", "sma50", "slope20"]:
+        try:
+            value = float(latest.get(key))
+        except Exception:
+            continue
+        snapshot[key] = round(value, 4)
+    return snapshot
 
 
 def _json(value: Any) -> str:
@@ -148,3 +300,4 @@ def _loads(value: str) -> Any:
     import json
 
     return json.loads(value)
+

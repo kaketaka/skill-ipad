@@ -106,15 +106,15 @@
       "market": "US",
       "count": 4881,
       "source": "Nasdaq Trader Symbol Directory",
-      "updated_at": "2026-05-06T23:06:16+00:00",
-      "file": "/home/runner/work/skill-ipad/skill-ipad/data/universe_us.csv"
+      "updated_at": "2026-05-04T07:33:04+00:00",
+      "file": "C:\\Users\\gameb\\Documents\\Codex\\2026-05-04\\skill-ipad\\data\\universe_us.csv"
     },
     "JP": {
       "market": "JP",
       "count": 3922,
       "source": "JPX List of TSE-listed Issues",
-      "updated_at": "2026-05-06T23:06:16+00:00",
-      "file": "/home/runner/work/skill-ipad/skill-ipad/data/universe_jp.csv"
+      "updated_at": "2026-05-04T07:33:07+00:00",
+      "file": "C:\\Users\\gameb\\Documents\\Codex\\2026-05-04\\skill-ipad\\data\\universe_jp.csv"
     }
   },
   "portfolio": {
@@ -1360,6 +1360,14 @@
   ],
   "reviews": [
     {
+      "id": 5,
+      "review_date": "2026-05-07",
+      "created_at": "2026-05-07T00:15:28+00:00",
+      "summary": "【复盘 2026-05-07】\n成交：0（买 0 / 卖 0）\n换手：0；手续费：0\n权益：JPY 10,000,000 / USD 99,992；未实现盈亏：USD 0.00；持仓数：2\n\n【大盘与基准】\n- US：\n  SPY 收盘 733.83（+1.39%） · RSI14 75.4415 · MACD_hist 1.4144 · CMF20 0.4097\n  QQQ 收盘 695.77（+2.08%） · RSI14 80.0647 · MACD_hist 2.9636 · CMF20 0.5368\n- JP：\n  ^N225 收盘 59513.12（+0.38%） · RSI14 60.5358 · MACD_hist 95.7001 · CMF20 0.078\n\n【关注/观察要点】\n- US SPY：继续观察 69 · 收盘 733.83 · 置信度 66% · 2026-05-06T23:06\n- US QQQ：继续观察 69 · 收盘 695.77 · 置信度 66% · 2026-05-06T23:06\n- US AAPL：继续观察 68 · 收盘 287.51 · 置信度 65% · 2026-05-06T23:06\n- US MSFT：继续观察 60 · 收盘 413.96 · 置信度 56% · 2026-05-06T23:06\n- US NVDA：继续观察 60 · 收盘 207.83 · 置信度 56% · 2026-05-06T23:06\n- US AMZN：继续观察 62 · 收盘 274.99 · 置信度 58% · 2026-05-06T23:06\n- US GOOGL：继续观察 68 · 收盘 398.04 · 置信度 65% · 2026-05-06T23:06\n- US META：继续观察 44 · 收盘 612.88 · 置信度 52% · 2026-05-06T23:06\n- US TSLA：继续观察 60 · 收盘 398.73 · 置信度 56% · 2026-05-06T23:06\n- JP ^N225：继续观察 69 · 收盘 59513.12 · 置信度 66% · 2026-05-06T09:35\n- JP 7203.T：继续观察 35 · 收盘 3000.00 · 置信度 61% · 2026-05-06T09:35\n- JP 6758.T：继续观察 36 · 收盘 3127.00 · 置信度 60% · 2026-05-06T09:35\n- JP 9984.T：继续观察 67 · 收盘 5424.00 · 置信度 64% · 2026-05-06T09:35\n- JP 8306.T：继续观察 48 · 收盘 2798.00 · 置信度 47% · 2026-05-06T09:35\n- JP 7974.T：继续观察 31 · 收盘 7597.00 · 置信度 66% · 2026-05-06T09:35\n- JP 6861.T：继续观察 66 · 收盘 76460.00 · 置信度 63% · 2026-05-06T09:35\n\n【策略学习】\n- 持仓尚未产生足够盈亏样本，策略权重保持不变。\n\n【明日计划】\n- 优先复盘：推荐指数 ≥ 70 的标的（结合趋势/成交量/资金流指标过滤）。\n- 对持仓：先看趋势是否延续（SMA20/SMA50、MACD_hist），再看风险（ATR、布林带、止损线）。",
+      "metrics": "{\"trade_count\":0,\"buy_count\":0,\"sell_count\":0,\"fees_by_currency\":{},\"turnover_by_currency\":{},\"unrealized_pnl_by_currency\":{\"USD\":0.0},\"equity\":[{\"currency\":\"JPY\",\"equity\":10000000.0,\"cash\":10000000.0,\"positions_value\":0.0},{\"currency\":\"USD\",\"equity\":99991.77442,\"cash\":83540.61442,\"positions_value\":16451.16}],\"open_positions\":2}",
+      "lessons": "{\"message\":\"持仓尚未产生足够盈亏样本，策略权重保持不变。\",\"weights\":{\"trend\":0.22,\"macd\":0.18,\"rsi\":0.16,\"breakout\":0.16,\"mean_reversion\":0.14,\"volume\":0.08,\"risk\":0.06}}"
+    },
+    {
       "id": 4,
       "review_date": "2026-05-06",
       "created_at": "2026-05-06T15:41:40+00:00",
@@ -1376,2102 +1384,2840 @@
       "lessons": "{\"message\":\"暂无足够持仓样本，策略权重保持不变。\",\"weights\":{\"trend\":0.22,\"macd\":0.18,\"rsi\":0.16,\"breakout\":0.16,\"mean_reversion\":0.14,\"volume\":0.08,\"risk\":0.06}}"
     }
   ],
-  "latest_prices": [
-    {
-      "symbol": "142A.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 699.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1430.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 1095.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1431.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 650.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1432.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 174.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1433.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 1023.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1434.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 2465.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1435.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 201.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1436.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 1188.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1438.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 1860.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "143A.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 744.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1443.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 290.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1444.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 2700.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1445.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 2900.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1446.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 523.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1447.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 298.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "144A.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 450.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1450.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 1410.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1452.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 18530.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "145A.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 877.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "146A.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 3705.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "147A.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 979.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "148A.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 1801.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1491.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 870.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "149A.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 797.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "150A.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 365.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1514.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 760.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1515.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 2422.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1518.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 1353.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "151A.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 632.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "152A.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 1186.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "153A.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 1587.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "154A.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 6610.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "155A.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 801.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "156A.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 850.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "157A.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 1124.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "158A.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 2227.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1605.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 4118.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "160A.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 1992.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "161A.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 1125.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "164A.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 1980.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1662.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 2233.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1663.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 4705.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "166A.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 791.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "167A.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 2704.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "168A.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 1177.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1711.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 253.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1716.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 1447.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1717.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 968.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1718.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 7220.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1719.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 1903.5,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "171A.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 2167.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1720.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 1452.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1721.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 5661.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1723.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 2512.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1724.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 718.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1726.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 525.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "172A.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 2234.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1736.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 2262.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "173A.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 1388.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1758.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 2526.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "175A.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 654.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1762.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 3425.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1764.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 3320.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1766.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 13140.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1768.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 1347.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1770.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 1730.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1773.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 77.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1776.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 1988.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "177A.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 1472.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1780.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 1460.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1783.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 65.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1786.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 377.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1787.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 5510.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1788.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 4640.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1793.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 1681.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1795.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 4710.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1798.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 1193.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1799.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 3745.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1801.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 16575.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1802.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 3648.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1803.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 2996.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1807.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 1951.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1808.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 2744.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1810.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 1532.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1811.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 8950.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1812.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 6077.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1813.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 3015.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1814.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 3405.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1815.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 4945.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1820.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 5701.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1822.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 745.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1826.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 1055.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1827.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 1347.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1828.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 2526.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1833.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 6120.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1835.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 5510.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1840.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 219.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1844.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 548.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1847.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 2735.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1848.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 572.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "184A.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 342.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1850.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 424.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1852.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 927.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1853.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 317.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "185A.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 886.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1860.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 1415.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1861.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 1496.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1866.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 1157.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1867.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 2688.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "186A.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 1310.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1870.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 2122.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1871.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 2677.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1873.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 300.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1878.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 3515.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1879.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 1934.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1882.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 1596.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1885.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 2805.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1887.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 588.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1888.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 3625.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "1893.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 1760.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "6758.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 3127.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "6861.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 76460.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "7203.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 3000.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "7974.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 7597.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "8306.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 2798.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "9432.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 152.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "9984.T",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 5424.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "^N225",
-      "market": "JP",
-      "currency": "JPY",
-      "date": "2026-05-01",
-      "close": 59513.12109375,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "AAPL",
+  "market_quotes": {
+    "US": [
+      {
+        "symbol": "SPY",
+        "market": "US",
+        "currency": "USD",
+        "date": "2026-05-06",
+        "close": 733.8300170898438,
+        "prev_close": 723.77001953125,
+        "change": 10.06,
+        "change_pct": 0.013899,
+        "source": "yfinance"
+      },
+      {
+        "symbol": "QQQ",
+        "market": "US",
+        "currency": "USD",
+        "date": "2026-05-06",
+        "close": 695.77001953125,
+        "prev_close": 681.6099853515625,
+        "change": 14.16,
+        "change_pct": 0.020774,
+        "source": "yfinance"
+      },
+      {
+        "symbol": "AAPL",
+        "market": "US",
+        "currency": "USD",
+        "date": "2026-05-06",
+        "close": 287.510009765625,
+        "prev_close": 284.17999267578125,
+        "change": 3.33,
+        "change_pct": 0.011718,
+        "source": "yfinance"
+      },
+      {
+        "symbol": "MSFT",
+        "market": "US",
+        "currency": "USD",
+        "date": "2026-05-06",
+        "close": 413.9599914550781,
+        "prev_close": 411.3800048828125,
+        "change": 2.58,
+        "change_pct": 0.006272,
+        "source": "yfinance"
+      }
+    ],
+    "JP": [
+      {
+        "symbol": "^N225",
+        "market": "JP",
+        "currency": "JPY",
+        "date": "2026-05-01",
+        "close": 59513.12109375,
+        "prev_close": 59284.921875,
+        "change": 228.1992,
+        "change_pct": 0.003849,
+        "source": "yfinance"
+      },
+      {
+        "symbol": "7203.T",
+        "market": "JP",
+        "currency": "JPY",
+        "date": "2026-05-01",
+        "close": 3000.0,
+        "prev_close": 3023.0,
+        "change": -23.0,
+        "change_pct": -0.007608,
+        "source": "yfinance"
+      },
+      {
+        "symbol": "6758.T",
+        "market": "JP",
+        "currency": "JPY",
+        "date": "2026-05-01",
+        "close": 3127.0,
+        "prev_close": 3113.0,
+        "change": 14.0,
+        "change_pct": 0.004497,
+        "source": "yfinance"
+      },
+      {
+        "symbol": "9984.T",
+        "market": "JP",
+        "currency": "JPY",
+        "date": "2026-05-01",
+        "close": 5424.0,
+        "prev_close": 5219.0,
+        "change": 205.0,
+        "change_pct": 0.03928,
+        "source": "yfinance"
+      }
+    ]
+  },
+  "positions_enriched": [
+    {
+      "symbol": "OMDA",
       "market": "US",
       "currency": "USD",
-      "date": "2026-05-06",
-      "close": 287.510009765625,
-      "source": "yfinance"
+      "quantity": 528.0,
+      "avg_cost": 15.72,
+      "last_price": 15.72,
+      "unrealized_pnl": 0.0,
+      "unrealized_pct": 0.0,
+      "cost_value": 8300.16,
+      "market_value": 8300.16,
+      "day_change": 0.43,
+      "day_change_pct": 0.028123,
+      "last_date": "2026-05-04",
+      "candles": [
+        {
+          "date": "2025-11-10",
+          "open": 20.510000228881836,
+          "high": 20.979999542236328,
+          "low": 19.93000030517578,
+          "close": 20.649999618530273,
+          "volume": 837800.0
+        },
+        {
+          "date": "2025-11-11",
+          "open": 20.649999618530273,
+          "high": 21.624000549316406,
+          "low": 20.450000762939453,
+          "close": 20.809999465942383,
+          "volume": 539200.0
+        },
+        {
+          "date": "2025-11-12",
+          "open": 20.809999465942383,
+          "high": 21.459999084472656,
+          "low": 20.719999313354492,
+          "close": 21.450000762939453,
+          "volume": 313100.0
+        },
+        {
+          "date": "2025-11-13",
+          "open": 21.559999465942383,
+          "high": 21.670000076293945,
+          "low": 20.75,
+          "close": 20.770000457763672,
+          "volume": 340400.0
+        },
+        {
+          "date": "2025-11-14",
+          "open": 20.510000228881836,
+          "high": 20.829999923706055,
+          "low": 20.010000228881836,
+          "close": 20.049999237060547,
+          "volume": 365000.0
+        },
+        {
+          "date": "2025-11-17",
+          "open": 20.010000228881836,
+          "high": 20.03499984741211,
+          "low": 19.219999313354492,
+          "close": 19.459999084472656,
+          "volume": 342400.0
+        },
+        {
+          "date": "2025-11-18",
+          "open": 19.40999984741211,
+          "high": 19.450000762939453,
+          "low": 18.790000915527344,
+          "close": 19.010000228881836,
+          "volume": 377400.0
+        },
+        {
+          "date": "2025-11-19",
+          "open": 19.049999237060547,
+          "high": 19.479999542236328,
+          "low": 18.649999618530273,
+          "close": 19.110000610351562,
+          "volume": 400400.0
+        },
+        {
+          "date": "2025-11-20",
+          "open": 19.280000686645508,
+          "high": 19.600000381469727,
+          "low": 17.829999923706055,
+          "close": 18.170000076293945,
+          "volume": 603300.0
+        },
+        {
+          "date": "2025-11-21",
+          "open": 18.229999542236328,
+          "high": 18.94499969482422,
+          "low": 17.8799991607666,
+          "close": 18.600000381469727,
+          "volume": 554100.0
+        },
+        {
+          "date": "2025-11-24",
+          "open": 18.729999542236328,
+          "high": 19.0049991607666,
+          "low": 17.9950008392334,
+          "close": 18.139999389648438,
+          "volume": 604500.0
+        },
+        {
+          "date": "2025-11-25",
+          "open": 18.079999923706055,
+          "high": 18.600000381469727,
+          "low": 17.770000457763672,
+          "close": 18.1299991607666,
+          "volume": 943600.0
+        },
+        {
+          "date": "2025-11-26",
+          "open": 18.1299991607666,
+          "high": 18.469999313354492,
+          "low": 17.5,
+          "close": 18.200000762939453,
+          "volume": 587400.0
+        },
+        {
+          "date": "2025-11-28",
+          "open": 18.139999389648438,
+          "high": 18.89299964904785,
+          "low": 17.700000762939453,
+          "close": 18.729999542236328,
+          "volume": 287200.0
+        },
+        {
+          "date": "2025-12-01",
+          "open": 18.469999313354492,
+          "high": 18.81999969482422,
+          "low": 18.149999618530273,
+          "close": 18.729999542236328,
+          "volume": 392700.0
+        },
+        {
+          "date": "2025-12-02",
+          "open": 18.770000457763672,
+          "high": 19.260000228881836,
+          "low": 18.420000076293945,
+          "close": 18.450000762939453,
+          "volume": 634800.0
+        },
+        {
+          "date": "2025-12-03",
+          "open": 17.75,
+          "high": 18.350000381469727,
+          "low": 16.010000228881836,
+          "close": 16.1299991607666,
+          "volume": 6895400.0
+        },
+        {
+          "date": "2025-12-04",
+          "open": 16.110000610351562,
+          "high": 17.530000686645508,
+          "low": 15.930000305175781,
+          "close": 17.389999389648438,
+          "volume": 2175300.0
+        },
+        {
+          "date": "2025-12-05",
+          "open": 17.170000076293945,
+          "high": 17.530000686645508,
+          "low": 16.280000686645508,
+          "close": 17.489999771118164,
+          "volume": 1435500.0
+        },
+        {
+          "date": "2025-12-08",
+          "open": 17.440000534057617,
+          "high": 17.469999313354492,
+          "low": 15.579999923706055,
+          "close": 15.649999618530273,
+          "volume": 2348400.0
+        },
+        {
+          "date": "2025-12-09",
+          "open": 15.84000015258789,
+          "high": 15.965999603271484,
+          "low": 15.25,
+          "close": 15.649999618530273,
+          "volume": 1107600.0
+        },
+        {
+          "date": "2025-12-10",
+          "open": 15.510000228881836,
+          "high": 15.579999923706055,
+          "low": 15.170000076293945,
+          "close": 15.3100004196167,
+          "volume": 1611800.0
+        },
+        {
+          "date": "2025-12-11",
+          "open": 15.149999618530273,
+          "high": 15.65999984741211,
+          "low": 14.859999656677246,
+          "close": 15.40999984741211,
+          "volume": 1117900.0
+        },
+        {
+          "date": "2025-12-12",
+          "open": 15.420000076293945,
+          "high": 15.449999809265137,
+          "low": 14.9399995803833,
+          "close": 15.100000381469727,
+          "volume": 746500.0
+        },
+        {
+          "date": "2025-12-15",
+          "open": 15.100000381469727,
+          "high": 15.100000381469727,
+          "low": 14.550000190734863,
+          "close": 14.59000015258789,
+          "volume": 554700.0
+        },
+        {
+          "date": "2025-12-16",
+          "open": 14.550000190734863,
+          "high": 14.800000190734863,
+          "low": 14.319999694824219,
+          "close": 14.609999656677246,
+          "volume": 579600.0
+        },
+        {
+          "date": "2025-12-17",
+          "open": 14.609999656677246,
+          "high": 14.829999923706055,
+          "low": 14.289999961853027,
+          "close": 14.430000305175781,
+          "volume": 784900.0
+        },
+        {
+          "date": "2025-12-18",
+          "open": 14.579999923706055,
+          "high": 14.9399995803833,
+          "low": 14.270000457763672,
+          "close": 14.420000076293945,
+          "volume": 800400.0
+        },
+        {
+          "date": "2025-12-19",
+          "open": 14.430000305175781,
+          "high": 14.550000190734863,
+          "low": 14.15999984741211,
+          "close": 14.5,
+          "volume": 939300.0
+        },
+        {
+          "date": "2025-12-22",
+          "open": 14.510000228881836,
+          "high": 15.555000305175781,
+          "low": 14.510000228881836,
+          "close": 15.489999771118164,
+          "volume": 1331100.0
+        },
+        {
+          "date": "2025-12-23",
+          "open": 15.614999771118164,
+          "high": 15.614999771118164,
+          "low": 15.010000228881836,
+          "close": 15.279999732971191,
+          "volume": 634700.0
+        },
+        {
+          "date": "2025-12-24",
+          "open": 15.300000190734863,
+          "high": 16.09000015258789,
+          "low": 15.300000190734863,
+          "close": 15.920000076293945,
+          "volume": 505500.0
+        },
+        {
+          "date": "2025-12-26",
+          "open": 15.890000343322754,
+          "high": 15.989999771118164,
+          "low": 15.210000038146973,
+          "close": 15.949999809265137,
+          "volume": 716100.0
+        },
+        {
+          "date": "2025-12-29",
+          "open": 16.200000762939453,
+          "high": 16.520000457763672,
+          "low": 15.739999771118164,
+          "close": 16.1299991607666,
+          "volume": 1213800.0
+        },
+        {
+          "date": "2025-12-30",
+          "open": 15.979999542236328,
+          "high": 16.104999542236328,
+          "low": 15.3100004196167,
+          "close": 15.34000015258789,
+          "volume": 882300.0
+        },
+        {
+          "date": "2025-12-31",
+          "open": 15.229999542236328,
+          "high": 15.850000381469727,
+          "low": 15.100000381469727,
+          "close": 15.779999732971191,
+          "volume": 1507600.0
+        },
+        {
+          "date": "2026-01-02",
+          "open": 15.890000343322754,
+          "high": 15.890000343322754,
+          "low": 14.8149995803833,
+          "close": 14.899999618530273,
+          "volume": 727100.0
+        },
+        {
+          "date": "2026-01-05",
+          "open": 14.84000015258789,
+          "high": 15.180000305175781,
+          "low": 14.800000190734863,
+          "close": 15.010000228881836,
+          "volume": 841900.0
+        },
+        {
+          "date": "2026-01-06",
+          "open": 15.050000190734863,
+          "high": 16.1200008392334,
+          "low": 14.8100004196167,
+          "close": 16.040000915527344,
+          "volume": 926400.0
+        },
+        {
+          "date": "2026-01-07",
+          "open": 16.040000915527344,
+          "high": 16.889999389648438,
+          "low": 16.030000686645508,
+          "close": 16.56999969482422,
+          "volume": 1017300.0
+        },
+        {
+          "date": "2026-01-08",
+          "open": 16.649999618530273,
+          "high": 16.989999771118164,
+          "low": 16.32200050354004,
+          "close": 16.440000534057617,
+          "volume": 820300.0
+        },
+        {
+          "date": "2026-01-09",
+          "open": 16.15999984741211,
+          "high": 16.280000686645508,
+          "low": 15.234999656677246,
+          "close": 15.40999984741211,
+          "volume": 979600.0
+        },
+        {
+          "date": "2026-01-12",
+          "open": 15.640000343322754,
+          "high": 16.139999389648438,
+          "low": 14.829999923706055,
+          "close": 16.1200008392334,
+          "volume": 1219500.0
+        },
+        {
+          "date": "2026-01-13",
+          "open": 16.31999969482422,
+          "high": 16.350000381469727,
+          "low": 15.600000381469727,
+          "close": 16.1299991607666,
+          "volume": 795700.0
+        },
+        {
+          "date": "2026-01-14",
+          "open": 16.100000381469727,
+          "high": 16.18000030517578,
+          "low": 15.15999984741211,
+          "close": 15.5,
+          "volume": 866500.0
+        },
+        {
+          "date": "2026-01-15",
+          "open": 15.579999923706055,
+          "high": 16.09000015258789,
+          "low": 15.229999542236328,
+          "close": 15.649999618530273,
+          "volume": 957200.0
+        },
+        {
+          "date": "2026-01-16",
+          "open": 15.670000076293945,
+          "high": 16.5,
+          "low": 15.449999809265137,
+          "close": 16.1200008392334,
+          "volume": 1355600.0
+        },
+        {
+          "date": "2026-01-20",
+          "open": 15.600000381469727,
+          "high": 15.880000114440918,
+          "low": 15.369999885559082,
+          "close": 15.739999771118164,
+          "volume": 920100.0
+        },
+        {
+          "date": "2026-01-21",
+          "open": 15.739999771118164,
+          "high": 15.859999656677246,
+          "low": 15.0,
+          "close": 15.630000114440918,
+          "volume": 1660400.0
+        },
+        {
+          "date": "2026-01-22",
+          "open": 15.760000228881836,
+          "high": 16.530000686645508,
+          "low": 15.510000228881836,
+          "close": 16.059999465942383,
+          "volume": 977000.0
+        },
+        {
+          "date": "2026-01-23",
+          "open": 16.260000228881836,
+          "high": 17.270000457763672,
+          "low": 16.2450008392334,
+          "close": 16.520000457763672,
+          "volume": 1376000.0
+        },
+        {
+          "date": "2026-01-26",
+          "open": 16.389999389648438,
+          "high": 16.860000610351562,
+          "low": 16.156999588012695,
+          "close": 16.350000381469727,
+          "volume": 875200.0
+        },
+        {
+          "date": "2026-01-27",
+          "open": 16.3700008392334,
+          "high": 16.538999557495117,
+          "low": 15.444999694824219,
+          "close": 16.290000915527344,
+          "volume": 1204100.0
+        },
+        {
+          "date": "2026-01-28",
+          "open": 16.459999084472656,
+          "high": 16.459999084472656,
+          "low": 15.3100004196167,
+          "close": 15.40999984741211,
+          "volume": 1051100.0
+        },
+        {
+          "date": "2026-01-29",
+          "open": 15.399999618530273,
+          "high": 15.491000175476074,
+          "low": 14.670000076293945,
+          "close": 15.039999961853027,
+          "volume": 1018200.0
+        },
+        {
+          "date": "2026-01-30",
+          "open": 14.920000076293945,
+          "high": 15.199999809265137,
+          "low": 14.65999984741211,
+          "close": 14.949999809265137,
+          "volume": 1064900.0
+        },
+        {
+          "date": "2026-02-02",
+          "open": 14.720000267028809,
+          "high": 15.079999923706055,
+          "low": 14.3100004196167,
+          "close": 14.859999656677246,
+          "volume": 1037900.0
+        },
+        {
+          "date": "2026-02-03",
+          "open": 14.859999656677246,
+          "high": 14.989999771118164,
+          "low": 13.024999618530273,
+          "close": 13.180000305175781,
+          "volume": 1797200.0
+        },
+        {
+          "date": "2026-02-04",
+          "open": 13.399999618530273,
+          "high": 13.755000114440918,
+          "low": 12.479999542236328,
+          "close": 13.510000228881836,
+          "volume": 1560200.0
+        },
+        {
+          "date": "2026-02-05",
+          "open": 13.279999732971191,
+          "high": 13.739999771118164,
+          "low": 11.869999885559082,
+          "close": 11.984999656677246,
+          "volume": 1120400.0
+        },
+        {
+          "date": "2026-02-06",
+          "open": 12.0,
+          "high": 12.300000190734863,
+          "low": 11.5,
+          "close": 11.649999618530273,
+          "volume": 1428100.0
+        },
+        {
+          "date": "2026-02-09",
+          "open": 11.760000228881836,
+          "high": 11.760000228881836,
+          "low": 10.699999809265137,
+          "close": 11.399999618530273,
+          "volume": 1477600.0
+        },
+        {
+          "date": "2026-02-10",
+          "open": 11.359999656677246,
+          "high": 11.65999984741211,
+          "low": 11.109999656677246,
+          "close": 11.329999923706055,
+          "volume": 1176500.0
+        },
+        {
+          "date": "2026-02-11",
+          "open": 12.050000190734863,
+          "high": 12.050000190734863,
+          "low": 10.279999732971191,
+          "close": 10.9399995803833,
+          "volume": 1766700.0
+        },
+        {
+          "date": "2026-02-12",
+          "open": 11.0,
+          "high": 11.449999809265137,
+          "low": 10.760000228881836,
+          "close": 11.229999542236328,
+          "volume": 1494900.0
+        },
+        {
+          "date": "2026-02-13",
+          "open": 11.270000457763672,
+          "high": 11.729999542236328,
+          "low": 11.0600004196167,
+          "close": 11.3100004196167,
+          "volume": 1099100.0
+        },
+        {
+          "date": "2026-02-17",
+          "open": 11.229999542236328,
+          "high": 11.920000076293945,
+          "low": 10.989999771118164,
+          "close": 11.460000038146973,
+          "volume": 1584600.0
+        },
+        {
+          "date": "2026-02-18",
+          "open": 11.489999771118164,
+          "high": 11.930000305175781,
+          "low": 11.15999984741211,
+          "close": 11.720000267028809,
+          "volume": 929600.0
+        },
+        {
+          "date": "2026-02-19",
+          "open": 11.569999694824219,
+          "high": 11.9399995803833,
+          "low": 11.395000457763672,
+          "close": 11.890000343322754,
+          "volume": 469800.0
+        },
+        {
+          "date": "2026-02-20",
+          "open": 11.899999618530273,
+          "high": 12.15999984741211,
+          "low": 11.609999656677246,
+          "close": 11.619999885559082,
+          "volume": 1329200.0
+        },
+        {
+          "date": "2026-02-23",
+          "open": 11.850000381469727,
+          "high": 11.989999771118164,
+          "low": 11.0,
+          "close": 11.170000076293945,
+          "volume": 1637100.0
+        },
+        {
+          "date": "2026-02-24",
+          "open": 11.180000305175781,
+          "high": 11.765000343322754,
+          "low": 11.130000114440918,
+          "close": 11.520000457763672,
+          "volume": 1450700.0
+        },
+        {
+          "date": "2026-02-25",
+          "open": 11.5,
+          "high": 12.128999710083008,
+          "low": 11.447999954223633,
+          "close": 11.949999809265137,
+          "volume": 1326500.0
+        },
+        {
+          "date": "2026-02-26",
+          "open": 12.09000015258789,
+          "high": 12.989999771118164,
+          "low": 11.9399995803833,
+          "close": 12.949999809265137,
+          "volume": 957600.0
+        },
+        {
+          "date": "2026-02-27",
+          "open": 12.670000076293945,
+          "high": 12.789999961853027,
+          "low": 12.09000015258789,
+          "close": 12.279999732971191,
+          "volume": 841600.0
+        },
+        {
+          "date": "2026-03-02",
+          "open": 11.979999542236328,
+          "high": 13.0,
+          "low": 11.920000076293945,
+          "close": 12.899999618530273,
+          "volume": 1285700.0
+        },
+        {
+          "date": "2026-03-03",
+          "open": 12.609999656677246,
+          "high": 13.329999923706055,
+          "low": 12.180000305175781,
+          "close": 13.0,
+          "volume": 1968300.0
+        },
+        {
+          "date": "2026-03-04",
+          "open": 13.039999961853027,
+          "high": 13.819999694824219,
+          "low": 12.859999656677246,
+          "close": 13.520000457763672,
+          "volume": 1423200.0
+        },
+        {
+          "date": "2026-03-05",
+          "open": 13.5,
+          "high": 14.154999732971191,
+          "low": 13.199999809265137,
+          "close": 13.600000381469727,
+          "volume": 2706700.0
+        },
+        {
+          "date": "2026-03-06",
+          "open": 13.609999656677246,
+          "high": 14.369999885559082,
+          "low": 12.862000465393066,
+          "close": 14.050000190734863,
+          "volume": 5386000.0
+        },
+        {
+          "date": "2026-03-09",
+          "open": 13.760000228881836,
+          "high": 15.020000457763672,
+          "low": 13.649999618530273,
+          "close": 14.390000343322754,
+          "volume": 3553000.0
+        },
+        {
+          "date": "2026-03-10",
+          "open": 14.359999656677246,
+          "high": 14.989999771118164,
+          "low": 13.789999961853027,
+          "close": 14.25,
+          "volume": 2652400.0
+        },
+        {
+          "date": "2026-03-11",
+          "open": 14.270000457763672,
+          "high": 14.289999961853027,
+          "low": 13.710000038146973,
+          "close": 13.739999771118164,
+          "volume": 1477800.0
+        },
+        {
+          "date": "2026-03-12",
+          "open": 13.699999809265137,
+          "high": 14.199999809265137,
+          "low": 13.670000076293945,
+          "close": 14.020000457763672,
+          "volume": 981300.0
+        },
+        {
+          "date": "2026-03-13",
+          "open": 13.9399995803833,
+          "high": 14.539999961853027,
+          "low": 13.800000190734863,
+          "close": 14.529999732971191,
+          "volume": 1155700.0
+        },
+        {
+          "date": "2026-03-16",
+          "open": 14.25,
+          "high": 14.944999694824219,
+          "low": 14.170000076293945,
+          "close": 14.800000190734863,
+          "volume": 2051600.0
+        },
+        {
+          "date": "2026-03-17",
+          "open": 14.779999732971191,
+          "high": 15.100000381469727,
+          "low": 14.569999694824219,
+          "close": 14.619999885559082,
+          "volume": 1353500.0
+        },
+        {
+          "date": "2026-03-18",
+          "open": 14.520000457763672,
+          "high": 14.520000457763672,
+          "low": 13.90999984741211,
+          "close": 14.109999656677246,
+          "volume": 1463800.0
+        },
+        {
+          "date": "2026-03-19",
+          "open": 14.09000015258789,
+          "high": 14.414999961853027,
+          "low": 13.829999923706055,
+          "close": 13.930000305175781,
+          "volume": 1136300.0
+        },
+        {
+          "date": "2026-03-20",
+          "open": 13.930000305175781,
+          "high": 13.989999771118164,
+          "low": 13.239999771118164,
+          "close": 13.510000228881836,
+          "volume": 4045000.0
+        },
+        {
+          "date": "2026-03-23",
+          "open": 13.569999694824219,
+          "high": 14.180000305175781,
+          "low": 13.479999542236328,
+          "close": 13.899999618530273,
+          "volume": 1140200.0
+        },
+        {
+          "date": "2026-03-24",
+          "open": 13.770000457763672,
+          "high": 13.930000305175781,
+          "low": 13.140000343322754,
+          "close": 13.399999618530273,
+          "volume": 1203100.0
+        },
+        {
+          "date": "2026-03-25",
+          "open": 13.569999694824219,
+          "high": 13.824999809265137,
+          "low": 12.704999923706055,
+          "close": 12.960000038146973,
+          "volume": 693000.0
+        },
+        {
+          "date": "2026-03-26",
+          "open": 12.800000190734863,
+          "high": 13.505000114440918,
+          "low": 12.729999542236328,
+          "close": 13.180000305175781,
+          "volume": 668500.0
+        },
+        {
+          "date": "2026-03-27",
+          "open": 13.0,
+          "high": 13.069999694824219,
+          "low": 11.779999732971191,
+          "close": 11.854999542236328,
+          "volume": 1204500.0
+        },
+        {
+          "date": "2026-03-30",
+          "open": 12.0600004196167,
+          "high": 12.335000038146973,
+          "low": 11.850000381469727,
+          "close": 12.045000076293945,
+          "volume": 835100.0
+        },
+        {
+          "date": "2026-03-31",
+          "open": 12.369999885559082,
+          "high": 12.899999618530273,
+          "low": 12.079999923706055,
+          "close": 12.569999694824219,
+          "volume": 1273000.0
+        },
+        {
+          "date": "2026-04-01",
+          "open": 12.670000076293945,
+          "high": 13.260000228881836,
+          "low": 12.460000038146973,
+          "close": 12.609999656677246,
+          "volume": 669200.0
+        },
+        {
+          "date": "2026-04-02",
+          "open": 12.319999694824219,
+          "high": 12.739999771118164,
+          "low": 11.720000267028809,
+          "close": 12.579999923706055,
+          "volume": 1036100.0
+        },
+        {
+          "date": "2026-04-06",
+          "open": 12.5600004196167,
+          "high": 12.9399995803833,
+          "low": 12.4350004196167,
+          "close": 12.579999923706055,
+          "volume": 583700.0
+        },
+        {
+          "date": "2026-04-07",
+          "open": 12.550000190734863,
+          "high": 12.760000228881836,
+          "low": 12.239999771118164,
+          "close": 12.399999618530273,
+          "volume": 509800.0
+        },
+        {
+          "date": "2026-04-08",
+          "open": 13.0,
+          "high": 13.14799976348877,
+          "low": 12.5,
+          "close": 12.529999732971191,
+          "volume": 580500.0
+        },
+        {
+          "date": "2026-04-09",
+          "open": 12.550000190734863,
+          "high": 12.550000190734863,
+          "low": 11.619999885559082,
+          "close": 11.979999542236328,
+          "volume": 553700.0
+        },
+        {
+          "date": "2026-04-10",
+          "open": 11.949999809265137,
+          "high": 11.989999771118164,
+          "low": 11.194999694824219,
+          "close": 11.40999984741211,
+          "volume": 541600.0
+        },
+        {
+          "date": "2026-04-13",
+          "open": 11.359999656677246,
+          "high": 12.15999984741211,
+          "low": 11.350000381469727,
+          "close": 12.119999885559082,
+          "volume": 851800.0
+        },
+        {
+          "date": "2026-04-14",
+          "open": 12.550000190734863,
+          "high": 13.14799976348877,
+          "low": 12.350000381469727,
+          "close": 12.460000038146973,
+          "volume": 641600.0
+        },
+        {
+          "date": "2026-04-15",
+          "open": 12.649999618530273,
+          "high": 13.220000267028809,
+          "low": 12.619999885559082,
+          "close": 13.119999885559082,
+          "volume": 816100.0
+        },
+        {
+          "date": "2026-04-16",
+          "open": 13.300000190734863,
+          "high": 13.640000343322754,
+          "low": 13.0600004196167,
+          "close": 13.369999885559082,
+          "volume": 936200.0
+        },
+        {
+          "date": "2026-04-17",
+          "open": 13.720000267028809,
+          "high": 14.149999618530273,
+          "low": 13.600000381469727,
+          "close": 14.140000343322754,
+          "volume": 1217700.0
+        },
+        {
+          "date": "2026-04-20",
+          "open": 13.970000267028809,
+          "high": 14.300000190734863,
+          "low": 13.899999618530273,
+          "close": 14.039999961853027,
+          "volume": 492900.0
+        },
+        {
+          "date": "2026-04-21",
+          "open": 14.0600004196167,
+          "high": 14.550000190734863,
+          "low": 13.930000305175781,
+          "close": 14.289999961853027,
+          "volume": 724500.0
+        },
+        {
+          "date": "2026-04-22",
+          "open": 14.380000114440918,
+          "high": 14.649999618530273,
+          "low": 14.234999656677246,
+          "close": 14.609999656677246,
+          "volume": 449800.0
+        },
+        {
+          "date": "2026-04-23",
+          "open": 14.029999732971191,
+          "high": 15.119999885559082,
+          "low": 13.880000114440918,
+          "close": 14.220000267028809,
+          "volume": 1280000.0
+        },
+        {
+          "date": "2026-04-24",
+          "open": 14.170000076293945,
+          "high": 14.40999984741211,
+          "low": 13.890000343322754,
+          "close": 14.329999923706055,
+          "volume": 481900.0
+        },
+        {
+          "date": "2026-04-27",
+          "open": 14.300000190734863,
+          "high": 14.975000381469727,
+          "low": 14.109999656677246,
+          "close": 14.720000267028809,
+          "volume": 644400.0
+        },
+        {
+          "date": "2026-04-28",
+          "open": 14.6899995803833,
+          "high": 15.0,
+          "low": 14.4399995803833,
+          "close": 14.59000015258789,
+          "volume": 772200.0
+        },
+        {
+          "date": "2026-04-29",
+          "open": 14.319999694824219,
+          "high": 14.369999885559082,
+          "low": 13.819999694824219,
+          "close": 14.149999618530273,
+          "volume": 458000.0
+        },
+        {
+          "date": "2026-04-30",
+          "open": 14.130000114440918,
+          "high": 14.720000267028809,
+          "low": 13.710000038146973,
+          "close": 14.579999923706055,
+          "volume": 740400.0
+        },
+        {
+          "date": "2026-05-01",
+          "open": 14.75,
+          "high": 15.649999618530273,
+          "low": 14.505000114440918,
+          "close": 15.289999961853027,
+          "volume": 1567300.0
+        },
+        {
+          "date": "2026-05-04",
+          "open": 15.220000267028809,
+          "high": 15.739999771118164,
+          "low": 15.220000267028809,
+          "close": 15.720000267028809,
+          "volume": 615449.0
+        }
+      ],
+      "indicators": {
+        "return_1d": 0.028123,
+        "sma20": 13.7035,
+        "sma50": 13.4118,
+        "macd_hist": 0.197142,
+        "rsi14": 68.017266,
+        "atr14": 0.779546,
+        "bb_upper": 16.101353,
+        "bb_lower": 11.305647,
+        "volume_sma20": 743792.45,
+        "high20": 15.74,
+        "low20": 11.195,
+        "slope20": 0.04557,
+        "obv": 4763849.0,
+        "cmf20": 0.185446,
+        "mfi14": 80.195021
+      }
     },
     {
-      "symbol": "AMZN",
+      "symbol": "USAR",
       "market": "US",
       "currency": "USD",
-      "date": "2026-05-06",
-      "close": 274.989990234375,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "GOOGL",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-06",
-      "close": 398.0400085449219,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "MCK",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-01",
-      "close": 814.02001953125,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "MCN",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-01",
-      "close": 6.019999980926514,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "MCO",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-01",
-      "close": 455.7699890136719,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "MCR",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-01",
-      "close": 6.039999961853027,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "MCRB",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-01",
-      "close": 7.610000133514404,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "MCRI",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-01",
-      "close": 117.62000274658203,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "MCRP",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-01",
-      "close": 2.7200000286102295,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "MCS",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-01",
-      "close": 17.579999923706055,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "MCTA",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-01",
-      "close": 29.354999542236328,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "MCW",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-01",
-      "close": 7.050000190734863,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "MCY",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-01",
-      "close": 96.2699966430664,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "MD",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-01",
-      "close": 22.75,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "MDA",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-01",
-      "close": 30.93000030517578,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "MDAI",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-01",
-      "close": 2.1500000953674316,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "MDB",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-01",
-      "close": 263.4599914550781,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "MDBH",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-01",
-      "close": 3.5850000381469727,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "MDCX",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-01",
-      "close": 0.2849999964237213,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "MDGL",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-01",
-      "close": 513.719970703125,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "MDIA",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-01",
-      "close": 0.8899999856948853,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "MDLN",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-01",
-      "close": 44.75,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "MDLZ",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-01",
-      "close": 61.369998931884766,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "MDRR",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-01",
-      "close": 11.413000106811523,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "MDT",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-01",
-      "close": 80.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "MDU",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-01",
-      "close": 22.600000381469727,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "MDV",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-01",
-      "close": 16.09000015258789,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "MDWD",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-01",
-      "close": 16.6299991607666,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "MDXG",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-01",
-      "close": 3.680000066757202,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "MDXH",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-01",
-      "close": 2.059999942779541,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "MEC",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-01",
-      "close": 22.239999771118164,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "MED",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-01",
-      "close": 10.90999984741211,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "MEDP",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-01",
-      "close": 417.5400085449219,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "MEGI",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-01",
-      "close": 15.5600004196167,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "MEGL",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-01",
-      "close": 1.1699999570846558,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "MEHA",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-01",
-      "close": 0.09600000083446503,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "MEI",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-01",
-      "close": 8.630000114440918,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "MELI",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-01",
-      "close": 1850.050048828125,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "MENS",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-01",
-      "close": 2.25,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "MEOH",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-01",
-      "close": 64.25,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "MERC",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-01",
-      "close": 1.149999976158142,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "MESH",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-01",
-      "close": 9.9399995803833,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "META",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-06",
-      "close": 612.8800048828125,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "MSFT",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-06",
-      "close": 413.9599914550781,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "NVDA",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-06",
-      "close": 207.8300018310547,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "OLN",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-04",
-      "close": 28.690000534057617,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "OLOX",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-04",
-      "close": 0.6032999753952026,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "OLP",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-04",
-      "close": 22.6200008392334,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "OLPX",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-04",
-      "close": 2.0299999713897705,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "OM",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-04",
-      "close": 4.329999923706055,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "OMC",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-04",
-      "close": 76.2699966430664,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "OMCL",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-04",
-      "close": 43.439998626708984,
-      "source": "yfinance"
-    },
+      "quantity": 285.0,
+      "avg_cost": 28.6,
+      "last_price": 28.6,
+      "unrealized_pnl": 0.0,
+      "unrealized_pct": 0.0,
+      "cost_value": 8151.0,
+      "market_value": 8151.0,
+      "day_change": 1.18,
+      "day_change_pct": 0.043034,
+      "last_date": "2026-05-06",
+      "candles": [
+        {
+          "date": "2025-11-12",
+          "open": 17.72800064086914,
+          "high": 18.56100082397461,
+          "low": 16.43000030517578,
+          "close": 16.920000076293945,
+          "volume": 9221100.0
+        },
+        {
+          "date": "2025-11-13",
+          "open": 16.799999237060547,
+          "high": 17.136999130249023,
+          "low": 14.680000305175781,
+          "close": 14.850000381469727,
+          "volume": 9650200.0
+        },
+        {
+          "date": "2025-11-14",
+          "open": 14.300000190734863,
+          "high": 15.0600004196167,
+          "low": 13.930000305175781,
+          "close": 14.489999771118164,
+          "volume": 9428200.0
+        },
+        {
+          "date": "2025-11-17",
+          "open": 14.510000228881836,
+          "high": 14.9399995803833,
+          "low": 14.100000381469727,
+          "close": 14.449999809265137,
+          "volume": 6335500.0
+        },
+        {
+          "date": "2025-11-18",
+          "open": 14.119999885559082,
+          "high": 15.699999809265137,
+          "low": 14.100000381469727,
+          "close": 15.260000228881836,
+          "volume": 6333900.0
+        },
+        {
+          "date": "2025-11-19",
+          "open": 15.479999542236328,
+          "high": 15.75,
+          "low": 14.180000305175781,
+          "close": 14.300000190734863,
+          "volume": 10414300.0
+        },
+        {
+          "date": "2025-11-20",
+          "open": 14.210000038146973,
+          "high": 14.680000305175781,
+          "low": 12.1899995803833,
+          "close": 12.199999809265137,
+          "volume": 14231500.0
+        },
+        {
+          "date": "2025-11-21",
+          "open": 12.194999694824219,
+          "high": 12.359999656677246,
+          "low": 11.541000366210938,
+          "close": 12.239999771118164,
+          "volume": 10350000.0
+        },
+        {
+          "date": "2025-11-24",
+          "open": 12.399999618530273,
+          "high": 12.520000457763672,
+          "low": 12.050000190734863,
+          "close": 12.369999885559082,
+          "volume": 7793600.0
+        },
+        {
+          "date": "2025-11-25",
+          "open": 12.020000457763672,
+          "high": 12.270000457763672,
+          "low": 11.449999809265137,
+          "close": 12.100000381469727,
+          "volume": 6037900.0
+        },
+        {
+          "date": "2025-11-26",
+          "open": 12.140000343322754,
+          "high": 12.600000381469727,
+          "low": 12.0600004196167,
+          "close": 12.430000305175781,
+          "volume": 6892000.0
+        },
+        {
+          "date": "2025-11-28",
+          "open": 12.75,
+          "high": 13.609999656677246,
+          "low": 12.640000343322754,
+          "close": 13.449999809265137,
+          "volume": 6430300.0
+        },
+        {
+          "date": "2025-12-01",
+          "open": 13.359999656677246,
+          "high": 13.378999710083008,
+          "low": 12.510000228881836,
+          "close": 12.59000015258789,
+          "volume": 7911100.0
+        },
+        {
+          "date": "2025-12-02",
+          "open": 12.680000305175781,
+          "high": 13.979999542236328,
+          "low": 12.65999984741211,
+          "close": 13.640000343322754,
+          "volume": 9494600.0
+        },
+        {
+          "date": "2025-12-03",
+          "open": 13.489999771118164,
+          "high": 14.244999885559082,
+          "low": 13.09000015258789,
+          "close": 14.020000457763672,
+          "volume": 7091200.0
+        },
+        {
+          "date": "2025-12-04",
+          "open": 14.050000190734863,
+          "high": 17.729999542236328,
+          "low": 13.9399995803833,
+          "close": 17.479999542236328,
+          "volume": 23356200.0
+        },
+        {
+          "date": "2025-12-05",
+          "open": 16.479999542236328,
+          "high": 17.799999237060547,
+          "low": 16.479999542236328,
+          "close": 17.219999313354492,
+          "volume": 14110800.0
+        },
+        {
+          "date": "2025-12-08",
+          "open": 17.510000228881836,
+          "high": 17.8799991607666,
+          "low": 16.229999542236328,
+          "close": 17.1200008392334,
+          "volume": 10506700.0
+        },
+        {
+          "date": "2025-12-09",
+          "open": 16.7549991607666,
+          "high": 17.739999771118164,
+          "low": 16.239999771118164,
+          "close": 17.510000228881836,
+          "volume": 7773200.0
+        },
+        {
+          "date": "2025-12-10",
+          "open": 18.069000244140625,
+          "high": 18.309999465942383,
+          "low": 16.459999084472656,
+          "close": 16.739999771118164,
+          "volume": 10989700.0
+        },
+        {
+          "date": "2025-12-11",
+          "open": 16.309999465942383,
+          "high": 18.899999618530273,
+          "low": 16.121999740600586,
+          "close": 18.770000457763672,
+          "volume": 11862800.0
+        },
+        {
+          "date": "2025-12-12",
+          "open": 18.520000457763672,
+          "high": 19.020000457763672,
+          "low": 16.979999542236328,
+          "close": 17.040000915527344,
+          "volume": 9207300.0
+        },
+        {
+          "date": "2025-12-15",
+          "open": 17.010000228881836,
+          "high": 17.43000030517578,
+          "low": 14.779999732971191,
+          "close": 14.869999885559082,
+          "volume": 9610100.0
+        },
+        {
+          "date": "2025-12-16",
+          "open": 14.734999656677246,
+          "high": 15.34000015258789,
+          "low": 14.600000381469727,
+          "close": 15.0,
+          "volume": 6274600.0
+        },
+        {
+          "date": "2025-12-17",
+          "open": 14.885000228881836,
+          "high": 15.6850004196167,
+          "low": 13.5,
+          "close": 13.5600004196167,
+          "volume": 7721300.0
+        },
+        {
+          "date": "2025-12-18",
+          "open": 13.739999771118164,
+          "high": 14.696999549865723,
+          "low": 13.241999626159668,
+          "close": 13.515000343322754,
+          "volume": 7626700.0
+        },
+        {
+          "date": "2025-12-19",
+          "open": 13.3100004196167,
+          "high": 14.020000457763672,
+          "low": 13.300000190734863,
+          "close": 13.84000015258789,
+          "volume": 23836200.0
+        },
+        {
+          "date": "2025-12-22",
+          "open": 14.1850004196167,
+          "high": 14.800000190734863,
+          "low": 13.880000114440918,
+          "close": 14.039999961853027,
+          "volume": 6935600.0
+        },
+        {
+          "date": "2025-12-23",
+          "open": 13.970000267028809,
+          "high": 14.699999809265137,
+          "low": 13.680000305175781,
+          "close": 14.109999656677246,
+          "volume": 7646600.0
+        },
+        {
+          "date": "2025-12-24",
+          "open": 14.0,
+          "high": 14.670000076293945,
+          "low": 13.8100004196167,
+          "close": 14.529999732971191,
+          "volume": 3553300.0
+        },
+        {
+          "date": "2025-12-26",
+          "open": 14.479999542236328,
+          "high": 14.520000457763672,
+          "low": 13.0,
+          "close": 13.510000228881836,
+          "volume": 8069900.0
+        },
+        {
+          "date": "2025-12-29",
+          "open": 13.149999618530273,
+          "high": 13.630000114440918,
+          "low": 12.604999542236328,
+          "close": 12.699999809265137,
+          "volume": 6666100.0
+        },
+        {
+          "date": "2025-12-30",
+          "open": 12.680000305175781,
+          "high": 12.739999771118164,
+          "low": 12.069999694824219,
+          "close": 12.130000114440918,
+          "volume": 6886800.0
+        },
+        {
+          "date": "2025-12-31",
+          "open": 12.130000114440918,
+          "high": 12.25,
+          "low": 11.725000381469727,
+          "close": 11.899999618530273,
+          "volume": 7623200.0
+        },
+        {
+          "date": "2026-01-02",
+          "open": 12.279999732971191,
+          "high": 14.40999984741211,
+          "low": 12.170000076293945,
+          "close": 14.149999618530273,
+          "volume": 11394900.0
+        },
+        {
+          "date": "2026-01-05",
+          "open": 14.5,
+          "high": 16.138999938964844,
+          "low": 14.34000015258789,
+          "close": 15.800000190734863,
+          "volume": 11796300.0
+        },
+        {
+          "date": "2026-01-06",
+          "open": 16.399999618530273,
+          "high": 18.207000732421875,
+          "low": 16.09000015258789,
+          "close": 17.520000457763672,
+          "volume": 17567100.0
+        },
+        {
+          "date": "2026-01-07",
+          "open": 17.079999923706055,
+          "high": 18.40999984741211,
+          "low": 16.889999389648438,
+          "close": 17.190000534057617,
+          "volume": 12573700.0
+        },
+        {
+          "date": "2026-01-08",
+          "open": 16.739999771118164,
+          "high": 17.6200008392334,
+          "low": 16.260000228881836,
+          "close": 16.729999542236328,
+          "volume": 7156500.0
+        },
+        {
+          "date": "2026-01-09",
+          "open": 17.190000534057617,
+          "high": 18.010000228881836,
+          "low": 16.639999389648438,
+          "close": 17.280000686645508,
+          "volume": 11013700.0
+        },
+        {
+          "date": "2026-01-12",
+          "open": 17.670000076293945,
+          "high": 18.149999618530273,
+          "low": 16.719999313354492,
+          "close": 17.739999771118164,
+          "volume": 11991800.0
+        },
+        {
+          "date": "2026-01-13",
+          "open": 18.3700008392334,
+          "high": 19.18000030517578,
+          "low": 16.350000381469727,
+          "close": 16.670000076293945,
+          "volume": 14604500.0
+        },
+        {
+          "date": "2026-01-14",
+          "open": 16.670000076293945,
+          "high": 18.469999313354492,
+          "low": 15.732000350952148,
+          "close": 18.280000686645508,
+          "volume": 16068000.0
+        },
+        {
+          "date": "2026-01-15",
+          "open": 17.690000534057617,
+          "high": 17.761999130249023,
+          "low": 16.65999984741211,
+          "close": 16.790000915527344,
+          "volume": 11331700.0
+        },
+        {
+          "date": "2026-01-16",
+          "open": 16.920000076293945,
+          "high": 17.799999237060547,
+          "low": 16.049999237060547,
+          "close": 17.690000534057617,
+          "volume": 9708300.0
+        },
+        {
+          "date": "2026-01-20",
+          "open": 18.027999877929688,
+          "high": 20.268999099731445,
+          "low": 17.8700008392334,
+          "close": 19.200000762939453,
+          "volume": 22785800.0
+        },
+        {
+          "date": "2026-01-21",
+          "open": 19.899999618530273,
+          "high": 21.638999938964844,
+          "low": 17.780000686645508,
+          "close": 19.329999923706055,
+          "volume": 24234500.0
+        },
+        {
+          "date": "2026-01-22",
+          "open": 19.969999313354492,
+          "high": 23.850000381469727,
+          "low": 19.920000076293945,
+          "close": 22.709999084472656,
+          "volume": 30961600.0
+        },
+        {
+          "date": "2026-01-23",
+          "open": 23.6200008392334,
+          "high": 25.270000457763672,
+          "low": 21.8799991607666,
+          "close": 24.770000457763672,
+          "volume": 26609900.0
+        },
+        {
+          "date": "2026-01-26",
+          "open": 30.559999465942383,
+          "high": 32.06999969482422,
+          "low": 25.799999237060547,
+          "close": 26.719999313354492,
+          "volume": 122598300.0
+        },
+        {
+          "date": "2026-01-27",
+          "open": 27.0,
+          "high": 29.690000534057617,
+          "low": 24.770000457763672,
+          "close": 26.350000381469727,
+          "volume": 49427400.0
+        },
+        {
+          "date": "2026-01-28",
+          "open": 26.420000076293945,
+          "high": 26.420000076293945,
+          "low": 23.989999771118164,
+          "close": 25.18000030517578,
+          "volume": 37193200.0
+        },
+        {
+          "date": "2026-01-29",
+          "open": 22.709999084472656,
+          "high": 22.8700008392334,
+          "low": 21.030000686645508,
+          "close": 22.06999969482422,
+          "volume": 41577000.0
+        },
+        {
+          "date": "2026-01-30",
+          "open": 22.860000610351562,
+          "high": 24.729999542236328,
+          "low": 22.219999313354492,
+          "close": 22.420000076293945,
+          "volume": 29838100.0
+        },
+        {
+          "date": "2026-02-02",
+          "open": 24.2450008392334,
+          "high": 26.020000457763672,
+          "low": 21.790000915527344,
+          "close": 22.110000610351562,
+          "volume": 48633500.0
+        },
+        {
+          "date": "2026-02-03",
+          "open": 23.584999084472656,
+          "high": 26.360000610351562,
+          "low": 23.290000915527344,
+          "close": 25.969999313354492,
+          "volume": 51895800.0
+        },
+        {
+          "date": "2026-02-04",
+          "open": 26.09000015258789,
+          "high": 26.200000762939453,
+          "low": 22.065000534057617,
+          "close": 23.530000686645508,
+          "volume": 34313800.0
+        },
+        {
+          "date": "2026-02-05",
+          "open": 22.530000686645508,
+          "high": 23.190000534057617,
+          "low": 20.454999923706055,
+          "close": 20.600000381469727,
+          "volume": 21439600.0
+        },
+        {
+          "date": "2026-02-06",
+          "open": 21.440000534057617,
+          "high": 21.989999771118164,
+          "low": 20.5049991607666,
+          "close": 21.84000015258789,
+          "volume": 17289800.0
+        },
+        {
+          "date": "2026-02-09",
+          "open": 21.489999771118164,
+          "high": 23.59000015258789,
+          "low": 20.75,
+          "close": 23.440000534057617,
+          "volume": 12873200.0
+        },
+        {
+          "date": "2026-02-10",
+          "open": 23.15999984741211,
+          "high": 23.739999771118164,
+          "low": 21.739999771118164,
+          "close": 21.8799991607666,
+          "volume": 10085600.0
+        },
+        {
+          "date": "2026-02-11",
+          "open": 22.610000610351562,
+          "high": 22.850000381469727,
+          "low": 20.549999237060547,
+          "close": 21.770000457763672,
+          "volume": 12335400.0
+        },
+        {
+          "date": "2026-02-12",
+          "open": 21.209999084472656,
+          "high": 21.25,
+          "low": 18.690000534057617,
+          "close": 19.079999923706055,
+          "volume": 31336500.0
+        },
+        {
+          "date": "2026-02-13",
+          "open": 19.450000762939453,
+          "high": 19.979999542236328,
+          "low": 18.704999923706055,
+          "close": 19.395000457763672,
+          "volume": 12602500.0
+        },
+        {
+          "date": "2026-02-17",
+          "open": 19.25,
+          "high": 19.540000915527344,
+          "low": 18.420000076293945,
+          "close": 19.020000457763672,
+          "volume": 15183900.0
+        },
+        {
+          "date": "2026-02-18",
+          "open": 19.075000762939453,
+          "high": 19.329999923706055,
+          "low": 18.190000534057617,
+          "close": 18.200000762939453,
+          "volume": 12387100.0
+        },
+        {
+          "date": "2026-02-19",
+          "open": 18.09000015258789,
+          "high": 18.440000534057617,
+          "low": 17.329999923706055,
+          "close": 18.389999389648438,
+          "volume": 19583400.0
+        },
+        {
+          "date": "2026-02-20",
+          "open": 17.90999984741211,
+          "high": 18.28499984741211,
+          "low": 16.81999969482422,
+          "close": 17.229999542236328,
+          "volume": 13472400.0
+        },
+        {
+          "date": "2026-02-23",
+          "open": 16.93000030517578,
+          "high": 18.93000030517578,
+          "low": 16.84000015258789,
+          "close": 18.790000915527344,
+          "volume": 14887700.0
+        },
+        {
+          "date": "2026-02-24",
+          "open": 18.2549991607666,
+          "high": 20.549999237060547,
+          "low": 18.110000610351562,
+          "close": 20.389999389648438,
+          "volume": 16687700.0
+        },
+        {
+          "date": "2026-02-25",
+          "open": 20.530000686645508,
+          "high": 20.75,
+          "low": 19.760000228881836,
+          "close": 20.079999923706055,
+          "volume": 11029100.0
+        },
+        {
+          "date": "2026-02-26",
+          "open": 19.90999984741211,
+          "high": 20.469999313354492,
+          "low": 19.459999084472656,
+          "close": 20.1299991607666,
+          "volume": 11556000.0
+        },
+        {
+          "date": "2026-02-27",
+          "open": 19.690000534057617,
+          "high": 19.700000762939453,
+          "low": 18.485000610351562,
+          "close": 18.899999618530273,
+          "volume": 10920600.0
+        },
+        {
+          "date": "2026-03-02",
+          "open": 18.440000534057617,
+          "high": 21.059999465942383,
+          "low": 18.3700008392334,
+          "close": 20.8700008392334,
+          "volume": 13759600.0
+        },
+        {
+          "date": "2026-03-03",
+          "open": 19.59000015258789,
+          "high": 20.40999984741211,
+          "low": 19.079999923706055,
+          "close": 19.420000076293945,
+          "volume": 10243700.0
+        },
+        {
+          "date": "2026-03-04",
+          "open": 19.75,
+          "high": 19.899999618530273,
+          "low": 18.739999771118164,
+          "close": 18.90999984741211,
+          "volume": 9629400.0
+        },
+        {
+          "date": "2026-03-05",
+          "open": 19.079999923706055,
+          "high": 19.700000762939453,
+          "low": 18.40999984741211,
+          "close": 19.100000381469727,
+          "volume": 10233000.0
+        },
+        {
+          "date": "2026-03-06",
+          "open": 18.510000228881836,
+          "high": 19.290000915527344,
+          "low": 17.440000534057617,
+          "close": 17.450000762939453,
+          "volume": 14107600.0
+        },
+        {
+          "date": "2026-03-09",
+          "open": 17.329999923706055,
+          "high": 18.90999984741211,
+          "low": 17.110000610351562,
+          "close": 18.709999084472656,
+          "volume": 11393200.0
+        },
+        {
+          "date": "2026-03-10",
+          "open": 18.729999542236328,
+          "high": 20.839000701904297,
+          "low": 18.700000762939453,
+          "close": 20.450000762939453,
+          "volume": 16666600.0
+        },
+        {
+          "date": "2026-03-11",
+          "open": 20.385000228881836,
+          "high": 21.44499969482422,
+          "low": 20.170000076293945,
+          "close": 21.09000015258789,
+          "volume": 13560300.0
+        },
+        {
+          "date": "2026-03-12",
+          "open": 20.5,
+          "high": 20.584999084472656,
+          "low": 19.40999984741211,
+          "close": 19.75,
+          "volume": 10667300.0
+        },
+        {
+          "date": "2026-03-13",
+          "open": 20.059999465942383,
+          "high": 20.579999923706055,
+          "low": 19.125,
+          "close": 19.459999084472656,
+          "volume": 11460500.0
+        },
+        {
+          "date": "2026-03-16",
+          "open": 19.780000686645508,
+          "high": 20.579999923706055,
+          "low": 18.833999633789062,
+          "close": 19.489999771118164,
+          "volume": 12629100.0
+        },
+        {
+          "date": "2026-03-17",
+          "open": 19.239999771118164,
+          "high": 20.200000762939453,
+          "low": 19.110000610351562,
+          "close": 19.68000030517578,
+          "volume": 9665500.0
+        },
+        {
+          "date": "2026-03-18",
+          "open": 19.389999389648438,
+          "high": 19.690000534057617,
+          "low": 18.354999542236328,
+          "close": 18.399999618530273,
+          "volume": 12070800.0
+        },
+        {
+          "date": "2026-03-19",
+          "open": 17.81999969482422,
+          "high": 18.1299991607666,
+          "low": 17.280000686645508,
+          "close": 17.809999465942383,
+          "volume": 11399700.0
+        },
+        {
+          "date": "2026-03-20",
+          "open": 18.0,
+          "high": 18.0,
+          "low": 15.800000190734863,
+          "close": 16.239999771118164,
+          "volume": 33930800.0
+        },
+        {
+          "date": "2026-03-23",
+          "open": 16.969999313354492,
+          "high": 17.719999313354492,
+          "low": 16.40999984741211,
+          "close": 17.389999389648438,
+          "volume": 13864600.0
+        },
+        {
+          "date": "2026-03-24",
+          "open": 17.079999923706055,
+          "high": 17.329999923706055,
+          "low": 16.25,
+          "close": 16.600000381469727,
+          "volume": 11320200.0
+        },
+        {
+          "date": "2026-03-25",
+          "open": 17.110000610351562,
+          "high": 17.600000381469727,
+          "low": 16.440000534057617,
+          "close": 16.639999389648438,
+          "volume": 9433600.0
+        },
+        {
+          "date": "2026-03-26",
+          "open": 16.299999237060547,
+          "high": 16.59000015258789,
+          "low": 15.789999961853027,
+          "close": 16.0,
+          "volume": 9831900.0
+        },
+        {
+          "date": "2026-03-27",
+          "open": 15.75,
+          "high": 15.949999809265137,
+          "low": 15.050000190734863,
+          "close": 15.420000076293945,
+          "volume": 8794600.0
+        },
+        {
+          "date": "2026-03-30",
+          "open": 15.6850004196167,
+          "high": 15.975000381469727,
+          "low": 13.864999771118164,
+          "close": 14.229999542236328,
+          "volume": 12335200.0
+        },
+        {
+          "date": "2026-03-31",
+          "open": 14.635000228881836,
+          "high": 15.220000267028809,
+          "low": 14.369999885559082,
+          "close": 15.135000228881836,
+          "volume": 13255300.0
+        },
+        {
+          "date": "2026-04-01",
+          "open": 15.664999961853027,
+          "high": 15.890000343322754,
+          "low": 14.640000343322754,
+          "close": 14.800000190734863,
+          "volume": 11561400.0
+        },
+        {
+          "date": "2026-04-02",
+          "open": 14.175000190734863,
+          "high": 16.329999923706055,
+          "low": 14.069999694824219,
+          "close": 15.920000076293945,
+          "volume": 13202100.0
+        },
+        {
+          "date": "2026-04-06",
+          "open": 15.711999893188477,
+          "high": 16.15999984741211,
+          "low": 15.079999923706055,
+          "close": 15.279999732971191,
+          "volume": 8365100.0
+        },
+        {
+          "date": "2026-04-07",
+          "open": 15.289999961853027,
+          "high": 15.34000015258789,
+          "low": 14.220000267028809,
+          "close": 14.640000343322754,
+          "volume": 12768100.0
+        },
+        {
+          "date": "2026-04-08",
+          "open": 16.010000228881836,
+          "high": 16.979999542236328,
+          "low": 15.960000038146973,
+          "close": 16.780000686645508,
+          "volume": 15427800.0
+        },
+        {
+          "date": "2026-04-09",
+          "open": 16.3799991607666,
+          "high": 17.165000915527344,
+          "low": 16.05500030517578,
+          "close": 16.719999313354492,
+          "volume": 8693800.0
+        },
+        {
+          "date": "2026-04-10",
+          "open": 17.170000076293945,
+          "high": 18.149999618530273,
+          "low": 16.1200008392334,
+          "close": 16.149999618530273,
+          "volume": 12676700.0
+        },
+        {
+          "date": "2026-04-13",
+          "open": 15.710000038146973,
+          "high": 17.049999237060547,
+          "low": 15.470000267028809,
+          "close": 16.790000915527344,
+          "volume": 9800100.0
+        },
+        {
+          "date": "2026-04-14",
+          "open": 17.3799991607666,
+          "high": 17.790000915527344,
+          "low": 16.475000381469727,
+          "close": 16.989999771118164,
+          "volume": 8427700.0
+        },
+        {
+          "date": "2026-04-15",
+          "open": 17.329999923706055,
+          "high": 18.770000457763672,
+          "low": 17.200000762939453,
+          "close": 18.350000381469727,
+          "volume": 14991700.0
+        },
+        {
+          "date": "2026-04-16",
+          "open": 18.709999084472656,
+          "high": 18.799999237060547,
+          "low": 17.8700008392334,
+          "close": 18.43000030517578,
+          "volume": 10142400.0
+        },
+        {
+          "date": "2026-04-17",
+          "open": 19.6200008392334,
+          "high": 20.8799991607666,
+          "low": 19.219999313354492,
+          "close": 19.950000762939453,
+          "volume": 19893800.0
+        },
+        {
+          "date": "2026-04-20",
+          "open": 21.399999618530273,
+          "high": 23.690000534057617,
+          "low": 21.270000457763672,
+          "close": 22.579999923706055,
+          "volume": 43419500.0
+        },
+        {
+          "date": "2026-04-21",
+          "open": 22.260000228881836,
+          "high": 24.299999237060547,
+          "low": 22.010000228881836,
+          "close": 22.850000381469727,
+          "volume": 27923100.0
+        },
+        {
+          "date": "2026-04-22",
+          "open": 24.18000030517578,
+          "high": 25.950000762939453,
+          "low": 24.15999984741211,
+          "close": 25.40999984741211,
+          "volume": 30052300.0
+        },
+        {
+          "date": "2026-04-23",
+          "open": 24.979999542236328,
+          "high": 25.350000381469727,
+          "low": 22.315000534057617,
+          "close": 23.09000015258789,
+          "volume": 19730800.0
+        },
+        {
+          "date": "2026-04-24",
+          "open": 24.049999237060547,
+          "high": 24.06999969482422,
+          "low": 21.635000228881836,
+          "close": 21.860000610351562,
+          "volume": 15244700.0
+        },
+        {
+          "date": "2026-04-27",
+          "open": 21.73699951171875,
+          "high": 23.770000457763672,
+          "low": 21.639999389648438,
+          "close": 23.510000228881836,
+          "volume": 18612500.0
+        },
+        {
+          "date": "2026-04-28",
+          "open": 22.559999465942383,
+          "high": 23.420000076293945,
+          "low": 21.649999618530273,
+          "close": 22.770000457763672,
+          "volume": 14986000.0
+        },
+        {
+          "date": "2026-04-29",
+          "open": 23.0,
+          "high": 23.09000015258789,
+          "low": 21.459999084472656,
+          "close": 22.030000686645508,
+          "volume": 12720900.0
+        },
+        {
+          "date": "2026-04-30",
+          "open": 22.6299991607666,
+          "high": 26.020000457763672,
+          "low": 22.575000762939453,
+          "close": 25.969999313354492,
+          "volume": 30361900.0
+        },
+        {
+          "date": "2026-05-01",
+          "open": 25.440000534057617,
+          "high": 26.719999313354492,
+          "low": 24.049999237060547,
+          "close": 26.329999923706055,
+          "volume": 24643100.0
+        },
+        {
+          "date": "2026-05-04",
+          "open": 27.235000610351562,
+          "high": 27.31999969482422,
+          "low": 25.389999389648438,
+          "close": 25.579999923706055,
+          "volume": 19879400.0
+        },
+        {
+          "date": "2026-05-05",
+          "open": 26.100000381469727,
+          "high": 27.649999618530273,
+          "low": 24.790000915527344,
+          "close": 27.420000076293945,
+          "volume": 24243900.0
+        },
+        {
+          "date": "2026-05-06",
+          "open": 27.559999465942383,
+          "high": 28.689699172973633,
+          "low": 26.739999771118164,
+          "close": 28.600000381469727,
+          "volume": 17227545.0
+        }
+      ],
+      "indicators": {
+        "return_1d": 0.043034,
+        "sma20": 22.069,
+        "sma50": 19.5231,
+        "macd_hist": 0.642077,
+        "rsi14": 70.178236,
+        "atr14": 2.175425,
+        "bb_upper": 29.767954,
+        "bb_lower": 14.370046,
+        "volume_sma20": 19183592.25,
+        "high20": 28.689699,
+        "low20": 15.47,
+        "slope20": 0.146739,
+        "obv": 231951345.0,
+        "cmf20": 0.177168,
+        "mfi14": 81.352792
+      }
+    }
+  ],
+  "traded_quotes": [
     {
       "symbol": "OMDA",
       "market": "US",
       "currency": "USD",
       "date": "2026-05-04",
       "close": 15.720000267028809,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "OMER",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-04",
-      "close": 14.90999984741211,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "OMEX",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-04",
-      "close": 1.149999976158142,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "OMF",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-04",
-      "close": 55.189998626708984,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "OMH",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-04",
-      "close": 1.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "OMSE",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-04",
-      "close": 4.670000076293945,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "ON",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-04",
-      "close": 102.04000091552734,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "ONB",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-04",
-      "close": 23.780000686645508,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "ONCO",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-04",
-      "close": 0.6468999981880188,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "ONCY",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-04",
-      "close": 0.9276000261306763,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "ONDS",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-04",
-      "close": 9.729999542236328,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "ONEG",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-04",
-      "close": 8.8100004196167,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "ONEW",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-04",
-      "close": 10.210000038146973,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "ONFO",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-04",
-      "close": 1.149999976158142,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "ONIT",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-04",
-      "close": 47.290000915527344,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "ONL",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-04",
-      "close": 2.869999885559082,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "ONMD",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-04",
-      "close": 1.0499999523162842,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "ONON",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-04",
-      "close": 34.290000915527344,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "ONT",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-04",
-      "close": 21.329999923706055,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "ONTO",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-04",
-      "close": 299.54998779296875,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "OOMA",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-04",
-      "close": 17.899999618530273,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "OPAD",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-04",
-      "close": 0.6800000071525574,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "OPAL",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-04",
-      "close": 2.180000066757202,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "OPBK",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-04",
-      "close": 14.369999885559082,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "OPCH",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-04",
-      "close": 21.139999389648438,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "OPEN",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-04",
-      "close": 5.130000114440918,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "OPFI",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-04",
-      "close": 9.670000076293945,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "OPHC",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-04",
-      "close": 5.5,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "OPK",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-04",
-      "close": 1.1100000143051147,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "OPLN",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-04",
-      "close": 32.060001373291016,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "OPRT",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-04",
-      "close": 5.699999809265137,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "OPRX",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-04",
-      "close": 6.769999980926514,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "OPTT",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-04",
-      "close": 0.35499998927116394,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "OPTU",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-05",
-      "close": 1.4199999570846558,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "OPTX",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-05",
-      "close": 7.679999828338623,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "OPXS",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-05",
-      "close": 10.914999961853027,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "OPY",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-05",
-      "close": 99.37000274658203,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "OR",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-05",
-      "close": 36.09000015258789,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "ORA",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-05",
-      "close": 115.33999633789062,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "ORBS",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-05",
-      "close": 0.7950999736785889,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "ORC",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-05",
-      "close": 6.929999828338623,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "ORCL",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-05",
-      "close": 185.35000610351562,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "ORGN",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-05",
-      "close": 1.5299999713897705,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "ORGO",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-05",
-      "close": 2.5899999141693115,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "ORI",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-05",
-      "close": 39.25,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "ORIC",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-05",
-      "close": 9.569999694824219,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "ORIO",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-05",
-      "close": 1.0299999713897705,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "ORIQ",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-04",
-      "close": 10.239999771118164,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "ORIS",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-05",
-      "close": 0.4699999988079071,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "ORKA",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-05",
-      "close": 68.94999694824219,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "ORKT",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-05",
-      "close": 1.0299999713897705,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "ORLA",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-05",
-      "close": 13.430000305175781,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "ORLY",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-05",
-      "close": 95.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "ORMP",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-05",
-      "close": 3.9800000190734863,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "ORN",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-05",
-      "close": 15.460000038146973,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "ORRF",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-05",
-      "close": 36.900001525878906,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "OSBC",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-05",
-      "close": 20.959999084472656,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "OSCR",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-05",
-      "close": 17.940000534057617,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "OSG",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-05",
-      "close": 4.380000114440918,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "OSIS",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-05",
-      "close": 234.74000549316406,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "OSK",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-05",
-      "close": 153.27000427246094,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "OSPN",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-05",
-      "close": 11.949999809265137,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "OSRH",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-05",
-      "close": 0.5181000232696533,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "OSS",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-05",
-      "close": 9.770000457763672,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "OST",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-04",
-      "close": 1.6950000524520874,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "OSTX",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-05",
-      "close": 1.7300000190734863,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "OSUR",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-05",
-      "close": 3.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "OSW",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-05",
-      "close": 24.040000915527344,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "OTEX",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-05",
-      "close": 23.479999542236328,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "OTF",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-05",
-      "close": 11.630000114440918,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "OTH",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-05",
-      "close": 2.6600000858306885,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "OTIS",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-05",
-      "close": 75.62000274658203,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "OTLK",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-05",
-      "close": 0.24169999361038208,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "QQQ",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-06",
-      "close": 695.77001953125,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "SPY",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-06",
-      "close": 733.8300170898438,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "TSLA",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-06",
-      "close": 398.7300109863281,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "UPXI",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-06",
-      "close": 1.399999976158142,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "URBN",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-06",
-      "close": 71.62000274658203,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "URG",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-06",
-      "close": 1.850000023841858,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "URGN",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-06",
-      "close": 26.25,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "UROY",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-06",
-      "close": 4.110000133514404,
-      "source": "yfinance"
+      "prev_close": 15.289999961853027,
+      "change": 0.43,
+      "change_pct": 0.028123,
+      "source": "yfinance",
+      "candles": [
+        {
+          "date": "2025-12-23",
+          "open": 15.614999771118164,
+          "high": 15.614999771118164,
+          "low": 15.010000228881836,
+          "close": 15.279999732971191,
+          "volume": 634700.0
+        },
+        {
+          "date": "2025-12-24",
+          "open": 15.300000190734863,
+          "high": 16.09000015258789,
+          "low": 15.300000190734863,
+          "close": 15.920000076293945,
+          "volume": 505500.0
+        },
+        {
+          "date": "2025-12-26",
+          "open": 15.890000343322754,
+          "high": 15.989999771118164,
+          "low": 15.210000038146973,
+          "close": 15.949999809265137,
+          "volume": 716100.0
+        },
+        {
+          "date": "2025-12-29",
+          "open": 16.200000762939453,
+          "high": 16.520000457763672,
+          "low": 15.739999771118164,
+          "close": 16.1299991607666,
+          "volume": 1213800.0
+        },
+        {
+          "date": "2025-12-30",
+          "open": 15.979999542236328,
+          "high": 16.104999542236328,
+          "low": 15.3100004196167,
+          "close": 15.34000015258789,
+          "volume": 882300.0
+        },
+        {
+          "date": "2025-12-31",
+          "open": 15.229999542236328,
+          "high": 15.850000381469727,
+          "low": 15.100000381469727,
+          "close": 15.779999732971191,
+          "volume": 1507600.0
+        },
+        {
+          "date": "2026-01-02",
+          "open": 15.890000343322754,
+          "high": 15.890000343322754,
+          "low": 14.8149995803833,
+          "close": 14.899999618530273,
+          "volume": 727100.0
+        },
+        {
+          "date": "2026-01-05",
+          "open": 14.84000015258789,
+          "high": 15.180000305175781,
+          "low": 14.800000190734863,
+          "close": 15.010000228881836,
+          "volume": 841900.0
+        },
+        {
+          "date": "2026-01-06",
+          "open": 15.050000190734863,
+          "high": 16.1200008392334,
+          "low": 14.8100004196167,
+          "close": 16.040000915527344,
+          "volume": 926400.0
+        },
+        {
+          "date": "2026-01-07",
+          "open": 16.040000915527344,
+          "high": 16.889999389648438,
+          "low": 16.030000686645508,
+          "close": 16.56999969482422,
+          "volume": 1017300.0
+        },
+        {
+          "date": "2026-01-08",
+          "open": 16.649999618530273,
+          "high": 16.989999771118164,
+          "low": 16.32200050354004,
+          "close": 16.440000534057617,
+          "volume": 820300.0
+        },
+        {
+          "date": "2026-01-09",
+          "open": 16.15999984741211,
+          "high": 16.280000686645508,
+          "low": 15.234999656677246,
+          "close": 15.40999984741211,
+          "volume": 979600.0
+        },
+        {
+          "date": "2026-01-12",
+          "open": 15.640000343322754,
+          "high": 16.139999389648438,
+          "low": 14.829999923706055,
+          "close": 16.1200008392334,
+          "volume": 1219500.0
+        },
+        {
+          "date": "2026-01-13",
+          "open": 16.31999969482422,
+          "high": 16.350000381469727,
+          "low": 15.600000381469727,
+          "close": 16.1299991607666,
+          "volume": 795700.0
+        },
+        {
+          "date": "2026-01-14",
+          "open": 16.100000381469727,
+          "high": 16.18000030517578,
+          "low": 15.15999984741211,
+          "close": 15.5,
+          "volume": 866500.0
+        },
+        {
+          "date": "2026-01-15",
+          "open": 15.579999923706055,
+          "high": 16.09000015258789,
+          "low": 15.229999542236328,
+          "close": 15.649999618530273,
+          "volume": 957200.0
+        },
+        {
+          "date": "2026-01-16",
+          "open": 15.670000076293945,
+          "high": 16.5,
+          "low": 15.449999809265137,
+          "close": 16.1200008392334,
+          "volume": 1355600.0
+        },
+        {
+          "date": "2026-01-20",
+          "open": 15.600000381469727,
+          "high": 15.880000114440918,
+          "low": 15.369999885559082,
+          "close": 15.739999771118164,
+          "volume": 920100.0
+        },
+        {
+          "date": "2026-01-21",
+          "open": 15.739999771118164,
+          "high": 15.859999656677246,
+          "low": 15.0,
+          "close": 15.630000114440918,
+          "volume": 1660400.0
+        },
+        {
+          "date": "2026-01-22",
+          "open": 15.760000228881836,
+          "high": 16.530000686645508,
+          "low": 15.510000228881836,
+          "close": 16.059999465942383,
+          "volume": 977000.0
+        },
+        {
+          "date": "2026-01-23",
+          "open": 16.260000228881836,
+          "high": 17.270000457763672,
+          "low": 16.2450008392334,
+          "close": 16.520000457763672,
+          "volume": 1376000.0
+        },
+        {
+          "date": "2026-01-26",
+          "open": 16.389999389648438,
+          "high": 16.860000610351562,
+          "low": 16.156999588012695,
+          "close": 16.350000381469727,
+          "volume": 875200.0
+        },
+        {
+          "date": "2026-01-27",
+          "open": 16.3700008392334,
+          "high": 16.538999557495117,
+          "low": 15.444999694824219,
+          "close": 16.290000915527344,
+          "volume": 1204100.0
+        },
+        {
+          "date": "2026-01-28",
+          "open": 16.459999084472656,
+          "high": 16.459999084472656,
+          "low": 15.3100004196167,
+          "close": 15.40999984741211,
+          "volume": 1051100.0
+        },
+        {
+          "date": "2026-01-29",
+          "open": 15.399999618530273,
+          "high": 15.491000175476074,
+          "low": 14.670000076293945,
+          "close": 15.039999961853027,
+          "volume": 1018200.0
+        },
+        {
+          "date": "2026-01-30",
+          "open": 14.920000076293945,
+          "high": 15.199999809265137,
+          "low": 14.65999984741211,
+          "close": 14.949999809265137,
+          "volume": 1064900.0
+        },
+        {
+          "date": "2026-02-02",
+          "open": 14.720000267028809,
+          "high": 15.079999923706055,
+          "low": 14.3100004196167,
+          "close": 14.859999656677246,
+          "volume": 1037900.0
+        },
+        {
+          "date": "2026-02-03",
+          "open": 14.859999656677246,
+          "high": 14.989999771118164,
+          "low": 13.024999618530273,
+          "close": 13.180000305175781,
+          "volume": 1797200.0
+        },
+        {
+          "date": "2026-02-04",
+          "open": 13.399999618530273,
+          "high": 13.755000114440918,
+          "low": 12.479999542236328,
+          "close": 13.510000228881836,
+          "volume": 1560200.0
+        },
+        {
+          "date": "2026-02-05",
+          "open": 13.279999732971191,
+          "high": 13.739999771118164,
+          "low": 11.869999885559082,
+          "close": 11.984999656677246,
+          "volume": 1120400.0
+        },
+        {
+          "date": "2026-02-06",
+          "open": 12.0,
+          "high": 12.300000190734863,
+          "low": 11.5,
+          "close": 11.649999618530273,
+          "volume": 1428100.0
+        },
+        {
+          "date": "2026-02-09",
+          "open": 11.760000228881836,
+          "high": 11.760000228881836,
+          "low": 10.699999809265137,
+          "close": 11.399999618530273,
+          "volume": 1477600.0
+        },
+        {
+          "date": "2026-02-10",
+          "open": 11.359999656677246,
+          "high": 11.65999984741211,
+          "low": 11.109999656677246,
+          "close": 11.329999923706055,
+          "volume": 1176500.0
+        },
+        {
+          "date": "2026-02-11",
+          "open": 12.050000190734863,
+          "high": 12.050000190734863,
+          "low": 10.279999732971191,
+          "close": 10.9399995803833,
+          "volume": 1766700.0
+        },
+        {
+          "date": "2026-02-12",
+          "open": 11.0,
+          "high": 11.449999809265137,
+          "low": 10.760000228881836,
+          "close": 11.229999542236328,
+          "volume": 1494900.0
+        },
+        {
+          "date": "2026-02-13",
+          "open": 11.270000457763672,
+          "high": 11.729999542236328,
+          "low": 11.0600004196167,
+          "close": 11.3100004196167,
+          "volume": 1099100.0
+        },
+        {
+          "date": "2026-02-17",
+          "open": 11.229999542236328,
+          "high": 11.920000076293945,
+          "low": 10.989999771118164,
+          "close": 11.460000038146973,
+          "volume": 1584600.0
+        },
+        {
+          "date": "2026-02-18",
+          "open": 11.489999771118164,
+          "high": 11.930000305175781,
+          "low": 11.15999984741211,
+          "close": 11.720000267028809,
+          "volume": 929600.0
+        },
+        {
+          "date": "2026-02-19",
+          "open": 11.569999694824219,
+          "high": 11.9399995803833,
+          "low": 11.395000457763672,
+          "close": 11.890000343322754,
+          "volume": 469800.0
+        },
+        {
+          "date": "2026-02-20",
+          "open": 11.899999618530273,
+          "high": 12.15999984741211,
+          "low": 11.609999656677246,
+          "close": 11.619999885559082,
+          "volume": 1329200.0
+        },
+        {
+          "date": "2026-02-23",
+          "open": 11.850000381469727,
+          "high": 11.989999771118164,
+          "low": 11.0,
+          "close": 11.170000076293945,
+          "volume": 1637100.0
+        },
+        {
+          "date": "2026-02-24",
+          "open": 11.180000305175781,
+          "high": 11.765000343322754,
+          "low": 11.130000114440918,
+          "close": 11.520000457763672,
+          "volume": 1450700.0
+        },
+        {
+          "date": "2026-02-25",
+          "open": 11.5,
+          "high": 12.128999710083008,
+          "low": 11.447999954223633,
+          "close": 11.949999809265137,
+          "volume": 1326500.0
+        },
+        {
+          "date": "2026-02-26",
+          "open": 12.09000015258789,
+          "high": 12.989999771118164,
+          "low": 11.9399995803833,
+          "close": 12.949999809265137,
+          "volume": 957600.0
+        },
+        {
+          "date": "2026-02-27",
+          "open": 12.670000076293945,
+          "high": 12.789999961853027,
+          "low": 12.09000015258789,
+          "close": 12.279999732971191,
+          "volume": 841600.0
+        },
+        {
+          "date": "2026-03-02",
+          "open": 11.979999542236328,
+          "high": 13.0,
+          "low": 11.920000076293945,
+          "close": 12.899999618530273,
+          "volume": 1285700.0
+        },
+        {
+          "date": "2026-03-03",
+          "open": 12.609999656677246,
+          "high": 13.329999923706055,
+          "low": 12.180000305175781,
+          "close": 13.0,
+          "volume": 1968300.0
+        },
+        {
+          "date": "2026-03-04",
+          "open": 13.039999961853027,
+          "high": 13.819999694824219,
+          "low": 12.859999656677246,
+          "close": 13.520000457763672,
+          "volume": 1423200.0
+        },
+        {
+          "date": "2026-03-05",
+          "open": 13.5,
+          "high": 14.154999732971191,
+          "low": 13.199999809265137,
+          "close": 13.600000381469727,
+          "volume": 2706700.0
+        },
+        {
+          "date": "2026-03-06",
+          "open": 13.609999656677246,
+          "high": 14.369999885559082,
+          "low": 12.862000465393066,
+          "close": 14.050000190734863,
+          "volume": 5386000.0
+        },
+        {
+          "date": "2026-03-09",
+          "open": 13.760000228881836,
+          "high": 15.020000457763672,
+          "low": 13.649999618530273,
+          "close": 14.390000343322754,
+          "volume": 3553000.0
+        },
+        {
+          "date": "2026-03-10",
+          "open": 14.359999656677246,
+          "high": 14.989999771118164,
+          "low": 13.789999961853027,
+          "close": 14.25,
+          "volume": 2652400.0
+        },
+        {
+          "date": "2026-03-11",
+          "open": 14.270000457763672,
+          "high": 14.289999961853027,
+          "low": 13.710000038146973,
+          "close": 13.739999771118164,
+          "volume": 1477800.0
+        },
+        {
+          "date": "2026-03-12",
+          "open": 13.699999809265137,
+          "high": 14.199999809265137,
+          "low": 13.670000076293945,
+          "close": 14.020000457763672,
+          "volume": 981300.0
+        },
+        {
+          "date": "2026-03-13",
+          "open": 13.9399995803833,
+          "high": 14.539999961853027,
+          "low": 13.800000190734863,
+          "close": 14.529999732971191,
+          "volume": 1155700.0
+        },
+        {
+          "date": "2026-03-16",
+          "open": 14.25,
+          "high": 14.944999694824219,
+          "low": 14.170000076293945,
+          "close": 14.800000190734863,
+          "volume": 2051600.0
+        },
+        {
+          "date": "2026-03-17",
+          "open": 14.779999732971191,
+          "high": 15.100000381469727,
+          "low": 14.569999694824219,
+          "close": 14.619999885559082,
+          "volume": 1353500.0
+        },
+        {
+          "date": "2026-03-18",
+          "open": 14.520000457763672,
+          "high": 14.520000457763672,
+          "low": 13.90999984741211,
+          "close": 14.109999656677246,
+          "volume": 1463800.0
+        },
+        {
+          "date": "2026-03-19",
+          "open": 14.09000015258789,
+          "high": 14.414999961853027,
+          "low": 13.829999923706055,
+          "close": 13.930000305175781,
+          "volume": 1136300.0
+        },
+        {
+          "date": "2026-03-20",
+          "open": 13.930000305175781,
+          "high": 13.989999771118164,
+          "low": 13.239999771118164,
+          "close": 13.510000228881836,
+          "volume": 4045000.0
+        },
+        {
+          "date": "2026-03-23",
+          "open": 13.569999694824219,
+          "high": 14.180000305175781,
+          "low": 13.479999542236328,
+          "close": 13.899999618530273,
+          "volume": 1140200.0
+        },
+        {
+          "date": "2026-03-24",
+          "open": 13.770000457763672,
+          "high": 13.930000305175781,
+          "low": 13.140000343322754,
+          "close": 13.399999618530273,
+          "volume": 1203100.0
+        },
+        {
+          "date": "2026-03-25",
+          "open": 13.569999694824219,
+          "high": 13.824999809265137,
+          "low": 12.704999923706055,
+          "close": 12.960000038146973,
+          "volume": 693000.0
+        },
+        {
+          "date": "2026-03-26",
+          "open": 12.800000190734863,
+          "high": 13.505000114440918,
+          "low": 12.729999542236328,
+          "close": 13.180000305175781,
+          "volume": 668500.0
+        },
+        {
+          "date": "2026-03-27",
+          "open": 13.0,
+          "high": 13.069999694824219,
+          "low": 11.779999732971191,
+          "close": 11.854999542236328,
+          "volume": 1204500.0
+        },
+        {
+          "date": "2026-03-30",
+          "open": 12.0600004196167,
+          "high": 12.335000038146973,
+          "low": 11.850000381469727,
+          "close": 12.045000076293945,
+          "volume": 835100.0
+        },
+        {
+          "date": "2026-03-31",
+          "open": 12.369999885559082,
+          "high": 12.899999618530273,
+          "low": 12.079999923706055,
+          "close": 12.569999694824219,
+          "volume": 1273000.0
+        },
+        {
+          "date": "2026-04-01",
+          "open": 12.670000076293945,
+          "high": 13.260000228881836,
+          "low": 12.460000038146973,
+          "close": 12.609999656677246,
+          "volume": 669200.0
+        },
+        {
+          "date": "2026-04-02",
+          "open": 12.319999694824219,
+          "high": 12.739999771118164,
+          "low": 11.720000267028809,
+          "close": 12.579999923706055,
+          "volume": 1036100.0
+        },
+        {
+          "date": "2026-04-06",
+          "open": 12.5600004196167,
+          "high": 12.9399995803833,
+          "low": 12.4350004196167,
+          "close": 12.579999923706055,
+          "volume": 583700.0
+        },
+        {
+          "date": "2026-04-07",
+          "open": 12.550000190734863,
+          "high": 12.760000228881836,
+          "low": 12.239999771118164,
+          "close": 12.399999618530273,
+          "volume": 509800.0
+        },
+        {
+          "date": "2026-04-08",
+          "open": 13.0,
+          "high": 13.14799976348877,
+          "low": 12.5,
+          "close": 12.529999732971191,
+          "volume": 580500.0
+        },
+        {
+          "date": "2026-04-09",
+          "open": 12.550000190734863,
+          "high": 12.550000190734863,
+          "low": 11.619999885559082,
+          "close": 11.979999542236328,
+          "volume": 553700.0
+        },
+        {
+          "date": "2026-04-10",
+          "open": 11.949999809265137,
+          "high": 11.989999771118164,
+          "low": 11.194999694824219,
+          "close": 11.40999984741211,
+          "volume": 541600.0
+        },
+        {
+          "date": "2026-04-13",
+          "open": 11.359999656677246,
+          "high": 12.15999984741211,
+          "low": 11.350000381469727,
+          "close": 12.119999885559082,
+          "volume": 851800.0
+        },
+        {
+          "date": "2026-04-14",
+          "open": 12.550000190734863,
+          "high": 13.14799976348877,
+          "low": 12.350000381469727,
+          "close": 12.460000038146973,
+          "volume": 641600.0
+        },
+        {
+          "date": "2026-04-15",
+          "open": 12.649999618530273,
+          "high": 13.220000267028809,
+          "low": 12.619999885559082,
+          "close": 13.119999885559082,
+          "volume": 816100.0
+        },
+        {
+          "date": "2026-04-16",
+          "open": 13.300000190734863,
+          "high": 13.640000343322754,
+          "low": 13.0600004196167,
+          "close": 13.369999885559082,
+          "volume": 936200.0
+        },
+        {
+          "date": "2026-04-17",
+          "open": 13.720000267028809,
+          "high": 14.149999618530273,
+          "low": 13.600000381469727,
+          "close": 14.140000343322754,
+          "volume": 1217700.0
+        },
+        {
+          "date": "2026-04-20",
+          "open": 13.970000267028809,
+          "high": 14.300000190734863,
+          "low": 13.899999618530273,
+          "close": 14.039999961853027,
+          "volume": 492900.0
+        },
+        {
+          "date": "2026-04-21",
+          "open": 14.0600004196167,
+          "high": 14.550000190734863,
+          "low": 13.930000305175781,
+          "close": 14.289999961853027,
+          "volume": 724500.0
+        },
+        {
+          "date": "2026-04-22",
+          "open": 14.380000114440918,
+          "high": 14.649999618530273,
+          "low": 14.234999656677246,
+          "close": 14.609999656677246,
+          "volume": 449800.0
+        },
+        {
+          "date": "2026-04-23",
+          "open": 14.029999732971191,
+          "high": 15.119999885559082,
+          "low": 13.880000114440918,
+          "close": 14.220000267028809,
+          "volume": 1280000.0
+        },
+        {
+          "date": "2026-04-24",
+          "open": 14.170000076293945,
+          "high": 14.40999984741211,
+          "low": 13.890000343322754,
+          "close": 14.329999923706055,
+          "volume": 481900.0
+        },
+        {
+          "date": "2026-04-27",
+          "open": 14.300000190734863,
+          "high": 14.975000381469727,
+          "low": 14.109999656677246,
+          "close": 14.720000267028809,
+          "volume": 644400.0
+        },
+        {
+          "date": "2026-04-28",
+          "open": 14.6899995803833,
+          "high": 15.0,
+          "low": 14.4399995803833,
+          "close": 14.59000015258789,
+          "volume": 772200.0
+        },
+        {
+          "date": "2026-04-29",
+          "open": 14.319999694824219,
+          "high": 14.369999885559082,
+          "low": 13.819999694824219,
+          "close": 14.149999618530273,
+          "volume": 458000.0
+        },
+        {
+          "date": "2026-04-30",
+          "open": 14.130000114440918,
+          "high": 14.720000267028809,
+          "low": 13.710000038146973,
+          "close": 14.579999923706055,
+          "volume": 740400.0
+        },
+        {
+          "date": "2026-05-01",
+          "open": 14.75,
+          "high": 15.649999618530273,
+          "low": 14.505000114440918,
+          "close": 15.289999961853027,
+          "volume": 1567300.0
+        },
+        {
+          "date": "2026-05-04",
+          "open": 15.220000267028809,
+          "high": 15.739999771118164,
+          "low": 15.220000267028809,
+          "close": 15.720000267028809,
+          "volume": 615449.0
+        }
+      ],
+      "indicators": {
+        "return_1d": 0.028123,
+        "sma20": 13.7035,
+        "sma50": 13.4118,
+        "macd_hist": 0.196499,
+        "rsi14": 68.130694,
+        "atr14": 0.779177,
+        "bb_upper": 16.101353,
+        "bb_lower": 11.305647,
+        "volume_sma20": 743792.45,
+        "high20": 15.74,
+        "low20": 11.195,
+        "slope20": 0.04557,
+        "obv": 13091949.0,
+        "cmf20": 0.185446,
+        "mfi14": 80.195021
+      }
     },
     {
       "symbol": "USAR",
@@ -3479,279 +4225,749 @@
       "currency": "USD",
       "date": "2026-05-06",
       "close": 28.600000381469727,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "USAS",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-06",
-      "close": 6.489999771118164,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "USAU",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-06",
-      "close": 17.229999542236328,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "USB",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-06",
-      "close": 56.15999984741211,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "USBC",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-06",
-      "close": 0.39340001344680786,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "USCB",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-06",
-      "close": 18.139999389648438,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "USEG",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-06",
-      "close": 1.0099999904632568,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "USFD",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-06",
-      "close": 92.05000305175781,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "USGO",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-06",
-      "close": 13.529999732971191,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "USIO",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-06",
-      "close": 1.350000023841858,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "USNA",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-06",
-      "close": 20.010000228881836,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "USPH",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-06",
-      "close": 73.6500015258789,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "UTI",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-06",
-      "close": 36.959999084472656,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "UTMD",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-06",
-      "close": 64.41000366210938,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "UTSI",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-06",
-      "close": 2.440000057220459,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "UTZ",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-06",
-      "close": 8.300000190734863,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "UUU",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-06",
-      "close": 6.0,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "UUUU",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-06",
-      "close": 23.520000457763672,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "UVE",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-06",
-      "close": 40.31999969482422,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "UVSP",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-06",
-      "close": 38.7599983215332,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "UVV",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-06",
-      "close": 53.900001525878906,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "UWMC",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-06",
-      "close": 3.490000009536743,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "V",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-06",
-      "close": 318.79998779296875,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "VABK",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-06",
-      "close": 44.150001525878906,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "VAC",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-06",
-      "close": 78.26000213623047,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "VAL",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-06",
-      "close": 92.80000305175781,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "VALU",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-06",
-      "close": 34.720001220703125,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "VANI",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-06",
-      "close": 1.25,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "VATE",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-06",
-      "close": 12.40999984741211,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "VBIO",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-06",
-      "close": 1.0299999713897705,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "VBNK",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-06",
-      "close": 18.440000534057617,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "VC",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-06",
-      "close": 113.72000122070312,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "VCEL",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-06",
-      "close": 36.779998779296875,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "VCIG",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-06",
-      "close": 0.9147999882698059,
-      "source": "yfinance"
-    },
-    {
-      "symbol": "VCTR",
-      "market": "US",
-      "currency": "USD",
-      "date": "2026-05-06",
-      "close": 82.29000091552734,
-      "source": "yfinance"
+      "prev_close": 27.420000076293945,
+      "change": 1.18,
+      "change_pct": 0.043034,
+      "source": "yfinance",
+      "candles": [
+        {
+          "date": "2025-12-26",
+          "open": 14.479999542236328,
+          "high": 14.520000457763672,
+          "low": 13.0,
+          "close": 13.510000228881836,
+          "volume": 8069900.0
+        },
+        {
+          "date": "2025-12-29",
+          "open": 13.149999618530273,
+          "high": 13.630000114440918,
+          "low": 12.604999542236328,
+          "close": 12.699999809265137,
+          "volume": 6666100.0
+        },
+        {
+          "date": "2025-12-30",
+          "open": 12.680000305175781,
+          "high": 12.739999771118164,
+          "low": 12.069999694824219,
+          "close": 12.130000114440918,
+          "volume": 6886800.0
+        },
+        {
+          "date": "2025-12-31",
+          "open": 12.130000114440918,
+          "high": 12.25,
+          "low": 11.725000381469727,
+          "close": 11.899999618530273,
+          "volume": 7623200.0
+        },
+        {
+          "date": "2026-01-02",
+          "open": 12.279999732971191,
+          "high": 14.40999984741211,
+          "low": 12.170000076293945,
+          "close": 14.149999618530273,
+          "volume": 11394900.0
+        },
+        {
+          "date": "2026-01-05",
+          "open": 14.5,
+          "high": 16.138999938964844,
+          "low": 14.34000015258789,
+          "close": 15.800000190734863,
+          "volume": 11796300.0
+        },
+        {
+          "date": "2026-01-06",
+          "open": 16.399999618530273,
+          "high": 18.207000732421875,
+          "low": 16.09000015258789,
+          "close": 17.520000457763672,
+          "volume": 17567100.0
+        },
+        {
+          "date": "2026-01-07",
+          "open": 17.079999923706055,
+          "high": 18.40999984741211,
+          "low": 16.889999389648438,
+          "close": 17.190000534057617,
+          "volume": 12573700.0
+        },
+        {
+          "date": "2026-01-08",
+          "open": 16.739999771118164,
+          "high": 17.6200008392334,
+          "low": 16.260000228881836,
+          "close": 16.729999542236328,
+          "volume": 7156500.0
+        },
+        {
+          "date": "2026-01-09",
+          "open": 17.190000534057617,
+          "high": 18.010000228881836,
+          "low": 16.639999389648438,
+          "close": 17.280000686645508,
+          "volume": 11013700.0
+        },
+        {
+          "date": "2026-01-12",
+          "open": 17.670000076293945,
+          "high": 18.149999618530273,
+          "low": 16.719999313354492,
+          "close": 17.739999771118164,
+          "volume": 11991800.0
+        },
+        {
+          "date": "2026-01-13",
+          "open": 18.3700008392334,
+          "high": 19.18000030517578,
+          "low": 16.350000381469727,
+          "close": 16.670000076293945,
+          "volume": 14604500.0
+        },
+        {
+          "date": "2026-01-14",
+          "open": 16.670000076293945,
+          "high": 18.469999313354492,
+          "low": 15.732000350952148,
+          "close": 18.280000686645508,
+          "volume": 16068000.0
+        },
+        {
+          "date": "2026-01-15",
+          "open": 17.690000534057617,
+          "high": 17.761999130249023,
+          "low": 16.65999984741211,
+          "close": 16.790000915527344,
+          "volume": 11331700.0
+        },
+        {
+          "date": "2026-01-16",
+          "open": 16.920000076293945,
+          "high": 17.799999237060547,
+          "low": 16.049999237060547,
+          "close": 17.690000534057617,
+          "volume": 9708300.0
+        },
+        {
+          "date": "2026-01-20",
+          "open": 18.027999877929688,
+          "high": 20.268999099731445,
+          "low": 17.8700008392334,
+          "close": 19.200000762939453,
+          "volume": 22785800.0
+        },
+        {
+          "date": "2026-01-21",
+          "open": 19.899999618530273,
+          "high": 21.638999938964844,
+          "low": 17.780000686645508,
+          "close": 19.329999923706055,
+          "volume": 24234500.0
+        },
+        {
+          "date": "2026-01-22",
+          "open": 19.969999313354492,
+          "high": 23.850000381469727,
+          "low": 19.920000076293945,
+          "close": 22.709999084472656,
+          "volume": 30961600.0
+        },
+        {
+          "date": "2026-01-23",
+          "open": 23.6200008392334,
+          "high": 25.270000457763672,
+          "low": 21.8799991607666,
+          "close": 24.770000457763672,
+          "volume": 26609900.0
+        },
+        {
+          "date": "2026-01-26",
+          "open": 30.559999465942383,
+          "high": 32.06999969482422,
+          "low": 25.799999237060547,
+          "close": 26.719999313354492,
+          "volume": 122598300.0
+        },
+        {
+          "date": "2026-01-27",
+          "open": 27.0,
+          "high": 29.690000534057617,
+          "low": 24.770000457763672,
+          "close": 26.350000381469727,
+          "volume": 49427400.0
+        },
+        {
+          "date": "2026-01-28",
+          "open": 26.420000076293945,
+          "high": 26.420000076293945,
+          "low": 23.989999771118164,
+          "close": 25.18000030517578,
+          "volume": 37193200.0
+        },
+        {
+          "date": "2026-01-29",
+          "open": 22.709999084472656,
+          "high": 22.8700008392334,
+          "low": 21.030000686645508,
+          "close": 22.06999969482422,
+          "volume": 41577000.0
+        },
+        {
+          "date": "2026-01-30",
+          "open": 22.860000610351562,
+          "high": 24.729999542236328,
+          "low": 22.219999313354492,
+          "close": 22.420000076293945,
+          "volume": 29838100.0
+        },
+        {
+          "date": "2026-02-02",
+          "open": 24.2450008392334,
+          "high": 26.020000457763672,
+          "low": 21.790000915527344,
+          "close": 22.110000610351562,
+          "volume": 48633500.0
+        },
+        {
+          "date": "2026-02-03",
+          "open": 23.584999084472656,
+          "high": 26.360000610351562,
+          "low": 23.290000915527344,
+          "close": 25.969999313354492,
+          "volume": 51895800.0
+        },
+        {
+          "date": "2026-02-04",
+          "open": 26.09000015258789,
+          "high": 26.200000762939453,
+          "low": 22.065000534057617,
+          "close": 23.530000686645508,
+          "volume": 34313800.0
+        },
+        {
+          "date": "2026-02-05",
+          "open": 22.530000686645508,
+          "high": 23.190000534057617,
+          "low": 20.454999923706055,
+          "close": 20.600000381469727,
+          "volume": 21439600.0
+        },
+        {
+          "date": "2026-02-06",
+          "open": 21.440000534057617,
+          "high": 21.989999771118164,
+          "low": 20.5049991607666,
+          "close": 21.84000015258789,
+          "volume": 17289800.0
+        },
+        {
+          "date": "2026-02-09",
+          "open": 21.489999771118164,
+          "high": 23.59000015258789,
+          "low": 20.75,
+          "close": 23.440000534057617,
+          "volume": 12873200.0
+        },
+        {
+          "date": "2026-02-10",
+          "open": 23.15999984741211,
+          "high": 23.739999771118164,
+          "low": 21.739999771118164,
+          "close": 21.8799991607666,
+          "volume": 10085600.0
+        },
+        {
+          "date": "2026-02-11",
+          "open": 22.610000610351562,
+          "high": 22.850000381469727,
+          "low": 20.549999237060547,
+          "close": 21.770000457763672,
+          "volume": 12335400.0
+        },
+        {
+          "date": "2026-02-12",
+          "open": 21.209999084472656,
+          "high": 21.25,
+          "low": 18.690000534057617,
+          "close": 19.079999923706055,
+          "volume": 31336500.0
+        },
+        {
+          "date": "2026-02-13",
+          "open": 19.450000762939453,
+          "high": 19.979999542236328,
+          "low": 18.704999923706055,
+          "close": 19.395000457763672,
+          "volume": 12602500.0
+        },
+        {
+          "date": "2026-02-17",
+          "open": 19.25,
+          "high": 19.540000915527344,
+          "low": 18.420000076293945,
+          "close": 19.020000457763672,
+          "volume": 15183900.0
+        },
+        {
+          "date": "2026-02-18",
+          "open": 19.075000762939453,
+          "high": 19.329999923706055,
+          "low": 18.190000534057617,
+          "close": 18.200000762939453,
+          "volume": 12387100.0
+        },
+        {
+          "date": "2026-02-19",
+          "open": 18.09000015258789,
+          "high": 18.440000534057617,
+          "low": 17.329999923706055,
+          "close": 18.389999389648438,
+          "volume": 19583400.0
+        },
+        {
+          "date": "2026-02-20",
+          "open": 17.90999984741211,
+          "high": 18.28499984741211,
+          "low": 16.81999969482422,
+          "close": 17.229999542236328,
+          "volume": 13472400.0
+        },
+        {
+          "date": "2026-02-23",
+          "open": 16.93000030517578,
+          "high": 18.93000030517578,
+          "low": 16.84000015258789,
+          "close": 18.790000915527344,
+          "volume": 14887700.0
+        },
+        {
+          "date": "2026-02-24",
+          "open": 18.2549991607666,
+          "high": 20.549999237060547,
+          "low": 18.110000610351562,
+          "close": 20.389999389648438,
+          "volume": 16687700.0
+        },
+        {
+          "date": "2026-02-25",
+          "open": 20.530000686645508,
+          "high": 20.75,
+          "low": 19.760000228881836,
+          "close": 20.079999923706055,
+          "volume": 11029100.0
+        },
+        {
+          "date": "2026-02-26",
+          "open": 19.90999984741211,
+          "high": 20.469999313354492,
+          "low": 19.459999084472656,
+          "close": 20.1299991607666,
+          "volume": 11556000.0
+        },
+        {
+          "date": "2026-02-27",
+          "open": 19.690000534057617,
+          "high": 19.700000762939453,
+          "low": 18.485000610351562,
+          "close": 18.899999618530273,
+          "volume": 10920600.0
+        },
+        {
+          "date": "2026-03-02",
+          "open": 18.440000534057617,
+          "high": 21.059999465942383,
+          "low": 18.3700008392334,
+          "close": 20.8700008392334,
+          "volume": 13759600.0
+        },
+        {
+          "date": "2026-03-03",
+          "open": 19.59000015258789,
+          "high": 20.40999984741211,
+          "low": 19.079999923706055,
+          "close": 19.420000076293945,
+          "volume": 10243700.0
+        },
+        {
+          "date": "2026-03-04",
+          "open": 19.75,
+          "high": 19.899999618530273,
+          "low": 18.739999771118164,
+          "close": 18.90999984741211,
+          "volume": 9629400.0
+        },
+        {
+          "date": "2026-03-05",
+          "open": 19.079999923706055,
+          "high": 19.700000762939453,
+          "low": 18.40999984741211,
+          "close": 19.100000381469727,
+          "volume": 10233000.0
+        },
+        {
+          "date": "2026-03-06",
+          "open": 18.510000228881836,
+          "high": 19.290000915527344,
+          "low": 17.440000534057617,
+          "close": 17.450000762939453,
+          "volume": 14107600.0
+        },
+        {
+          "date": "2026-03-09",
+          "open": 17.329999923706055,
+          "high": 18.90999984741211,
+          "low": 17.110000610351562,
+          "close": 18.709999084472656,
+          "volume": 11393200.0
+        },
+        {
+          "date": "2026-03-10",
+          "open": 18.729999542236328,
+          "high": 20.839000701904297,
+          "low": 18.700000762939453,
+          "close": 20.450000762939453,
+          "volume": 16666600.0
+        },
+        {
+          "date": "2026-03-11",
+          "open": 20.385000228881836,
+          "high": 21.44499969482422,
+          "low": 20.170000076293945,
+          "close": 21.09000015258789,
+          "volume": 13560300.0
+        },
+        {
+          "date": "2026-03-12",
+          "open": 20.5,
+          "high": 20.584999084472656,
+          "low": 19.40999984741211,
+          "close": 19.75,
+          "volume": 10667300.0
+        },
+        {
+          "date": "2026-03-13",
+          "open": 20.059999465942383,
+          "high": 20.579999923706055,
+          "low": 19.125,
+          "close": 19.459999084472656,
+          "volume": 11460500.0
+        },
+        {
+          "date": "2026-03-16",
+          "open": 19.780000686645508,
+          "high": 20.579999923706055,
+          "low": 18.833999633789062,
+          "close": 19.489999771118164,
+          "volume": 12629100.0
+        },
+        {
+          "date": "2026-03-17",
+          "open": 19.239999771118164,
+          "high": 20.200000762939453,
+          "low": 19.110000610351562,
+          "close": 19.68000030517578,
+          "volume": 9665500.0
+        },
+        {
+          "date": "2026-03-18",
+          "open": 19.389999389648438,
+          "high": 19.690000534057617,
+          "low": 18.354999542236328,
+          "close": 18.399999618530273,
+          "volume": 12070800.0
+        },
+        {
+          "date": "2026-03-19",
+          "open": 17.81999969482422,
+          "high": 18.1299991607666,
+          "low": 17.280000686645508,
+          "close": 17.809999465942383,
+          "volume": 11399700.0
+        },
+        {
+          "date": "2026-03-20",
+          "open": 18.0,
+          "high": 18.0,
+          "low": 15.800000190734863,
+          "close": 16.239999771118164,
+          "volume": 33930800.0
+        },
+        {
+          "date": "2026-03-23",
+          "open": 16.969999313354492,
+          "high": 17.719999313354492,
+          "low": 16.40999984741211,
+          "close": 17.389999389648438,
+          "volume": 13864600.0
+        },
+        {
+          "date": "2026-03-24",
+          "open": 17.079999923706055,
+          "high": 17.329999923706055,
+          "low": 16.25,
+          "close": 16.600000381469727,
+          "volume": 11320200.0
+        },
+        {
+          "date": "2026-03-25",
+          "open": 17.110000610351562,
+          "high": 17.600000381469727,
+          "low": 16.440000534057617,
+          "close": 16.639999389648438,
+          "volume": 9433600.0
+        },
+        {
+          "date": "2026-03-26",
+          "open": 16.299999237060547,
+          "high": 16.59000015258789,
+          "low": 15.789999961853027,
+          "close": 16.0,
+          "volume": 9831900.0
+        },
+        {
+          "date": "2026-03-27",
+          "open": 15.75,
+          "high": 15.949999809265137,
+          "low": 15.050000190734863,
+          "close": 15.420000076293945,
+          "volume": 8794600.0
+        },
+        {
+          "date": "2026-03-30",
+          "open": 15.6850004196167,
+          "high": 15.975000381469727,
+          "low": 13.864999771118164,
+          "close": 14.229999542236328,
+          "volume": 12335200.0
+        },
+        {
+          "date": "2026-03-31",
+          "open": 14.635000228881836,
+          "high": 15.220000267028809,
+          "low": 14.369999885559082,
+          "close": 15.135000228881836,
+          "volume": 13255300.0
+        },
+        {
+          "date": "2026-04-01",
+          "open": 15.664999961853027,
+          "high": 15.890000343322754,
+          "low": 14.640000343322754,
+          "close": 14.800000190734863,
+          "volume": 11561400.0
+        },
+        {
+          "date": "2026-04-02",
+          "open": 14.175000190734863,
+          "high": 16.329999923706055,
+          "low": 14.069999694824219,
+          "close": 15.920000076293945,
+          "volume": 13202100.0
+        },
+        {
+          "date": "2026-04-06",
+          "open": 15.711999893188477,
+          "high": 16.15999984741211,
+          "low": 15.079999923706055,
+          "close": 15.279999732971191,
+          "volume": 8365100.0
+        },
+        {
+          "date": "2026-04-07",
+          "open": 15.289999961853027,
+          "high": 15.34000015258789,
+          "low": 14.220000267028809,
+          "close": 14.640000343322754,
+          "volume": 12768100.0
+        },
+        {
+          "date": "2026-04-08",
+          "open": 16.010000228881836,
+          "high": 16.979999542236328,
+          "low": 15.960000038146973,
+          "close": 16.780000686645508,
+          "volume": 15427800.0
+        },
+        {
+          "date": "2026-04-09",
+          "open": 16.3799991607666,
+          "high": 17.165000915527344,
+          "low": 16.05500030517578,
+          "close": 16.719999313354492,
+          "volume": 8693800.0
+        },
+        {
+          "date": "2026-04-10",
+          "open": 17.170000076293945,
+          "high": 18.149999618530273,
+          "low": 16.1200008392334,
+          "close": 16.149999618530273,
+          "volume": 12676700.0
+        },
+        {
+          "date": "2026-04-13",
+          "open": 15.710000038146973,
+          "high": 17.049999237060547,
+          "low": 15.470000267028809,
+          "close": 16.790000915527344,
+          "volume": 9800100.0
+        },
+        {
+          "date": "2026-04-14",
+          "open": 17.3799991607666,
+          "high": 17.790000915527344,
+          "low": 16.475000381469727,
+          "close": 16.989999771118164,
+          "volume": 8427700.0
+        },
+        {
+          "date": "2026-04-15",
+          "open": 17.329999923706055,
+          "high": 18.770000457763672,
+          "low": 17.200000762939453,
+          "close": 18.350000381469727,
+          "volume": 14991700.0
+        },
+        {
+          "date": "2026-04-16",
+          "open": 18.709999084472656,
+          "high": 18.799999237060547,
+          "low": 17.8700008392334,
+          "close": 18.43000030517578,
+          "volume": 10142400.0
+        },
+        {
+          "date": "2026-04-17",
+          "open": 19.6200008392334,
+          "high": 20.8799991607666,
+          "low": 19.219999313354492,
+          "close": 19.950000762939453,
+          "volume": 19893800.0
+        },
+        {
+          "date": "2026-04-20",
+          "open": 21.399999618530273,
+          "high": 23.690000534057617,
+          "low": 21.270000457763672,
+          "close": 22.579999923706055,
+          "volume": 43419500.0
+        },
+        {
+          "date": "2026-04-21",
+          "open": 22.260000228881836,
+          "high": 24.299999237060547,
+          "low": 22.010000228881836,
+          "close": 22.850000381469727,
+          "volume": 27923100.0
+        },
+        {
+          "date": "2026-04-22",
+          "open": 24.18000030517578,
+          "high": 25.950000762939453,
+          "low": 24.15999984741211,
+          "close": 25.40999984741211,
+          "volume": 30052300.0
+        },
+        {
+          "date": "2026-04-23",
+          "open": 24.979999542236328,
+          "high": 25.350000381469727,
+          "low": 22.315000534057617,
+          "close": 23.09000015258789,
+          "volume": 19730800.0
+        },
+        {
+          "date": "2026-04-24",
+          "open": 24.049999237060547,
+          "high": 24.06999969482422,
+          "low": 21.635000228881836,
+          "close": 21.860000610351562,
+          "volume": 15244700.0
+        },
+        {
+          "date": "2026-04-27",
+          "open": 21.73699951171875,
+          "high": 23.770000457763672,
+          "low": 21.639999389648438,
+          "close": 23.510000228881836,
+          "volume": 18612500.0
+        },
+        {
+          "date": "2026-04-28",
+          "open": 22.559999465942383,
+          "high": 23.420000076293945,
+          "low": 21.649999618530273,
+          "close": 22.770000457763672,
+          "volume": 14986000.0
+        },
+        {
+          "date": "2026-04-29",
+          "open": 23.0,
+          "high": 23.09000015258789,
+          "low": 21.459999084472656,
+          "close": 22.030000686645508,
+          "volume": 12720900.0
+        },
+        {
+          "date": "2026-04-30",
+          "open": 22.6299991607666,
+          "high": 26.020000457763672,
+          "low": 22.575000762939453,
+          "close": 25.969999313354492,
+          "volume": 30361900.0
+        },
+        {
+          "date": "2026-05-01",
+          "open": 25.440000534057617,
+          "high": 26.719999313354492,
+          "low": 24.049999237060547,
+          "close": 26.329999923706055,
+          "volume": 24643100.0
+        },
+        {
+          "date": "2026-05-04",
+          "open": 27.235000610351562,
+          "high": 27.31999969482422,
+          "low": 25.389999389648438,
+          "close": 25.579999923706055,
+          "volume": 19879400.0
+        },
+        {
+          "date": "2026-05-05",
+          "open": 26.100000381469727,
+          "high": 27.649999618530273,
+          "low": 24.790000915527344,
+          "close": 27.420000076293945,
+          "volume": 24243900.0
+        },
+        {
+          "date": "2026-05-06",
+          "open": 27.559999465942383,
+          "high": 28.689699172973633,
+          "low": 26.739999771118164,
+          "close": 28.600000381469727,
+          "volume": 17227545.0
+        }
+      ],
+      "indicators": {
+        "return_1d": 0.043034,
+        "sma20": 22.069,
+        "sma50": 19.5231,
+        "macd_hist": 0.64138,
+        "rsi14": 70.154494,
+        "atr14": 2.175405,
+        "bb_upper": 29.767954,
+        "bb_lower": 14.370046,
+        "volume_sma20": 19183592.25,
+        "high20": 28.689699,
+        "low20": 15.47,
+        "slope20": 0.146739,
+        "obv": 228178445.0,
+        "cmf20": 0.177168,
+        "mfi14": 81.352792
+      }
     }
   ],
   "mode": "static"
