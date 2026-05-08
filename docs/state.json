@@ -83,13 +83,13 @@
     }
   },
   "weights": {
-    "trend": 0.22,
-    "macd": 0.18,
-    "rsi": 0.16,
-    "breakout": 0.16,
-    "mean_reversion": 0.14,
-    "volume": 0.08,
-    "risk": 0.06
+    "trend": 0.2053,
+    "macd": 0.1632,
+    "rsi": 0.1947,
+    "breakout": 0.1421,
+    "mean_reversion": 0.1474,
+    "volume": 0.0579,
+    "risk": 0.0895
   },
   "guidance": {
     "score_range": "0-100",
@@ -104,16 +104,16 @@
   "universe": {
     "US": {
       "market": "US",
-      "count": 4882,
+      "count": 4884,
       "source": "Nasdaq Trader Symbol Directory",
-      "updated_at": "2026-05-08T08:47:50+00:00",
+      "updated_at": "2026-05-08T15:08:45+00:00",
       "file": "/home/runner/work/skill-ipad/skill-ipad/data/universe_us.csv"
     },
     "JP": {
       "market": "JP",
       "count": 3926,
       "source": "JPX List of TSE-listed Issues",
-      "updated_at": "2026-05-08T08:47:51+00:00",
+      "updated_at": "2026-05-08T15:08:46+00:00",
       "file": "/home/runner/work/skill-ipad/skill-ipad/data/universe_jp.csv"
     }
   },
@@ -1437,6 +1437,14 @@
     }
   ],
   "reviews": [
+    {
+      "id": 8,
+      "review_date": "2026-05-08",
+      "created_at": "2026-05-08T15:08:47+00:00",
+      "summary": "【复盘 2026-05-08】\n成交：1（买 1 / 卖 0）\n换手：JPY 777,000.00；手续费：JPY 427.35\n权益：JPY 9,969,919 / USD 99,988；未实现盈亏：JPY -29,300.00 / USD 0.00；持仓数：5\n\n【大盘与基准】\n- US：\n  SPY 收盘 731.58（-0.31%） · RSI14 72.8957 · MACD_hist 1.3557 · CMF20 0.3579\n  QQQ 收盘 694.94（-0.12%） · RSI14 79.3137 · MACD_hist 2.9997 · CMF20 0.4732\n- JP：\n  ^N225 收盘 62713.65（-0.19%） · RSI14 69.924 · MACD_hist 301.5734 · CMF20 0.1659\n\n【关注/观察要点】\n- US SPY：继续观察 66 · 收盘 731.58 · 置信度 63% · 2026-05-07T23:11\n- US QQQ：继续观察 63 · 收盘 694.94 · 置信度 59% · 2026-05-07T23:11\n- US AAPL：继续观察 66 · 收盘 287.44 · 置信度 62% · 2026-05-07T23:11\n- US MSFT：继续观察 60 · 收盘 420.77 · 置信度 56% · 2026-05-07T23:11\n- US NVDA：继续观察 59 · 收盘 211.50 · 置信度 55% · 2026-05-07T23:11\n- US AMZN：继续观察 66 · 收盘 271.17 · 置信度 62% · 2026-05-07T23:11\n- US GOOGL：继续观察 62 · 收盘 397.99 · 置信度 58% · 2026-05-07T23:11\n- US META：继续观察 43 · 收盘 616.81 · 置信度 52% · 2026-05-07T23:11\n- US TSLA：继续观察 67 · 收盘 411.79 · 置信度 63% · 2026-05-07T23:11\n- JP ^N225：继续观察 66 · 收盘 62713.65 · 置信度 62% · 2026-05-08T08:47\n- JP 7203.T：适合卖出 30 · 收盘 2913.00 · 置信度 67% · 2026-05-08T08:47\n- JP 6758.T：继续观察 34 · 收盘 3114.00 · 置信度 63% · 2026-05-08T08:47\n- JP 9984.T：继续观察 65 · 收盘 6131.00 · 置信度 61% · 2026-05-08T08:47\n- JP 8306.T：继续观察 48 · 收盘 2806.50 · 置信度 47% · 2026-05-08T08:47\n- JP 7974.T：继续观察 36 · 收盘 7667.00 · 置信度 60% · 2026-05-08T08:47\n- JP 6861.T：继续观察 66 · 收盘 84170.00 · 置信度 63% · 2026-05-08T08:47\n\n【今日信号（强度 Top 5）】\n- 4261.T：BUY（score +0.47）\n- 4274.T：SELL（score -0.43）\n- 9432.T：SELL（score -0.43）\n- 4259.T：HOLD（score +0.41）\n- 4286.T：HOLD（score +0.41）\n\n【策略学习】\n- 基于 1 个仍在持仓的买入样本，做了有边界的权重微调。\n- 权重方向：trend -1.00 / macd -1.00 / rsi +1.00\n\n【明日计划】\n- 优先复盘：推荐指数 ≥ 70 的标的（结合趋势/成交量/资金流指标过滤）。\n- 对持仓：先看趋势是否延续（SMA20/SMA50、MACD_hist），再看风险（ATR、布林带、止损线）。",
+      "metrics": "{\"trade_count\":1,\"buy_count\":1,\"sell_count\":0,\"fees_by_currency\":{\"JPY\":427.35},\"turnover_by_currency\":{\"JPY\":777000.0},\"unrealized_pnl_by_currency\":{\"JPY\":-29300.0,\"USD\":0.0},\"equity\":[{\"currency\":\"JPY\",\"equity\":9969919.33,\"cash\":8579819.33,\"positions_value\":1390100.0},{\"currency\":\"USD\",\"equity\":99987.84966,\"cash\":75687.16966,\"positions_value\":24300.68}],\"open_positions\":5}",
+      "lessons": "{\"message\":\"基于 1 个仍在持仓的买入样本，做了有边界的权重微调。\",\"adjustments\":{\"trend\":-1.0,\"macd\":-1.0,\"rsi\":1.0},\"weights\":{\"trend\":0.2053,\"macd\":0.1632,\"rsi\":0.1947,\"breakout\":0.1421,\"mean_reversion\":0.1474,\"volume\":0.0579,\"risk\":0.0895}}"
+    },
     {
       "id": 7,
       "review_date": "2026-05-07",
