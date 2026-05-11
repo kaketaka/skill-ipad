@@ -104,16 +104,16 @@
   "universe": {
     "US": {
       "market": "US",
-      "count": 4882,
+      "count": 4885,
       "source": "Nasdaq Trader Symbol Directory",
-      "updated_at": "2026-05-11T10:44:35+00:00",
+      "updated_at": "2026-05-11T16:16:07+00:00",
       "file": "/home/runner/work/skill-ipad/skill-ipad/data/universe_us.csv"
     },
     "JP": {
       "market": "JP",
       "count": 3926,
       "source": "JPX List of TSE-listed Issues",
-      "updated_at": "2026-05-11T10:44:35+00:00",
+      "updated_at": "2026-05-11T16:16:07+00:00",
       "file": "/home/runner/work/skill-ipad/skill-ipad/data/universe_jp.csv"
     }
   },
@@ -1443,6 +1443,14 @@
     }
   ],
   "reviews": [
+    {
+      "id": 10,
+      "review_date": "2026-05-11",
+      "created_at": "2026-05-11T16:16:08+00:00",
+      "summary": "【复盘 2026-05-11】\n成交：1（买 0 / 卖 1）\n换手：JPY 574,300.00；手续费：JPY 315.87\n权益：JPY 9,930,803 / USD 99,988；未实现盈亏：JPY 0.00 / USD 0.00；持仓数：4\n\n【大盘与基准】\n- US：\n  SPY 收盘 737.62（+0.83%） · RSI14 75.3135 · MACD_hist 1.5205 · CMF20 0.4034\n  QQQ 收盘 711.23（+2.34%） · RSI14 82.8205 · MACD_hist 3.7393 · CMF20 0.5314\n- JP：\n  ^N225 收盘 62417.88（-0.47%） · RSI14 68.1551 · MACD_hist 290.8613 · CMF20 0.2389\n\n【关注/观察要点】\n- US SPY：继续观察 66 · 收盘 737.62 · 置信度 62% · 2026-05-08T23:09\n- US QQQ：继续观察 62 · 收盘 711.23 · 置信度 58% · 2026-05-08T23:09\n- US AAPL：继续观察 65 · 收盘 293.32 · 置信度 62% · 2026-05-08T23:09\n- US MSFT：继续观察 50 · 收盘 415.12 · 置信度 45% · 2026-05-08T23:09\n- US NVDA：继续观察 64 · 收盘 215.20 · 置信度 60% · 2026-05-08T23:09\n- US AMZN：继续观察 59 · 收盘 272.68 · 置信度 55% · 2026-05-08T23:09\n- US GOOGL：继续观察 65 · 收盘 400.80 · 置信度 62% · 2026-05-08T23:09\n- US META：继续观察 43 · 收盘 609.63 · 置信度 52% · 2026-05-08T23:09\n- US TSLA：继续观察 65 · 收盘 428.35 · 置信度 62% · 2026-05-08T23:09\n- JP ^N225：继续观察 61 · 收盘 62417.88 · 置信度 58% · 2026-05-11T10:44\n- JP 7203.T：继续观察 37 · 收盘 2870.00 · 置信度 59% · 2026-05-11T10:44\n- JP 6758.T：继续观察 46 · 收盘 3372.00 · 置信度 49% · 2026-05-11T10:44\n- JP 9984.T：继续观察 64 · 收盘 5743.00 · 置信度 60% · 2026-05-11T10:44\n- JP 8306.T：继续观察 57 · 收盘 2856.50 · 置信度 53% · 2026-05-11T10:44\n- JP 7974.T：继续观察 43 · 收盘 7020.00 · 置信度 53% · 2026-05-11T10:44\n- JP 6861.T：继续观察 56 · 收盘 82300.00 · 置信度 52% · 2026-05-11T10:44\n\n【今日信号（强度 Top 5）】\n- 4438.T：HOLD（score -0.34）\n- 4462.T：HOLD（score +0.32）\n- 4478.T：HOLD（score +0.32）\n- 4475.T：HOLD（score +0.32）\n- 4437.T：HOLD（score +0.30）\n\n【策略学习】\n- 持仓尚未产生足够盈亏样本，策略权重保持不变。\n\n【明日计划】\n- 优先复盘：推荐指数 ≥ 70 的标的（结合趋势/成交量/资金流指标过滤）。\n- 对持仓：先看趋势是否延续（SMA20/SMA50、MACD_hist），再看风险（ATR、布林带、止损线）。",
+      "metrics": "{\"trade_count\":1,\"buy_count\":0,\"sell_count\":1,\"fees_by_currency\":{\"JPY\":315.87},\"turnover_by_currency\":{\"JPY\":574300.0},\"unrealized_pnl_by_currency\":{\"JPY\":0.0,\"USD\":0.0},\"equity\":[{\"currency\":\"JPY\",\"equity\":9930803.465,\"cash\":9153803.465,\"positions_value\":777000.0},{\"currency\":\"USD\",\"equity\":99987.84966,\"cash\":75687.16966,\"positions_value\":24300.68}],\"open_positions\":4}",
+      "lessons": "{\"message\":\"持仓尚未产生足够盈亏样本，策略权重保持不变。\",\"weights\":{\"trend\":0.1864,\"macd\":0.1429,\"rsi\":0.2272,\"breakout\":0.1211,\"mean_reversion\":0.1524,\"volume\":0.0517,\"risk\":0.1184}}"
+    },
     {
       "id": 9,
       "review_date": "2026-05-09",
