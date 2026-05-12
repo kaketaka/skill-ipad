@@ -221,6 +221,37 @@ label span {
   box-shadow: var(--shadow);
 }
 
+.risk-strip {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.risk-card {
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.risk-card b,
+.risk-card span,
+.risk-card small {
+  display: block;
+}
+
+.risk-card span {
+  margin-top: 5px;
+  color: var(--muted);
+}
+
+.risk-card small {
+  margin-top: 6px;
+  color: var(--muted);
+}
+
 table {
   width: 100%;
   min-width: 640px;
@@ -475,6 +506,7 @@ input {
 
   .metric-grid,
   .metric-grid.compact,
+  .risk-strip,
   .settings-row {
     grid-template-columns: 1fr;
   }

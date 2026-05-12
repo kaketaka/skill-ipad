@@ -169,10 +169,12 @@ def init_db() -> None:
 def get_settings(conn: sqlite3.Connection) -> dict[str, Any]:
     row = conn.execute("SELECT value FROM config WHERE key = 'settings'").fetchone()
     cfg = default_config()
+    stored: dict[str, Any] = {}
     if row:
         stored = loads_json(row["value"], {})
         if isinstance(stored, dict):
             cfg = _deep_merge(cfg, stored)
+    cfg = _apply_safety_migration(cfg, stored)
     return cfg
 
 
@@ -240,6 +242,26 @@ def _deep_merge(base: dict[str, Any], incoming: dict[str, Any]) -> dict[str, Any
         else:
             merged[key] = value
     return merged
+
+
+def _apply_safety_migration(cfg: dict[str, Any], stored: dict[str, Any]) -> dict[str, Any]:
+    stored_risk = stored.get("risk", {}) if isinstance(stored, dict) else {}
+    stored_strategy = stored.get("strategy", {}) if isinstance(stored, dict) else {}
+    entry_filters = cfg.setdefault("risk", {}).setdefault("entry_filters", {})
+
+    if not isinstance(stored_risk, dict) or "entry_filters" not in stored_risk:
+        cfg["risk"]["max_position_pct"] = min(float(cfg["risk"].get("max_position_pct", 0.08)), 0.08)
+        cfg["risk"]["max_new_orders_per_market"] = min(int(cfg["risk"].get("max_new_orders_per_market", 2)), 2)
+        cfg["risk"]["stop_loss_pct"] = min(float(cfg["risk"].get("stop_loss_pct", 0.05)), 0.05)
+        cfg["risk"]["take_profit_pct"] = min(float(cfg["risk"].get("take_profit_pct", 0.12)), 0.12)
+        entry_filters["watchlist_only_new_positions"] = True
+
+    if not isinstance(stored_strategy, dict) or float(stored_strategy.get("buy_threshold", 0.0) or 0.0) < 0.5:
+        cfg["strategy"]["buy_threshold"] = max(float(cfg["strategy"].get("buy_threshold", 0.5)), 0.5)
+        cfg["strategy"]["sell_threshold"] = max(float(cfg["strategy"].get("sell_threshold", -0.35)), -0.35)
+        cfg["strategy"]["recommend_buy_score"] = max(int(cfg["strategy"].get("recommend_buy_score", 75)), 75)
+
+    return cfg
 
 
 def _ensure_column(conn: sqlite3.Connection, table: str, column: str, definition: str) -> None:

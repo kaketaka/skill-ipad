@@ -55,13 +55,30 @@ DEFAULT_CONFIG: dict[str, Any] = {
         "JPY": 10000000.0,
     },
     "risk": {
-        "max_position_pct": 0.12,
-        "max_new_orders_per_market": 4,
-        "stop_loss_pct": 0.06,
-        "take_profit_pct": 0.14,
+        "max_position_pct": 0.08,
+        "max_new_orders_per_market": 2,
+        "stop_loss_pct": 0.05,
+        "take_profit_pct": 0.12,
         "min_order_value": {
             "USD": 1000.0,
             "JPY": 100000.0,
+        },
+        "entry_filters": {
+            "watchlist_only_new_positions": True,
+            "min_price": {
+                "USD": 20.0,
+                "JPY": 1000.0,
+            },
+            "min_dollar_volume": {
+                "USD": 20000000.0,
+                "JPY": 500000000.0,
+            },
+            "max_entry_atr_pct": 0.045,
+            "max_entry_volatility20": 0.05,
+            "min_trend_strength": 0.05,
+            "min_momentum": 0.0,
+            "min_money_flow": -0.05,
+            "min_liquidity": 0.0,
         },
         "fees": {
             "USD": {"rate": 0.0005, "min": 1.0},
@@ -69,9 +86,9 @@ DEFAULT_CONFIG: dict[str, Any] = {
         },
     },
     "strategy": {
-        "buy_threshold": 0.42,
-        "sell_threshold": -0.42,
-        "recommend_buy_score": 70,
+        "buy_threshold": 0.5,
+        "sell_threshold": -0.35,
+        "recommend_buy_score": 75,
         "recommend_sell_score": 30,
         "strong_sell_threshold": -0.7,
         "learning_rate": 0.025,
@@ -83,15 +100,16 @@ DEFAULT_CONFIG: dict[str, Any] = {
 
 DEFAULT_WEIGHTS: dict[str, float] = {
     "trend": 0.18,
-    "trend_strength": 0.12,
-    "momentum": 0.14,
-    "macd": 0.12,
-    "rsi": 0.1,
-    "breakout": 0.12,
-    "mean_reversion": 0.08,
+    "trend_strength": 0.13,
+    "momentum": 0.15,
+    "macd": 0.1,
+    "rsi": 0.07,
+    "breakout": 0.1,
+    "mean_reversion": 0.06,
     "volume": 0.05,
-    "money_flow": 0.06,
-    "risk": 0.03,
+    "money_flow": 0.08,
+    "risk": 0.05,
+    "liquidity": 0.03,
 }
 
 

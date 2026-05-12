@@ -42,7 +42,8 @@ def generate_signal(
         "mean_reversion": _mean_reversion_score(row),
         "volume": _volume_score(row),
         "money_flow": _money_flow_score(row),
-        "risk": _risk_score(row),
+        "risk": _risk_score(row, settings),
+        "liquidity": _liquidity_score(row, market, settings),
     }
     total_weight = sum(abs(float(weights.get(name, 0))) for name in features) or 1.0
     raw_score = sum(features[name] * float(weights.get(name, 0)) for name in features) / total_weight
@@ -51,7 +52,7 @@ def generate_signal(
     confidence = min(1.0, 0.35 + abs(score) * 0.55 + _data_quality_bonus(indicators))
     buy_threshold = float(settings["strategy"]["buy_threshold"])
     sell_threshold = float(settings["strategy"]["sell_threshold"])
-    action = _action(score, features, buy_threshold, sell_threshold)
+    action = _action(score, features, buy_threshold, sell_threshold, settings)
     return Signal(
         symbol=symbol,
         market=market,
@@ -81,14 +82,31 @@ def recommendation_guidance(settings: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def _action(score: float, features: dict[str, float], buy_threshold: float, sell_threshold: float) -> str:
+def _action(
+    score: float,
+    features: dict[str, float],
+    buy_threshold: float,
+    sell_threshold: float,
+    settings: dict[str, Any],
+) -> str:
     weak_trend = features["trend_strength"] < -0.1 and features["breakout"] <= 0
     weak_flow = features["money_flow"] < -0.25 and features["volume"] <= 0
-    if score >= buy_threshold and not (weak_trend or weak_flow):
+    if score >= buy_threshold and not (weak_trend or weak_flow) and _passes_entry_quality(features, settings):
         return "BUY"
     if score <= sell_threshold or (features["risk"] < -0.6 and features["trend"] < 0):
         return "SELL"
     return "HOLD"
+
+
+def _passes_entry_quality(features: dict[str, float], settings: dict[str, Any]) -> bool:
+    filters = settings.get("risk", {}).get("entry_filters", {})
+    return (
+        features.get("liquidity", 0.0) >= float(filters.get("min_liquidity", 0.0))
+        and features.get("trend_strength", 0.0) >= float(filters.get("min_trend_strength", 0.05))
+        and features.get("momentum", 0.0) >= float(filters.get("min_momentum", 0.0))
+        and features.get("money_flow", 0.0) >= float(filters.get("min_money_flow", -0.05))
+        and features.get("risk", 0.0) >= -0.15
+    )
 
 
 def _recommendation_label(index: int, settings: dict[str, Any]) -> str:
@@ -217,6 +235,34 @@ def _volume_score(row: pd.Series) -> float:
     return 0.0
 
 
+def _liquidity_score(row: pd.Series, market: str, settings: dict[str, Any]) -> float:
+    close = float(row.get("close") or 0)
+    volume_sma = float(row.get("volume_sma20") or 0)
+    dollar_volume_sma = float(row.get("dollar_volume_sma20") or 0)
+    currency = "JPY" if market.upper() == "JP" else "USD"
+    filters = settings.get("risk", {}).get("entry_filters", {})
+    min_price = float(filters.get("min_price", {}).get(currency, 0.0))
+    min_dollar_volume = float(filters.get("min_dollar_volume", {}).get(currency, 0.0))
+    if close <= 0:
+        return -1.0
+    score = 0.15 if close >= min_price else -0.7
+    if dollar_volume_sma > 0 and min_dollar_volume > 0:
+        ratio = dollar_volume_sma / min_dollar_volume
+        if ratio >= 3:
+            score += 0.45
+        elif ratio >= 1:
+            score += 0.25
+        elif ratio >= 0.5:
+            score -= 0.25
+        else:
+            score -= 0.65
+    elif volume_sma >= 500000:
+        score += 0.2
+    elif volume_sma > 0:
+        score -= 0.25
+    return _clip(score)
+
+
 def _money_flow_score(row: pd.Series) -> float:
     cmf = float(row.get("cmf20") or 0)
     mfi = float(row.get("mfi14") or 50)
@@ -234,7 +280,7 @@ def _money_flow_score(row: pd.Series) -> float:
     return _clip(score)
 
 
-def _risk_score(row: pd.Series) -> float:
+def _risk_score(row: pd.Series, settings: dict[str, Any]) -> float:
     atr = float(row.get("atr14") or 0)
     close = float(row.get("close") or 0)
     volatility = float(row.get("volatility20") or 0)
@@ -242,12 +288,15 @@ def _risk_score(row: pd.Series) -> float:
     if not close:
         return 0.0
     atr_pct = atr / close
+    filters = settings.get("risk", {}).get("entry_filters", {})
+    max_entry_atr_pct = float(filters.get("max_entry_atr_pct", 0.045))
+    max_entry_volatility = float(filters.get("max_entry_volatility20", 0.05))
     score = 0.0
     if atr_pct < 0.018:
         score += 0.2
-    elif atr_pct > 0.055:
-        score -= 0.35
-    if volatility > 0.045:
+    elif atr_pct > max_entry_atr_pct:
+        score -= 0.4
+    if volatility > max_entry_volatility:
         score -= 0.25
     if sma20 and close > sma20 * 1.18:
         score -= 0.2
@@ -277,6 +326,7 @@ def _rationale(features: dict[str, float]) -> list[str]:
         "volume": "量能",
         "money_flow": "资金流",
         "risk": "波动风险",
+        "liquidity": "流动性",
     }
     ordered = sorted(features.items(), key=lambda item: abs(item[1]), reverse=True)
     lines = []

@@ -26,11 +26,14 @@ def compute_indicators(prices: pd.DataFrame) -> pd.DataFrame:
     frame["macd_hist"] = frame["macd"] - frame["macd_signal"]
     frame["rsi14"] = _rsi(close, 14)
     frame["atr14"] = _atr(high, low, close, 14)
+    frame["atr_pct"] = frame["atr14"] / close.replace(0, np.nan)
     frame["bb_mid"] = frame["sma20"]
     frame["bb_std"] = close.rolling(20).std()
     frame["bb_upper"] = frame["bb_mid"] + 2 * frame["bb_std"]
     frame["bb_lower"] = frame["bb_mid"] - 2 * frame["bb_std"]
     frame["volume_sma20"] = volume.rolling(20).mean()
+    frame["dollar_volume"] = close * volume
+    frame["dollar_volume_sma20"] = frame["dollar_volume"].rolling(20).mean()
     frame["high20"] = high.rolling(20).max()
     frame["low20"] = low.rolling(20).min()
     frame["slope20"] = frame["sma20"].diff(5) / frame["sma20"].shift(5)

@@ -22,6 +22,8 @@ def execute_signals(conn: sqlite3.Connection, signals: list[Signal], settings: d
             executed.append(risk_trade)
             continue
         if signal.action == "BUY":
+            if not _can_open_buy(conn, signal, settings):
+                continue
             current_count = orders_by_market.get(signal.market, 0)
             max_orders = int(settings["risk"]["max_new_orders_per_market"])
             if current_count >= max_orders:
@@ -34,6 +36,44 @@ def execute_signals(conn: sqlite3.Connection, signals: list[Signal], settings: d
             trade = _sell(conn, signal, settings, full=signal.score <= settings["strategy"]["strong_sell_threshold"])
             if trade:
                 executed.append(trade)
+    return executed
+
+
+def enforce_position_risk(conn: sqlite3.Connection, settings: dict[str, Any]) -> list[dict[str, Any]]:
+    rows = conn.execute(
+        """
+        SELECT symbol, market, quantity, avg_cost, last_price
+        FROM positions
+        ORDER BY market, symbol
+        """
+    ).fetchall()
+    executed: list[dict[str, Any]] = []
+    for row in rows:
+        avg_cost = float(row["avg_cost"])
+        last_price = float(row["last_price"])
+        if avg_cost <= 0 or last_price <= 0:
+            continue
+        change = last_price / avg_cost - 1.0
+        signal = Signal(
+            symbol=row["symbol"],
+            market=row["market"],
+            action="SELL",
+            score=-1.0 if change < 0 else 0.4,
+            recommendation_index=0 if change < 0 else 70,
+            recommendation_label="持仓风控",
+            confidence=1.0,
+            close=last_price,
+            rationale=[f"持仓浮动盈亏 {change:+.2%}"],
+            features={},
+        )
+        if change <= -float(settings["risk"]["stop_loss_pct"]):
+            trade = _sell(conn, signal, settings, full=True, reason="stop_loss_exit")
+        elif change >= float(settings["risk"]["take_profit_pct"]):
+            trade = _sell(conn, signal, settings, full=False, reason="take_profit_trim")
+        else:
+            trade = None
+        if trade:
+            executed.append(trade)
     return executed
 
 
@@ -161,6 +201,33 @@ def portfolio_snapshot(conn: sqlite3.Connection) -> dict[str, Any]:
     return {"cash": cash, "positions": positions, "equity": equity}
 
 
+def _can_open_buy(conn: sqlite3.Connection, signal: Signal, settings: dict[str, Any]) -> bool:
+    info = infer_market(signal.symbol)
+    current = conn.execute("SELECT quantity FROM positions WHERE symbol = ?", (signal.symbol,)).fetchone()
+    is_new_position = current is None or float(current["quantity"]) <= 0
+    filters = settings.get("risk", {}).get("entry_filters", {})
+    if signal.recommendation_index < int(settings.get("strategy", {}).get("recommend_buy_score", 75)):
+        return False
+    if is_new_position and filters.get("watchlist_only_new_positions", True) and not _is_watchlist_symbol(signal.symbol, settings):
+        return False
+    min_price = float(filters.get("min_price", {}).get(info.currency, 0.0))
+    if min_price and signal.close < min_price:
+        return False
+    features = signal.features or {}
+    checks = {
+        "liquidity": float(filters.get("min_liquidity", 0.0)),
+        "trend_strength": float(filters.get("min_trend_strength", 0.05)),
+        "momentum": float(filters.get("min_momentum", 0.0)),
+        "money_flow": float(filters.get("min_money_flow", -0.05)),
+    }
+    for name, minimum in checks.items():
+        if float(features.get(name, 0.0)) < minimum:
+            return False
+    if float(features.get("risk", 0.0)) < -0.15:
+        return False
+    return True
+
+
 def _buy(conn: sqlite3.Connection, signal: Signal, settings: dict[str, Any]) -> dict[str, Any] | None:
     info = infer_market(signal.symbol)
     currency = info.currency
@@ -212,7 +279,13 @@ def _buy(conn: sqlite3.Connection, signal: Signal, settings: dict[str, Any]) -> 
     return _record_trade(conn, signal, "BUY", quantity, gross, fee, "signal_buy")
 
 
-def _sell(conn: sqlite3.Connection, signal: Signal, settings: dict[str, Any], full: bool) -> dict[str, Any] | None:
+def _sell(
+    conn: sqlite3.Connection,
+    signal: Signal,
+    settings: dict[str, Any],
+    full: bool,
+    reason: str | None = None,
+) -> dict[str, Any] | None:
     row = conn.execute("SELECT quantity, currency FROM positions WHERE symbol = ?", (signal.symbol,)).fetchone()
     if not row:
         return None
@@ -234,7 +307,8 @@ def _sell(conn: sqlite3.Connection, signal: Signal, settings: dict[str, Any], fu
             "UPDATE positions SET quantity = ?, last_price = ?, updated_at = ? WHERE symbol = ?",
             (remaining, signal.close, utc_now(), signal.symbol),
         )
-    return _record_trade(conn, signal, "SELL", quantity, gross, fee, "signal_sell_full" if full else "signal_sell_half")
+    trade_reason = reason or ("signal_sell_full" if full else "signal_sell_half")
+    return _record_trade(conn, signal, "SELL", quantity, gross, fee, trade_reason)
 
 
 def _risk_exit(conn: sqlite3.Connection, signal: Signal, settings: dict[str, Any]) -> dict[str, Any] | None:
@@ -247,13 +321,10 @@ def _risk_exit(conn: sqlite3.Connection, signal: Signal, settings: dict[str, Any
     change = signal.close / avg_cost - 1.0
     if change <= -float(settings["risk"]["stop_loss_pct"]):
         forced = Signal(**{**asdict(signal), "action": "SELL"})
-        return _sell(conn, forced, settings, full=True)
+        return _sell(conn, forced, settings, full=True, reason="stop_loss_exit")
     if change >= float(settings["risk"]["take_profit_pct"]):
         forced = Signal(**{**asdict(signal), "action": "SELL"})
-        trade = _sell(conn, forced, settings, full=False)
-        if trade:
-            trade["reason"] = "take_profit_trim"
-        return trade
+        return _sell(conn, forced, settings, full=False, reason="take_profit_trim")
     return None
 
 
@@ -320,6 +391,15 @@ def _fee(currency: str, gross: float, settings: dict[str, Any]) -> float:
 
 def _lot_size(symbol: str) -> int:
     return 100 if symbol.upper().endswith(".T") else 1
+
+
+def _is_watchlist_symbol(symbol: str, settings: dict[str, Any]) -> bool:
+    wanted = symbol.strip().upper()
+    for rows in settings.get("watchlists", {}).values():
+        for item in rows:
+            if str(item).strip().upper() == wanted:
+                return True
+    return False
 
 
 def _float_or_none(value: Any) -> float | None:

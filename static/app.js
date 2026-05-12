@@ -164,6 +164,7 @@ function render(data) {
   renderTradedQuotes(data.traded_quotes || []);
   renderSignals(data.signals);
   renderPositions(data.portfolio.positions);
+  renderRiskAlerts(data.risk_alerts || []);
   renderPositionDetails(data.positions_enriched || []);
   renderTrades(data.trades);
   renderReviews(data.reviews);
@@ -321,6 +322,26 @@ function renderPositions(rows) {
     : `<tr><td colspan="8">暂无持仓。</td></tr>`;
 }
 
+function renderRiskAlerts(rows) {
+  const container = document.getElementById("risk-alerts");
+  if (!container) return;
+  container.innerHTML = rows.length
+    ? rows
+        .map((row) => {
+          const changePct = Number(row.change_pct);
+          const cls = Number.isFinite(changePct) ? (changePct >= 0 ? "positive" : "negative") : "";
+          return `
+            <article class="risk-card">
+              <b>${escapeHtml(row.symbol)}</b>
+              <span>${escapeHtml(row.status)} · 当前浮盈亏 <em class="${cls}">${Number.isFinite(changePct) ? formatPct(changePct) : "-"}</em></span>
+              <small>止损价 ${money.format(row.stop_price)} / 止盈减仓价 ${money.format(row.take_profit_price)}</small>
+            </article>
+          `;
+        })
+        .join("")
+    : `<article class="risk-card"><b>暂无持仓风控</b><span>没有持仓时不显示止损/止盈监控。</span></article>`;
+}
+
 function renderPositionDetails(rows) {
   const container = document.getElementById("position-details");
   container.innerHTML = rows.length
@@ -348,7 +369,8 @@ function renderPositionDetails(rows) {
               <div class="kv">
                 <div><b>趋势</b><span>SMA20 ${fmt(ind.sma20)} / SMA50 ${fmt(ind.sma50)} / ADX14 ${fmt(ind.adx14)}</span></div>
                 <div><b>动量</b><span>20日 ${fmt(ind.return_20d, true)} / 60日 ${fmt(ind.return_60d, true)} / MACD_hist ${fmt(ind.macd_hist)}</span></div>
-                <div><b>波动</b><span>ATR14 ${fmt(ind.atr14)} / 20日波动 ${fmt(ind.volatility20, true)} / 布林 ${fmt(ind.bb_lower)} - ${fmt(ind.bb_upper)}</span></div>
+                <div><b>波动</b><span>ATR14 ${fmt(ind.atr14)} (${fmt(ind.atr_pct, true)}) / 20日波动 ${fmt(ind.volatility20, true)} / 布林 ${fmt(ind.bb_lower)} - ${fmt(ind.bb_upper)}</span></div>
+                <div><b>流动性</b><span>20日成交额 ${fmt(ind.dollar_volume_sma20)} / 20日均量 ${fmt(ind.volume_sma20)}</span></div>
                 <div><b>资金流</b><span>MFI14 ${fmt(ind.mfi14)} / CMF20 ${fmt(ind.cmf20)} / OBV斜率 ${fmt(ind.obv_slope20)}</span></div>
               </div>
             </article>

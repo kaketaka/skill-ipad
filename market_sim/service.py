@@ -3,7 +3,7 @@ from __future__ import annotations
 from datetime import date, timedelta
 from typing import Any
 
-from .broker import execute_signals, portfolio_snapshot, record_signal, update_equity, upsert_prices
+from .broker import enforce_position_risk, execute_signals, portfolio_snapshot, record_signal, update_equity, upsert_prices
 from .data_sources import fetch_history, fetch_latest_quote as fetch_market_quote, infer_market
 from .db import get_settings, get_weights, init_db, reset_paper_trading_state, rows_to_dicts, session, utc_now
 from .indicators import compute_indicators, latest_complete_row
@@ -19,6 +19,9 @@ def run_market_cycle(markets: list[str] | None = None) -> dict[str, Any]:
         weights = get_weights(conn)
         selected = [market.upper() for market in (markets or ["US", "JP"])]
         universe_status = ensure_universe(settings, selected)
+        refresh_open_position_prices(conn, settings)
+        risk_trades = enforce_position_risk(conn, settings)
+        blocked_symbols = {trade["symbol"] for trade in risk_trades if trade.get("reason") == "stop_loss_exit"}
         signals = []
         errors = []
         scan_plan: dict[str, list[str]] = {}
@@ -36,7 +39,7 @@ def run_market_cycle(markets: list[str] | None = None) -> dict[str, Any]:
                     signals.append(signal)
                 except Exception as exc:
                     errors.append({"symbol": symbol, "error": str(exc)})
-        trades = execute_signals(conn, signals, settings)
+        trades = risk_trades + execute_signals(conn, [signal for signal in signals if signal.symbol not in blocked_symbols], settings)
         equity = update_equity(conn)
         return {
             "signals": [signal.__dict__ for signal in signals],
@@ -108,6 +111,7 @@ def get_dashboard() -> dict[str, Any]:
         )
         market_quotes = _market_quotes(conn, settings)
         positions_enriched = _enrich_positions(conn, portfolio.get("positions", []))
+        risk_alerts = _position_risk_alerts(portfolio.get("positions", []), settings)
         traded_quotes = _traded_quotes(conn, portfolio.get("positions", []))
         portfolio_summary = _portfolio_summary(conn, settings, portfolio)
         return {
@@ -125,6 +129,7 @@ def get_dashboard() -> dict[str, Any]:
             "reviews": reviews,
             "market_quotes": market_quotes,
             "positions_enriched": positions_enriched,
+            "risk_alerts": risk_alerts,
             "traded_quotes": traded_quotes,
             "portfolio_summary": portfolio_summary,
             "quote_refresh": quote_refresh,
@@ -226,6 +231,39 @@ def _portfolio_summary(conn, settings: dict[str, Any], portfolio: dict[str, Any]
                 "equity_delta": round(equity - starting_equity, 2),
                 "equity_delta_pct": round((equity / starting_equity - 1.0), 6) if starting_equity else None,
                 "total_fees": round(fees.get(currency, 0.0), 2),
+            }
+        )
+    return output
+
+
+def _position_risk_alerts(positions: list[dict[str, Any]], settings: dict[str, Any]) -> list[dict[str, Any]]:
+    stop_loss_pct = float(settings.get("risk", {}).get("stop_loss_pct", 0.05))
+    take_profit_pct = float(settings.get("risk", {}).get("take_profit_pct", 0.12))
+    output: list[dict[str, Any]] = []
+    for row in positions:
+        avg_cost = float(row.get("avg_cost") or 0.0)
+        last_price = float(row.get("last_price") or 0.0)
+        if avg_cost <= 0 or last_price <= 0:
+            continue
+        change = last_price / avg_cost - 1.0
+        if change <= -stop_loss_pct:
+            status = "已触发止损"
+        elif change <= -stop_loss_pct * 0.8:
+            status = "接近止损"
+        elif change >= take_profit_pct:
+            status = "已触发止盈减仓"
+        elif change >= take_profit_pct * 0.8:
+            status = "接近止盈"
+        else:
+            status = "正常"
+        output.append(
+            {
+                "symbol": row.get("symbol"),
+                "market": row.get("market"),
+                "change_pct": round(change, 6),
+                "stop_price": round(avg_cost * (1.0 - stop_loss_pct), 4),
+                "take_profit_price": round(avg_cost * (1.0 + take_profit_pct), 4),
+                "status": status,
             }
         )
     return output
@@ -380,9 +418,11 @@ def _indicator_snapshot(candles: list[dict[str, Any]]) -> dict[str, Any]:
         "macd_hist",
         "rsi14",
         "atr14",
+        "atr_pct",
         "bb_upper",
         "bb_lower",
         "volume_sma20",
+        "dollar_volume_sma20",
         "high20",
         "low20",
         "slope20",
