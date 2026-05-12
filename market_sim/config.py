@@ -82,13 +82,16 @@ DEFAULT_CONFIG: dict[str, Any] = {
 
 
 DEFAULT_WEIGHTS: dict[str, float] = {
-    "trend": 0.22,
-    "macd": 0.18,
-    "rsi": 0.16,
-    "breakout": 0.16,
-    "mean_reversion": 0.14,
-    "volume": 0.08,
-    "risk": 0.06,
+    "trend": 0.18,
+    "trend_strength": 0.12,
+    "momentum": 0.14,
+    "macd": 0.12,
+    "rsi": 0.1,
+    "breakout": 0.12,
+    "mean_reversion": 0.08,
+    "volume": 0.05,
+    "money_flow": 0.06,
+    "risk": 0.03,
 }
 
 

@@ -188,8 +188,8 @@ def _summary(
         lines.append(f"- 权重方向：{adj}")
     lines.append("")
     lines.append("【明日计划】")
-    lines.append(f"- 优先复盘：推荐指数 ≥ {buy_cut} 的标的（结合趋势/成交量/资金流指标过滤）。")
-    lines.append("- 对持仓：先看趋势是否延续（SMA20/SMA50、MACD_hist），再看风险（ATR、布林带、止损线）。")
+    lines.append(f"- 优先复盘：推荐指数 ≥ {buy_cut} 的标的，必须同时看 ADX 趋势强度、20/60日动量和 CMF/MFI 资金流。")
+    lines.append("- 对持仓：先看趋势是否延续（SMA20/SMA50、ADX、MACD_hist），再看风险（ATR、20日波动、布林带、止损线）。")
     return "\n".join([line for line in lines if line is not None])
 
 
@@ -206,11 +206,11 @@ def _market_wrap(conn: sqlite3.Connection, settings: dict[str, Any]) -> dict[str
             snapshot = _indicator_snapshot(conn, symbol, limit=120)
             change_pct = quote.get("change_pct")
             change_text = f"{(change_pct * 100):+.2f}%" if isinstance(change_pct, float) else "—"
-            rsi = snapshot.get("rsi14")
-            macd = snapshot.get("macd_hist")
+            adx = snapshot.get("adx14")
+            momentum20 = snapshot.get("return_20d")
             cmf = snapshot.get("cmf20")
             output[market].append(
-                f"{symbol} 收盘 {quote['close']:.2f}（{change_text}） · RSI14 {rsi if rsi is not None else '—'} · MACD_hist {macd if macd is not None else '—'} · CMF20 {cmf if cmf is not None else '—'}"
+                f"{symbol} 收盘 {quote['close']:.2f}（{change_text}） · ADX14 {adx if adx is not None else '—'} · 20日动量 {momentum20 if momentum20 is not None else '—'} · CMF20 {cmf if cmf is not None else '—'}"
             )
     return output
 
@@ -263,6 +263,8 @@ def _latest_quote(conn: sqlite3.Connection, symbol: str) -> dict[str, Any] | Non
 
 
 def _indicator_snapshot(conn: sqlite3.Connection, symbol: str, limit: int = 120) -> dict[str, float]:
+    import math
+
     import pandas as pd
 
     rows = conn.execute(
@@ -281,12 +283,28 @@ def _indicator_snapshot(conn: sqlite3.Connection, symbol: str, limit: int = 120)
     enriched = compute_indicators(frame)
     latest = latest_complete_row(enriched)
     snapshot: dict[str, float] = {}
-    for key in ["rsi14", "macd_hist", "cmf20", "mfi14", "atr14", "sma20", "sma50", "slope20"]:
+    for key in [
+        "return_20d",
+        "return_60d",
+        "rsi14",
+        "macd_hist",
+        "cmf20",
+        "mfi14",
+        "atr14",
+        "sma20",
+        "sma50",
+        "slope20",
+        "adx14",
+        "plus_di14",
+        "minus_di14",
+        "volatility20",
+    ]:
         try:
             value = float(latest.get(key))
         except Exception:
             continue
-        snapshot[key] = round(value, 4)
+        if math.isfinite(value):
+            snapshot[key] = round(value, 4)
     return snapshot
 
 

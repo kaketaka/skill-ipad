@@ -163,6 +163,7 @@ def init_db() -> None:
                 """,
                 (indicator, weight, now),
             )
+        _normalize_strategy_weights(conn, now)
 
 
 def get_settings(conn: sqlite3.Connection) -> dict[str, Any]:
@@ -245,3 +246,20 @@ def _ensure_column(conn: sqlite3.Connection, table: str, column: str, definition
     columns = {row["name"] for row in conn.execute(f"PRAGMA table_info({table})").fetchall()}
     if column not in columns:
         conn.execute(f"ALTER TABLE {table} ADD COLUMN {column} {definition}")
+
+
+def _normalize_strategy_weights(conn: sqlite3.Connection, updated_at: str) -> None:
+    rows = conn.execute("SELECT indicator, weight FROM strategy_weights").fetchall()
+    total = sum(max(0.0, float(row["weight"])) for row in rows)
+    if not total or abs(total - 1.0) < 0.0001:
+        return
+    for row in rows:
+        normalized = max(0.0, float(row["weight"])) / total
+        conn.execute(
+            """
+            UPDATE strategy_weights
+            SET weight = ?, updated_at = ?
+            WHERE indicator = ?
+            """,
+            (round(normalized, 6), updated_at, row["indicator"]),
+        )

@@ -4,8 +4,8 @@ from datetime import date, timedelta
 from typing import Any
 
 from .broker import execute_signals, portfolio_snapshot, record_signal, update_equity, upsert_prices
-from .data_sources import fetch_history, infer_market
-from .db import get_settings, get_weights, init_db, reset_paper_trading_state, rows_to_dicts, session
+from .data_sources import fetch_history, fetch_latest_quote as fetch_market_quote, infer_market
+from .db import get_settings, get_weights, init_db, reset_paper_trading_state, rows_to_dicts, session, utc_now
 from .indicators import compute_indicators, latest_complete_row
 from .review import create_daily_review
 from .strategy import generate_signal, recommendation_guidance
@@ -52,6 +52,7 @@ def run_review() -> dict[str, Any]:
     init_db()
     with session() as conn:
         settings = get_settings(conn)
+        refresh_open_position_prices(conn, settings)
         update_equity(conn)
         return create_daily_review(conn, settings)
 
@@ -61,6 +62,7 @@ def get_dashboard() -> dict[str, Any]:
     with session() as conn:
         settings = get_settings(conn)
         weights = get_weights(conn)
+        quote_refresh = refresh_open_position_prices(conn, settings)
         portfolio = portfolio_snapshot(conn)
         signals = rows_to_dicts(
             conn.execute(
@@ -125,7 +127,79 @@ def get_dashboard() -> dict[str, Any]:
             "positions_enriched": positions_enriched,
             "traded_quotes": traded_quotes,
             "portfolio_summary": portfolio_summary,
+            "quote_refresh": quote_refresh,
         }
+
+
+def refresh_open_position_prices(conn, settings: dict[str, Any]) -> dict[str, Any]:
+    rows = conn.execute(
+        """
+        SELECT symbol
+        FROM positions
+        ORDER BY market, symbol
+        """
+    ).fetchall()
+    refreshed: list[dict[str, Any]] = []
+    errors: list[dict[str, Any]] = []
+    for row in rows:
+        symbol = row["symbol"]
+        try:
+            quote = fetch_market_quote(symbol, settings.get("data_sources", ["yfinance"]))
+            now = utc_now()
+            upsert_prices(
+                conn,
+                symbol,
+                quote.market,
+                quote.currency,
+                quote.source,
+                _quote_price_rows(quote),
+            )
+            conn.execute(
+                """
+                UPDATE positions
+                SET last_price = ?, updated_at = ?
+                WHERE symbol = ?
+                """,
+                (quote.price, now, symbol),
+            )
+            refreshed.append(
+                {
+                    "symbol": symbol,
+                    "price": round(quote.price, 4),
+                    "previous_close": round(quote.previous_close, 4) if quote.previous_close is not None else None,
+                    "as_of": quote.as_of,
+                    "source": quote.source,
+                }
+            )
+        except Exception as exc:
+            errors.append({"symbol": symbol, "error": str(exc)})
+    return {"refreshed": refreshed, "errors": errors, "updated_at": utc_now()}
+
+
+def _quote_price_rows(quote) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    if quote.previous_close is not None and quote.previous_as_of is not None:
+        rows.append(
+            {
+                "date": quote.previous_as_of,
+                "open": quote.previous_close,
+                "high": quote.previous_close,
+                "low": quote.previous_close,
+                "close": quote.previous_close,
+                "volume": None,
+            }
+        )
+    rows.append(
+        {
+            "date": quote.as_of,
+            "open": quote.open if quote.open is not None else quote.price,
+            "high": quote.high if quote.high is not None else quote.price,
+            "low": quote.low if quote.low is not None else quote.price,
+            "close": quote.price,
+            "volume": quote.volume,
+        }
+    )
+    return rows
 
 
 def _portfolio_summary(conn, settings: dict[str, Any], portfolio: dict[str, Any]) -> list[dict[str, Any]]:
@@ -226,6 +300,8 @@ def _enrich_positions(conn, positions: list[dict[str, Any]]) -> list[dict[str, A
             enriched["day_change"] = quote.get("change")
             enriched["day_change_pct"] = quote.get("change_pct")
             enriched["last_date"] = quote.get("date")
+            enriched["price_source"] = quote.get("source")
+            enriched["prev_close"] = quote.get("prev_close")
         candles = _candles(conn, symbol, limit=120)
         if candles:
             enriched["candles"] = candles
@@ -241,14 +317,18 @@ def _latest_quote(conn, symbol: str) -> dict[str, Any] | None:
         FROM prices
         WHERE symbol = ?
         ORDER BY date DESC
-        LIMIT 2
+        LIMIT 10
         """,
         (symbol,),
     ).fetchall()
     if not rows:
         return None
     latest = rows[0]
-    prev_close = float(rows[1]["close"]) if len(rows) > 1 else None
+    latest_day = str(latest["date"])[:10]
+    previous = next((row for row in rows[1:] if str(row["date"])[:10] < latest_day), None)
+    if previous is None and len(rows) > 1:
+        previous = rows[1]
+    prev_close = float(previous["close"]) if previous is not None else None
     close = float(latest["close"])
     change = round(close - prev_close, 4) if prev_close is not None else None
     change_pct = round(change / prev_close, 6) if prev_close not in (None, 0.0) else None
@@ -280,6 +360,8 @@ def _candles(conn, symbol: str, limit: int = 90) -> list[dict[str, Any]]:
 
 
 def _indicator_snapshot(candles: list[dict[str, Any]]) -> dict[str, Any]:
+    import math
+
     import pandas as pd
 
     frame = pd.DataFrame(candles)
@@ -289,8 +371,12 @@ def _indicator_snapshot(candles: list[dict[str, Any]]) -> dict[str, Any]:
     latest = latest_complete_row(enriched)
     keys = [
         "return_1d",
+        "return_5d",
+        "return_20d",
+        "return_60d",
         "sma20",
         "sma50",
+        "sma200",
         "macd_hist",
         "rsi14",
         "atr14",
@@ -301,8 +387,13 @@ def _indicator_snapshot(candles: list[dict[str, Any]]) -> dict[str, Any]:
         "low20",
         "slope20",
         "obv",
+        "obv_slope20",
         "cmf20",
         "mfi14",
+        "adx14",
+        "plus_di14",
+        "minus_di14",
+        "volatility20",
     ]
     snapshot: dict[str, Any] = {}
     for key in keys:
@@ -310,9 +401,11 @@ def _indicator_snapshot(candles: list[dict[str, Any]]) -> dict[str, Any]:
         if value is None:
             continue
         try:
-            snapshot[key] = round(float(value), 6)
+            numeric = float(value)
         except Exception:
             continue
+        if math.isfinite(numeric):
+            snapshot[key] = round(numeric, 6)
     return snapshot
 
 

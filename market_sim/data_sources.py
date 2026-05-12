@@ -18,6 +18,22 @@ class MarketInfo:
     tradeable: bool = True
 
 
+@dataclass(frozen=True)
+class Quote:
+    symbol: str
+    market: str
+    currency: str
+    price: float
+    previous_close: float | None
+    previous_as_of: str | None
+    as_of: str
+    source: str
+    open: float | None = None
+    high: float | None = None
+    low: float | None = None
+    volume: float | None = None
+
+
 def infer_market(symbol: str) -> MarketInfo:
     clean = symbol.upper()
     if clean.startswith("^") or clean in {"TOPIX100.T"}:
@@ -50,6 +66,64 @@ def fetch_yfinance(symbol: str, period: str = "1y") -> pd.DataFrame:
     ticker = yf.Ticker(symbol)
     frame = ticker.history(period=period, interval="1d", auto_adjust=False)
     return frame.reset_index()
+
+
+def fetch_latest_quote(symbol: str, sources: Iterable[str]) -> Quote:
+    errors: list[str] = []
+    for source in sources:
+        try:
+            if source == "yfinance":
+                return fetch_yfinance_quote(symbol)
+        except Exception as exc:
+            errors.append(f"{source}: {exc}")
+    frame, source = fetch_history(symbol, sources, period="5d")
+    if frame.empty:
+        raise RuntimeError(f"No quote for {symbol}. " + "; ".join(errors))
+    latest = frame.iloc[-1]
+    previous = frame.iloc[-2] if len(frame) > 1 else None
+    info = infer_market(symbol)
+    return Quote(
+        symbol=symbol,
+        market=info.market,
+        currency=info.currency,
+        price=float(latest["close"]),
+        previous_close=float(previous["close"]) if previous is not None else None,
+        previous_as_of=str(previous["date"]) if previous is not None else None,
+        as_of=str(latest["date"]),
+        source=source,
+        open=_float_or_none(latest.get("open")),
+        high=_float_or_none(latest.get("high")),
+        low=_float_or_none(latest.get("low")),
+        volume=_float_or_none(latest.get("volume")),
+    )
+
+
+def fetch_yfinance_quote(symbol: str) -> Quote:
+    ticker = yf.Ticker(symbol)
+    info = infer_market(symbol)
+    intraday = ticker.history(period="1d", interval="1m", auto_adjust=False)
+    daily = ticker.history(period="5d", interval="1d", auto_adjust=False)
+    if intraday.empty and daily.empty:
+        raise RuntimeError(f"Yahoo returned no quote rows for {symbol}")
+    latest_frame = intraday if not intraday.empty else daily
+    latest = latest_frame.iloc[-1]
+    latest_index = latest_frame.index[-1]
+    previous_close = _previous_close(daily)
+    daily_latest = daily.iloc[-1] if not daily.empty else latest
+    return Quote(
+        symbol=symbol,
+        market=info.market,
+        currency=info.currency,
+        price=float(latest["Close"]),
+        previous_close=previous_close,
+        previous_as_of=_previous_as_of(daily),
+        as_of=pd.Timestamp(latest_index).isoformat(),
+        source="yfinance_intraday" if not intraday.empty else "yfinance",
+        open=_float_or_none(daily_latest.get("Open")),
+        high=_float_or_none(daily_latest.get("High")),
+        low=_float_or_none(daily_latest.get("Low")),
+        volume=_float_or_none(daily_latest.get("Volume")),
+    )
 
 
 def fetch_stooq(symbol: str) -> pd.DataFrame:
@@ -144,3 +218,25 @@ def _stooq_candidates(symbol: str) -> list[str]:
     if "." not in raw:
         return [f"{raw}.us", raw]
     return [raw]
+
+
+def _previous_close(daily: pd.DataFrame) -> float | None:
+    if daily.empty:
+        return None
+    if len(daily) > 1:
+        return float(daily.iloc[-2]["Close"])
+    return float(daily.iloc[-1]["Close"])
+
+
+def _previous_as_of(daily: pd.DataFrame) -> str | None:
+    if daily.empty:
+        return None
+    index = daily.index[-2] if len(daily) > 1 else daily.index[-1]
+    return pd.Timestamp(index).isoformat()
+
+
+def _float_or_none(value) -> float | None:
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return None

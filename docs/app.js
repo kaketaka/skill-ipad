@@ -302,18 +302,23 @@ function renderPositions(rows) {
     ? rows
         .map((row) => {
           const pnl = Number(row.unrealized_pnl || 0);
+          const pnlPct = Number(row.unrealized_pct || 0);
+          const pnlClass = pnl >= 0 ? "positive" : "negative";
           return `
           <tr>
             <td>${escapeHtml(row.symbol)}</td>
             <td>${money.format(row.quantity)}</td>
             <td>${money.format(row.avg_cost)}</td>
             <td>${money.format(row.last_price)}</td>
-            <td class="${pnl >= 0 ? "positive" : "negative"}">${money.format(pnl)}</td>
+            <td>${money.format(row.market_value || Number(row.quantity || 0) * Number(row.last_price || 0))}</td>
+            <td class="${pnlClass}">${formatSignedMoney(pnl)}</td>
+            <td class="${pnlClass}">${formatPct(pnlPct)}</td>
+            <td>${shortTime(row.updated_at)}</td>
           </tr>
         `;
         })
         .join("")
-    : `<tr><td colspan="5">暂无持仓。</td></tr>`;
+    : `<tr><td colspan="8">暂无持仓。</td></tr>`;
 }
 
 function renderPositionDetails(rows) {
@@ -334,16 +339,17 @@ function renderPositionDetails(rows) {
                 <span class="badge ${pnl >= 0 ? "BUY" : "SELL"}">${pnl >= 0 ? "浮盈" : "浮亏"} ${money.format(pnl)} (${formatPct(pnlPct)})</span>
               </div>
               <p>
-                数量 ${money.format(row.quantity)} · 成本 ${money.format(row.avg_cost)} · 现价 ${money.format(row.last_price)}
+                数量 ${money.format(row.quantity)} · 成本 ${money.format(row.avg_cost)} · 最新盘面价 ${money.format(row.last_price)}
                 · 当日 <span class="${dayCls}">${Number.isFinite(dayPct) ? formatPct(dayPct) : "-"}</span>
                 · 市值 ${money.format(row.market_value)} · 成本额 ${money.format(row.cost_value)}
+                · 来源 ${escapeHtml(row.price_source || "-")} · 更新 ${shortTime(row.updated_at || row.last_date)}
               </p>
               <div class="chart-row">${candles.length ? renderCandleSvg(candles) : "<span class=\"muted\">暂无K线</span>"}</div>
               <div class="kv">
-                <div><b>趋势</b><span>SMA20 ${fmt(ind.sma20)} / SMA50 ${fmt(ind.sma50)} / slope20 ${fmt(ind.slope20)}</span></div>
-                <div><b>动量</b><span>RSI14 ${fmt(ind.rsi14)} / MACD_hist ${fmt(ind.macd_hist)} / return1d ${fmt(ind.return_1d, true)}</span></div>
-                <div><b>波动</b><span>ATR14 ${fmt(ind.atr14)} / 布林 ${fmt(ind.bb_lower)} - ${fmt(ind.bb_upper)}</span></div>
-                <div><b>资金流</b><span>MFI14 ${fmt(ind.mfi14)} / CMF20 ${fmt(ind.cmf20)} / OBV ${fmt(ind.obv)}</span></div>
+                <div><b>趋势</b><span>SMA20 ${fmt(ind.sma20)} / SMA50 ${fmt(ind.sma50)} / ADX14 ${fmt(ind.adx14)}</span></div>
+                <div><b>动量</b><span>20日 ${fmt(ind.return_20d, true)} / 60日 ${fmt(ind.return_60d, true)} / MACD_hist ${fmt(ind.macd_hist)}</span></div>
+                <div><b>波动</b><span>ATR14 ${fmt(ind.atr14)} / 20日波动 ${fmt(ind.volatility20, true)} / 布林 ${fmt(ind.bb_lower)} - ${fmt(ind.bb_upper)}</span></div>
+                <div><b>资金流</b><span>MFI14 ${fmt(ind.mfi14)} / CMF20 ${fmt(ind.cmf20)} / OBV斜率 ${fmt(ind.obv_slope20)}</span></div>
               </div>
             </article>
           `;
@@ -400,6 +406,13 @@ function fmt(value, pct = false) {
   if (!Number.isFinite(Number(value))) return "-";
   if (pct) return formatPct(value);
   return money.format(value);
+}
+
+function formatSignedMoney(value) {
+  const number = Number(value);
+  if (!Number.isFinite(number)) return "-";
+  const sign = number > 0 ? "+" : "";
+  return `${sign}${money.format(number)}`;
 }
 
 function renderCandleSvg(candles) {

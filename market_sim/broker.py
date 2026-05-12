@@ -147,7 +147,9 @@ def portfolio_snapshot(conn: sqlite3.Connection) -> dict[str, Any]:
         dict(row)
         for row in conn.execute(
             """
-            SELECT symbol, market, currency, quantity, avg_cost, last_price,
+            SELECT symbol, market, currency, quantity, avg_cost, last_price, updated_at,
+                   quantity * avg_cost AS cost_value,
+                   quantity * last_price AS market_value,
                    (last_price - avg_cost) * quantity AS unrealized_pnl,
                    CASE WHEN avg_cost > 0 THEN (last_price / avg_cost - 1.0) ELSE 0 END AS unrealized_pct
             FROM positions

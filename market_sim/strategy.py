@@ -34,11 +34,14 @@ def generate_signal(
     close = float(row.get("close") or 0)
     features = {
         "trend": _trend_score(row),
+        "trend_strength": _trend_strength_score(row),
+        "momentum": _momentum_score(row),
         "macd": _macd_score(row),
         "rsi": _rsi_score(row),
         "breakout": _breakout_score(row, previous),
         "mean_reversion": _mean_reversion_score(row),
         "volume": _volume_score(row),
+        "money_flow": _money_flow_score(row),
         "risk": _risk_score(row),
     }
     total_weight = sum(abs(float(weights.get(name, 0))) for name in features) or 1.0
@@ -48,12 +51,7 @@ def generate_signal(
     confidence = min(1.0, 0.35 + abs(score) * 0.55 + _data_quality_bonus(indicators))
     buy_threshold = float(settings["strategy"]["buy_threshold"])
     sell_threshold = float(settings["strategy"]["sell_threshold"])
-    if score >= buy_threshold:
-        action = "BUY"
-    elif score <= sell_threshold:
-        action = "SELL"
-    else:
-        action = "HOLD"
+    action = _action(score, features, buy_threshold, sell_threshold)
     return Signal(
         symbol=symbol,
         market=market,
@@ -79,8 +77,18 @@ def recommendation_guidance(settings: dict[str, Any]) -> dict[str, Any]:
         "hold_high": buy_score - 1,
         "sell": sell_score,
         "strong_sell": min(20, sell_score - 10),
-        "meaning": "分数越高越偏买入，分数越低越偏卖出。模拟交易仍会受仓位、止损、止盈和手续费约束。",
+        "meaning": "分数越高越偏买入，分数越低越偏卖出。模拟交易仍会受仓位、趋势强度、资金流、止损、止盈和手续费约束。",
     }
+
+
+def _action(score: float, features: dict[str, float], buy_threshold: float, sell_threshold: float) -> str:
+    weak_trend = features["trend_strength"] < -0.1 and features["breakout"] <= 0
+    weak_flow = features["money_flow"] < -0.25 and features["volume"] <= 0
+    if score >= buy_threshold and not (weak_trend or weak_flow):
+        return "BUY"
+    if score <= sell_threshold or (features["risk"] < -0.6 and features["trend"] < 0):
+        return "SELL"
+    return "HOLD"
 
 
 def _recommendation_label(index: int, settings: dict[str, Any]) -> str:
@@ -100,13 +108,44 @@ def _trend_score(row: pd.Series) -> float:
     close = float(row.get("close") or 0)
     sma20 = float(row.get("sma20") or 0)
     sma50 = float(row.get("sma50") or 0)
+    sma200 = float(row.get("sma200") or 0)
     slope20 = float(row.get("slope20") or 0)
     score = 0.0
     if close > sma20 > sma50:
-        score += 0.75
+        score += 0.65
     elif close < sma20 < sma50:
-        score -= 0.75
+        score -= 0.65
+    if sma200:
+        score += 0.15 if close > sma200 else -0.15
     score += max(-0.25, min(0.25, slope20 * 10))
+    return _clip(score)
+
+
+def _trend_strength_score(row: pd.Series) -> float:
+    adx = float(row.get("adx14") or 0)
+    plus_di = float(row.get("plus_di14") or 0)
+    minus_di = float(row.get("minus_di14") or 0)
+    if not adx:
+        return 0.0
+    if adx < 16:
+        return -0.2
+    strength = 0.25 + min(0.55, max(0.0, (adx - 18) / 35))
+    if plus_di > minus_di:
+        return _clip(strength)
+    if minus_di > plus_di:
+        return _clip(-strength)
+    return 0.0
+
+
+def _momentum_score(row: pd.Series) -> float:
+    ret5 = float(row.get("return_5d") or 0)
+    ret20 = float(row.get("return_20d") or 0)
+    ret60 = float(row.get("return_60d") or 0)
+    score = ret5 * 1.5 + ret20 * 3.0 + ret60 * 1.2
+    if ret20 > 0 and ret60 > 0:
+        score += 0.18
+    elif ret20 < 0 and ret60 < 0:
+        score -= 0.18
     return _clip(score)
 
 
@@ -122,14 +161,15 @@ def _macd_score(row: pd.Series) -> float:
 
 def _rsi_score(row: pd.Series) -> float:
     rsi = float(row.get("rsi14") or 50)
-    if rsi < 30:
-        return 0.75
+    adx = float(row.get("adx14") or 0)
+    if rsi < 28:
+        return 0.7
     if rsi < 42:
-        return 0.35
-    if rsi > 75:
-        return -0.8
-    if rsi > 65:
-        return -0.35
+        return 0.3
+    if rsi > 78:
+        return -0.35 if adx > 24 else -0.75
+    if rsi > 68:
+        return -0.15 if adx > 24 else -0.35
     return 0.05 if 48 <= rsi <= 62 else 0.0
 
 
@@ -137,10 +177,13 @@ def _breakout_score(row: pd.Series, previous: pd.Series) -> float:
     close = float(row.get("close") or 0)
     previous_high20 = float(previous.get("high20") or 0)
     previous_low20 = float(previous.get("low20") or 0)
+    volume = float(row.get("volume") or 0)
+    volume_sma = float(row.get("volume_sma20") or 0)
+    boost = 0.15 if volume_sma and volume > volume_sma * 1.2 else 0.0
     if previous_high20 and close > previous_high20:
-        return 0.8
+        return _clip(0.65 + boost)
     if previous_low20 and close < previous_low20:
-        return -0.8
+        return _clip(-0.65 - boost)
     return 0.0
 
 
@@ -149,10 +192,11 @@ def _mean_reversion_score(row: pd.Series) -> float:
     lower = float(row.get("bb_lower") or 0)
     upper = float(row.get("bb_upper") or 0)
     mid = float(row.get("bb_mid") or 0)
+    adx = float(row.get("adx14") or 0)
     if lower and close < lower:
-        return 0.65
+        return 0.55 if adx < 25 else 0.25
     if upper and close > upper:
-        return -0.45
+        return -0.45 if adx < 25 else -0.15
     if mid and close > mid:
         return 0.1
     if mid and close < mid:
@@ -173,17 +217,43 @@ def _volume_score(row: pd.Series) -> float:
     return 0.0
 
 
+def _money_flow_score(row: pd.Series) -> float:
+    cmf = float(row.get("cmf20") or 0)
+    mfi = float(row.get("mfi14") or 50)
+    obv_slope = float(row.get("obv_slope20") or 0)
+    score = max(-0.4, min(0.4, cmf * 1.8))
+    score += max(-0.25, min(0.25, obv_slope))
+    if mfi > 80:
+        score -= 0.15
+    elif mfi > 55:
+        score += 0.15
+    elif mfi < 20:
+        score += 0.15
+    elif mfi < 45:
+        score -= 0.15
+    return _clip(score)
+
+
 def _risk_score(row: pd.Series) -> float:
     atr = float(row.get("atr14") or 0)
     close = float(row.get("close") or 0)
+    volatility = float(row.get("volatility20") or 0)
+    sma20 = float(row.get("sma20") or 0)
     if not close:
         return 0.0
     atr_pct = atr / close
+    score = 0.0
     if atr_pct < 0.018:
-        return 0.25
-    if atr_pct > 0.055:
-        return -0.35
-    return 0.0
+        score += 0.2
+    elif atr_pct > 0.055:
+        score -= 0.35
+    if volatility > 0.045:
+        score -= 0.25
+    if sma20 and close > sma20 * 1.18:
+        score -= 0.2
+    if sma20 and close < sma20 * 0.82:
+        score -= 0.2
+    return _clip(score)
 
 
 def _data_quality_bonus(indicators: pd.DataFrame) -> float:
@@ -198,16 +268,19 @@ def _data_quality_bonus(indicators: pd.DataFrame) -> float:
 def _rationale(features: dict[str, float]) -> list[str]:
     labels = {
         "trend": "趋势",
+        "trend_strength": "ADX趋势强度",
+        "momentum": "中期动量",
         "macd": "MACD",
         "rsi": "RSI",
         "breakout": "突破",
         "mean_reversion": "布林/均值回归",
         "volume": "量能",
+        "money_flow": "资金流",
         "risk": "波动风险",
     }
     ordered = sorted(features.items(), key=lambda item: abs(item[1]), reverse=True)
     lines = []
-    for name, value in ordered[:4]:
+    for name, value in ordered[:5]:
         direction = "偏多" if value > 0.15 else "偏空" if value < -0.15 else "中性"
         lines.append(f"{labels[name]}{direction}({value:+.2f})")
     return lines
