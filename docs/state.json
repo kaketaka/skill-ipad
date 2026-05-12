@@ -127,14 +127,14 @@
       "market": "US",
       "count": 4884,
       "source": "Nasdaq Trader Symbol Directory",
-      "updated_at": "2026-05-12T09:48:20+00:00",
+      "updated_at": "2026-05-12T16:06:01+00:00",
       "file": "/home/runner/work/skill-ipad/skill-ipad/data/universe_us.csv"
     },
     "JP": {
       "market": "JP",
       "count": 3926,
       "source": "JPX List of TSE-listed Issues",
-      "updated_at": "2026-05-12T09:48:20+00:00",
+      "updated_at": "2026-05-12T16:06:02+00:00",
       "file": "/home/runner/work/skill-ipad/skill-ipad/data/universe_jp.csv"
     }
   },
@@ -157,7 +157,7 @@
         "quantity": 200.0,
         "avg_cost": 3885.0,
         "last_price": 3890.0,
-        "updated_at": "2026-05-12T09:48:31+00:00",
+        "updated_at": "2026-05-12T16:06:03+00:00",
         "cost_value": 777000.0,
         "market_value": 778000.0,
         "unrealized_pnl": 1000.0,
@@ -1486,6 +1486,14 @@
   ],
   "reviews": [
     {
+      "id": 13,
+      "review_date": "2026-05-12",
+      "created_at": "2026-05-12T16:06:03+00:00",
+      "summary": "【复盘 2026-05-12】\n成交：3（买 0 / 卖 3）\n换手：USD 22,509.06；手续费：USD 11.25\n权益：JPY 9,931,803 / USD 98,185；未实现盈亏：JPY 1,000.00；持仓数：1\n\n【大盘与基准】\n- US：\n  SPY 收盘 739.30（+0.23%） · ADX14 25.9286 · 20日动量 0.0775 · CMF20 0.3701\n  QQQ 收盘 713.29（+0.29%） · ADX14 38.8752 · 20日动量 0.1553 · CMF20 0.5542\n- JP：\n  ^N225 收盘 62742.57（+0.52%） · ADX14 37.0185 · 20日动量 0.1143 · CMF20 0.123\n\n【关注/观察要点】\n- US SPY：继续观察 69 · 收盘 739.30 · 置信度 66% · 2026-05-12T01:57\n- US QQQ：继续观察 68 · 收盘 713.29 · 置信度 65% · 2026-05-12T01:57\n- US AAPL：继续观察 64 · 收盘 292.68 · 置信度 61% · 2026-05-12T01:57\n- US MSFT：继续观察 54 · 收盘 412.66 · 置信度 49% · 2026-05-12T01:57\n- US NVDA：继续观察 68 · 收盘 219.44 · 置信度 65% · 2026-05-12T01:57\n- US AMZN：继续观察 65 · 收盘 268.99 · 置信度 61% · 2026-05-12T01:57\n- US GOOGL：继续观察 69 · 收盘 388.64 · 置信度 66% · 2026-05-12T01:57\n- US META：继续观察 45 · 收盘 598.86 · 置信度 50% · 2026-05-12T01:57\n- US TSLA：继续观察 64 · 收盘 445.00 · 置信度 60% · 2026-05-12T01:57\n- JP ^N225：继续观察 68 · 收盘 62742.57 · 置信度 65% · 2026-05-12T09:48\n- JP 7203.T：继续观察 41 · 收盘 2843.00 · 置信度 55% · 2026-05-12T09:48\n- JP 6758.T：继续观察 55 · 收盘 3484.00 · 置信度 51% · 2026-05-12T09:48\n- JP 9984.T：继续观察 68 · 收盘 5987.00 · 置信度 64% · 2026-05-12T09:48\n- JP 8306.T：继续观察 58 · 收盘 2886.00 · 置信度 54% · 2026-05-12T09:48\n- JP 7974.T：继续观察 37 · 收盘 7179.00 · 置信度 59% · 2026-05-12T09:48\n- JP 6861.T：继续观察 69 · 收盘 79260.00 · 置信度 65% · 2026-05-12T09:48\n\n【今日信号（强度 Top 5）】\n- ZSTK：SELL（score -0.45）\n- ZSTK：SELL（score -0.44）\n- 6861.T：HOLD（score +0.41）\n- ZM：HOLD（score +0.41）\n- SPY：HOLD（score +0.40）\n\n【策略学习】\n- 持仓尚未产生足够盈亏样本，策略权重保持不变。\n\n【明日计划】\n- 优先复盘：推荐指数 ≥ 75 的标的，必须同时看 ADX 趋势强度、20/60日动量和 CMF/MFI 资金流。\n- 对持仓：先看趋势是否延续（SMA20/SMA50、ADX、MACD_hist），再看风险（ATR、20日波动、布林带、止损线）。",
+      "metrics": "{\"trade_count\":3,\"buy_count\":0,\"sell_count\":3,\"fees_by_currency\":{\"USD\":11.25},\"turnover_by_currency\":{\"USD\":22509.06},\"unrealized_pnl_by_currency\":{\"JPY\":1000.0},\"equity\":[{\"currency\":\"JPY\",\"equity\":9931803.465,\"cash\":9153803.465,\"positions_value\":778000.0},{\"currency\":\"USD\",\"equity\":98184.97507799356,\"cash\":98184.97507799356,\"positions_value\":0.0}],\"open_positions\":1}",
+      "lessons": "{\"message\":\"持仓尚未产生足够盈亏样本，策略权重保持不变。\",\"weights\":{\"trend\":0.1049,\"macd\":0.0714,\"rsi\":0.1883,\"breakout\":0.0545,\"mean_reversion\":0.1178,\"volume\":0.0527,\"risk\":0.1043,\"trend_strength\":0.0927,\"momentum\":0.1081,\"money_flow\":0.0527,\"liquidity\":0.0527}}"
+    },
+    {
       "id": 12,
       "review_date": "2026-05-12",
       "created_at": "2026-05-12T01:55:32+00:00",
@@ -1668,7 +1676,7 @@
       "quantity": 200.0,
       "avg_cost": 3885.0,
       "last_price": 3890.0,
-      "updated_at": "2026-05-12T09:48:31+00:00",
+      "updated_at": "2026-05-12T16:06:03+00:00",
       "cost_value": 777000.0,
       "market_value": 778000.0,
       "unrealized_pnl": 1000.0,
@@ -6498,7 +6506,7 @@
       }
     ],
     "errors": [],
-    "updated_at": "2026-05-12T09:48:31+00:00"
+    "updated_at": "2026-05-12T16:06:03+00:00"
   },
   "mode": "static"
 }
