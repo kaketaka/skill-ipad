@@ -2,7 +2,11 @@ const state = {
   dashboard: null,
   activeTab: "dashboard",
   staticMode: false,
+  loading: false,
+  refreshTimer: null,
 };
+
+const AUTO_REFRESH_MS = 30_000;
 
 const money = new Intl.NumberFormat("zh-CN", {
   maximumFractionDigits: 2,
@@ -11,7 +15,12 @@ const money = new Intl.NumberFormat("zh-CN", {
 document.addEventListener("DOMContentLoaded", () => {
   bindTabs();
   bindActions();
-  loadStatus();
+  loadStatus().finally(startAutoRefresh);
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) {
+      loadStatus({ silent: true, auto: true });
+    }
+  });
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("service-worker.js").catch(() => {});
   }
@@ -38,16 +47,33 @@ function bindActions() {
   document.getElementById("sync-universe").addEventListener("click", syncUniverse);
 }
 
-async function loadStatus() {
-  setStatus("正在读取系统状态...");
-  const data = await loadDashboardData();
-  state.dashboard = data;
-  render(data);
-  setStatus(
-    state.staticMode
-      ? "云端静态模式：自动任务在 GitHub Actions 跑，iPad 负责查看。"
-      : "系统就绪。观察池必扫，全市场股票池按日轮换扫描。",
-  );
+function startAutoRefresh() {
+  if (state.refreshTimer) return;
+  state.refreshTimer = window.setInterval(() => {
+    if (!document.hidden) {
+      loadStatus({ silent: true, auto: true });
+    }
+  }, AUTO_REFRESH_MS);
+}
+
+async function loadStatus(options = {}) {
+  if (state.loading) return state.dashboard;
+  state.loading = true;
+  if (!options.silent) {
+    setStatus("正在读取系统状态...");
+  }
+  try {
+    const data = await loadDashboardData();
+    state.dashboard = data;
+    render(data);
+    setStatus(refreshStatusText(data, Boolean(options.auto)));
+    return data;
+  } catch (error) {
+    setStatus(`刷新失败：${error.message || error}`);
+    throw error;
+  } finally {
+    state.loading = false;
+  }
 }
 
 async function runCycle(markets) {
@@ -169,6 +195,21 @@ function render(data) {
   renderTrades(data.trades);
   renderReviews(data.reviews);
   renderSettings(data.settings);
+}
+
+function refreshStatusText(data, auto) {
+  const seconds = Number(data.auto_refresh_seconds || AUTO_REFRESH_MS / 1000);
+  const time = new Date().toLocaleTimeString("zh-CN", { hour12: false });
+  if (state.staticMode) {
+    return `静态看板已刷新 ${time}；iPad 每 ${seconds} 秒重读导出数据，真实计算仍由后台任务更新。`;
+  }
+  const quoteCount = data.quote_refresh?.refreshed?.length || 0;
+  const observeCount = data.observation_refresh?.refreshed?.length || 0;
+  const skippedCount = data.observation_refresh?.skipped?.length || 0;
+  const errorCount = (data.quote_refresh?.errors?.length || 0) + (data.observation_refresh?.errors?.length || 0);
+  const prefix = auto ? "自动刷新" : "系统就绪";
+  const errors = errorCount ? `，${errorCount} 个代码刷新失败` : "";
+  return `${prefix} ${time}；持仓报价 ${quoteCount} 个，观察池重算 ${observeCount} 个/跳过 ${skippedCount} 个；每 ${seconds} 秒自动刷新${errors}。`;
 }
 
 function renderEquity(rows, summaryRows = []) {

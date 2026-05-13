@@ -1,10 +1,10 @@
 from __future__ import annotations
 
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta, timezone
 from typing import Any
 
 from .broker import enforce_position_risk, execute_signals, portfolio_snapshot, record_signal, update_equity, upsert_prices
-from .data_sources import fetch_history, fetch_latest_quote as fetch_market_quote, infer_market
+from .data_sources import fetch_history, fetch_latest_quote as fetch_market_quote, fetch_latest_quotes as fetch_market_quotes, infer_market
 from .db import get_settings, get_weights, init_db, reset_paper_trading_state, rows_to_dicts, session, utc_now
 from .indicators import compute_indicators, latest_complete_row
 from .review import create_daily_review
@@ -66,6 +66,7 @@ def get_dashboard() -> dict[str, Any]:
         settings = get_settings(conn)
         weights = get_weights(conn)
         quote_refresh = refresh_open_position_prices(conn, settings)
+        observation_refresh = refresh_watchlist_signals(conn, settings, weights)
         portfolio = portfolio_snapshot(conn)
         signals = rows_to_dicts(
             conn.execute(
@@ -133,6 +134,8 @@ def get_dashboard() -> dict[str, Any]:
             "traded_quotes": traded_quotes,
             "portfolio_summary": portfolio_summary,
             "quote_refresh": quote_refresh,
+            "observation_refresh": observation_refresh,
+            "auto_refresh_seconds": int(settings.get("refresh", {}).get("dashboard_seconds", 30)),
         }
 
 
@@ -146,10 +149,16 @@ def refresh_open_position_prices(conn, settings: dict[str, Any]) -> dict[str, An
     ).fetchall()
     refreshed: list[dict[str, Any]] = []
     errors: list[dict[str, Any]] = []
+    symbols = [row["symbol"] for row in rows]
+    try:
+        quotes = fetch_market_quotes(symbols, settings.get("data_sources", ["yfinance"])) if len(symbols) > 1 else {}
+    except Exception as exc:
+        quotes = {}
+        errors.append({"symbol": "*", "error": str(exc)})
     for row in rows:
         symbol = row["symbol"]
         try:
-            quote = fetch_market_quote(symbol, settings.get("data_sources", ["yfinance"]))
+            quote = quotes.get(symbol) or fetch_market_quote(symbol, settings.get("data_sources", ["yfinance"]))
             now = utc_now()
             upsert_prices(
                 conn,
@@ -181,6 +190,55 @@ def refresh_open_position_prices(conn, settings: dict[str, Any]) -> dict[str, An
     return {"refreshed": refreshed, "errors": errors, "updated_at": utc_now()}
 
 
+def refresh_watchlist_signals(conn, settings: dict[str, Any], weights: dict[str, float]) -> dict[str, Any]:
+    interval = int(settings.get("refresh", {}).get("watchlist_signal_seconds", 30))
+    refreshed: list[dict[str, Any]] = []
+    skipped: list[dict[str, Any]] = []
+    errors: list[dict[str, Any]] = []
+    due_symbols: list[str] = []
+    for symbol in _watchlist_symbols(settings):
+        age = _latest_observed_signal_age(conn, symbol)
+        if age is not None and age < interval:
+            skipped.append({"symbol": symbol, "age_seconds": round(age, 1)})
+            continue
+        due_symbols.append(symbol)
+    try:
+        quotes = fetch_market_quotes(due_symbols, settings.get("data_sources", ["yfinance"])) if due_symbols else {}
+    except Exception as exc:
+        quotes = {}
+        errors.append({"symbol": "*", "error": str(exc)})
+    for symbol in due_symbols:
+        try:
+            info = infer_market(symbol)
+            if _stored_price_count(conn, symbol) < 60:
+                frame, source = fetch_history(symbol, settings["data_sources"])
+                upsert_prices(conn, symbol, info.market, info.currency, source, frame.to_dict("records"))
+            quote = quotes.get(symbol) or fetch_market_quote(symbol, settings.get("data_sources", ["yfinance"]))
+            upsert_prices(conn, symbol, quote.market, quote.currency, quote.source, _quote_price_rows(quote))
+            candles = _candles(conn, symbol, limit=260)
+            signal = generate_signal(symbol, info.market, compute_indicators(_frame_from_candles(candles)), weights, settings)
+            signal.close = round(float(quote.price), 4)
+            record_signal(conn, signal, observed=True)
+            refreshed.append(
+                {
+                    "symbol": symbol,
+                    "action": signal.action,
+                    "recommendation_index": signal.recommendation_index,
+                    "price": signal.close,
+                    "source": quote.source,
+                }
+            )
+        except Exception as exc:
+            errors.append({"symbol": symbol, "error": str(exc)})
+    return {
+        "refreshed": refreshed,
+        "skipped": skipped,
+        "errors": errors,
+        "interval_seconds": interval,
+        "updated_at": utc_now(),
+    }
+
+
 def _quote_price_rows(quote) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     if quote.previous_close is not None and quote.previous_as_of is not None:
@@ -205,6 +263,49 @@ def _quote_price_rows(quote) -> list[dict[str, Any]]:
         }
     )
     return rows
+
+
+def _watchlist_symbols(settings: dict[str, Any]) -> list[str]:
+    output: list[str] = []
+    for market in ["US", "JP"]:
+        for symbol in settings.get("watchlists", {}).get(market, []):
+            clean = str(symbol).strip().upper()
+            if clean and clean not in output:
+                output.append(clean)
+    return output
+
+
+def _latest_observed_signal_age(conn, symbol: str) -> float | None:
+    row = conn.execute(
+        """
+        SELECT ts
+        FROM signals
+        WHERE symbol = ? AND observed = 1
+        ORDER BY ts DESC
+        LIMIT 1
+        """,
+        (symbol,),
+    ).fetchone()
+    if not row:
+        return None
+    try:
+        timestamp = datetime.fromisoformat(str(row["ts"]).replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    if timestamp.tzinfo is None:
+        timestamp = timestamp.replace(tzinfo=timezone.utc)
+    return max(0.0, (datetime.now(timezone.utc) - timestamp).total_seconds())
+
+
+def _stored_price_count(conn, symbol: str) -> int:
+    row = conn.execute("SELECT count(*) AS count FROM prices WHERE symbol = ?", (symbol,)).fetchone()
+    return int(row["count"] or 0) if row else 0
+
+
+def _frame_from_candles(candles: list[dict[str, Any]]):
+    import pandas as pd
+
+    return pd.DataFrame(candles)
 
 
 def _portfolio_summary(conn, settings: dict[str, Any], portfolio: dict[str, Any]) -> list[dict[str, Any]]:

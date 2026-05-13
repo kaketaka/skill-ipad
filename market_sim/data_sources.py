@@ -98,6 +98,30 @@ def fetch_latest_quote(symbol: str, sources: Iterable[str]) -> Quote:
     )
 
 
+def fetch_latest_quotes(symbols: Iterable[str], sources: Iterable[str]) -> dict[str, Quote]:
+    unique = [symbol for symbol in dict.fromkeys(str(item).strip().upper() for item in symbols if str(item).strip())]
+    if not unique:
+        return {}
+    source_list = list(sources)
+    quotes: dict[str, Quote] = {}
+    errors: list[str] = []
+    if "yfinance" in source_list:
+        try:
+            quotes.update(fetch_yfinance_quotes(unique))
+        except Exception as exc:
+            errors.append(f"yfinance: {exc}")
+    for symbol in unique:
+        if symbol in quotes:
+            continue
+        try:
+            quotes[symbol] = fetch_latest_quote(symbol, source_list)
+        except Exception as exc:
+            errors.append(f"{symbol}: {exc}")
+    if not quotes and errors:
+        raise RuntimeError("; ".join(errors))
+    return quotes
+
+
 def fetch_yfinance_quote(symbol: str) -> Quote:
     ticker = yf.Ticker(symbol)
     info = infer_market(symbol)
@@ -124,6 +148,39 @@ def fetch_yfinance_quote(symbol: str) -> Quote:
         low=_float_or_none(daily_latest.get("Low")),
         volume=_float_or_none(daily_latest.get("Volume")),
     )
+
+
+def fetch_yfinance_quotes(symbols: Iterable[str]) -> dict[str, Quote]:
+    unique = [symbol for symbol in dict.fromkeys(str(item).strip().upper() for item in symbols if str(item).strip())]
+    if not unique:
+        return {}
+    tickers = " ".join(unique)
+    intraday = yf.download(
+        tickers=tickers,
+        period="1d",
+        interval="1m",
+        auto_adjust=False,
+        group_by="ticker",
+        threads=True,
+        progress=False,
+    )
+    daily = yf.download(
+        tickers=tickers,
+        period="5d",
+        interval="1d",
+        auto_adjust=False,
+        group_by="ticker",
+        threads=True,
+        progress=False,
+    )
+    quotes: dict[str, Quote] = {}
+    for symbol in unique:
+        intraday_frame = _download_symbol_frame(intraday, symbol)
+        daily_frame = _download_symbol_frame(daily, symbol)
+        quote = _quote_from_frames(symbol, intraday_frame, daily_frame)
+        if quote:
+            quotes[symbol] = quote
+    return quotes
 
 
 def fetch_stooq(symbol: str) -> pd.DataFrame:
@@ -233,6 +290,46 @@ def _previous_as_of(daily: pd.DataFrame) -> str | None:
         return None
     index = daily.index[-2] if len(daily) > 1 else daily.index[-1]
     return pd.Timestamp(index).isoformat()
+
+
+def _download_symbol_frame(frame: pd.DataFrame, symbol: str) -> pd.DataFrame:
+    if frame is None or frame.empty:
+        return pd.DataFrame()
+    if isinstance(frame.columns, pd.MultiIndex):
+        level_zero = frame.columns.get_level_values(0)
+        if symbol in level_zero:
+            output = frame[symbol].copy()
+        else:
+            return pd.DataFrame()
+    else:
+        output = frame.copy()
+    if "Close" not in output.columns:
+        return pd.DataFrame()
+    return output.dropna(subset=["Close"])
+
+
+def _quote_from_frames(symbol: str, intraday: pd.DataFrame, daily: pd.DataFrame) -> Quote | None:
+    if intraday.empty and daily.empty:
+        return None
+    latest_frame = intraday if not intraday.empty else daily
+    latest = latest_frame.iloc[-1]
+    latest_index = latest_frame.index[-1]
+    daily_latest = daily.iloc[-1] if not daily.empty else latest
+    info = infer_market(symbol)
+    return Quote(
+        symbol=symbol,
+        market=info.market,
+        currency=info.currency,
+        price=float(latest["Close"]),
+        previous_close=_previous_close(daily),
+        previous_as_of=_previous_as_of(daily),
+        as_of=pd.Timestamp(latest_index).isoformat(),
+        source="yfinance_intraday" if not intraday.empty else "yfinance",
+        open=_float_or_none(daily_latest.get("Open")),
+        high=_float_or_none(daily_latest.get("High")),
+        low=_float_or_none(daily_latest.get("Low")),
+        volume=_float_or_none(daily_latest.get("Volume")),
+    )
 
 
 def _float_or_none(value) -> float | None:

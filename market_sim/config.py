@@ -54,6 +54,10 @@ DEFAULT_CONFIG: dict[str, Any] = {
         "USD": 100000.0,
         "JPY": 10000000.0,
     },
+    "refresh": {
+        "dashboard_seconds": 30,
+        "watchlist_signal_seconds": 30,
+    },
     "risk": {
         "max_position_pct": 0.08,
         "max_new_orders_per_market": 2,

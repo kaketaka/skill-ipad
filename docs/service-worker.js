@@ -1,4 +1,4 @@
-const CACHE = "market-sim-trader-v5";
+const CACHE = "market-sim-trader-v6";
 const ASSETS = ["./", "index.html", "styles.css", "app.js", "manifest.webmanifest"];
 
 self.addEventListener("install", (event) => {
